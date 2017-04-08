@@ -34,8 +34,8 @@ class RelationBuilder
     /**
      * Generate the entity attribute relation closure.
      *
-     * @param \Illuminate\Database\Eloquent\Model $entity
-     * @param \Rinvex\Attributable\Models\Attribute     $attribute
+     * @param \Illuminate\Database\Eloquent\Model   $entity
+     * @param \Rinvex\Attributable\Models\Attribute $attribute
      *
      * @return \Closure
      */

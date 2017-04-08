@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributable\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use Rinvex\Attributable\Models\Type\Text;
 use Rinvex\Attributable\Models\Type\Boolean;
 use Rinvex\Attributable\Models\Type\Integer;
 use Rinvex\Attributable\Models\Type\Varchar;
-use Illuminate\Support\ServiceProvider;
 use Rinvex\Attributable\Models\Type\Datetime;
 
 class AttributableServiceProvider extends ServiceProvider
