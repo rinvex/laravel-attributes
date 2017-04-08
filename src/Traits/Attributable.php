@@ -359,7 +359,7 @@ trait Attributable
      * Set the entity attribute value.
      *
      * @param \Rinvex\Attributable\Models\Attribute $attribute
-     * @param mixed                           $value
+     * @param mixed                                 $value
      *
      * @return $this
      */
