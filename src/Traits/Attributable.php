@@ -50,7 +50,7 @@ trait Attributable
     protected $entityAttributeRelationsBooted = false;
 
     /**
-     * Booting the Attributable trait.
+     * Boot the attributable trait for a model.
      *
      * @return void
      */
