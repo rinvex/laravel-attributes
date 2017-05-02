@@ -15,7 +15,7 @@ use Spatie\Translatable\HasTranslations;
 use Spatie\EloquentSortable\SortableTrait;
 
 /**
- * Rinvex\Attributable\Models\Attribute
+ * Rinvex\Attributable\Models\Attribute.
  *
  * @property int                                 $id
  * @property string                              $slug

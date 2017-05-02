@@ -7,7 +7,7 @@ namespace Rinvex\Attributable\Models\Type;
 use Rinvex\Attributable\Models\Value;
 
 /**
- * Rinvex\Attributable\Models\Type\Varchar
+ * Rinvex\Attributable\Models\Type\Varchar.
  *
  * @property int                                                $id
  * @property string                                             $content
