@@ -7,7 +7,7 @@ namespace Rinvex\Attributable\Models\Type;
 use Rinvex\Attributable\Models\Value;
 
 /**
- * Rinvex\Attributable\Models\Type\Boolean
+ * Rinvex\Attributable\Models\Type\Boolean.
  *
  * @property int                                                $id
  * @property bool                                               $content

@@ -7,7 +7,7 @@ namespace Rinvex\Attributable\Models\Type;
 use Rinvex\Attributable\Models\Value;
 
 /**
- * Rinvex\Attributable\Models\Type\Datetime
+ * Rinvex\Attributable\Models\Type\Datetime.
  *
  * @property int                                                $id
  * @property \Carbon\Carbon                                     $content
