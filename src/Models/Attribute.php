@@ -24,6 +24,7 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property int                                 $order
  * @property string                              $group
  * @property string                              $type
+ * @property bool                                $is_required
  * @property bool                                $is_collection
  * @property string                              $default
  * @property \Carbon\Carbon                      $created_at
@@ -37,6 +38,7 @@ use Spatie\EloquentSortable\SortableTrait;
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereGroup($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereIsCollection($value)
+ * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereIsRequired($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereOrder($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereSlug($value)
