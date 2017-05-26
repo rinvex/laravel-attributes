@@ -59,11 +59,12 @@ class Attribute extends Model implements Sortable
         'name',
         'slug',
         'description',
-        'order',
+        'sort_order',
         'group',
         'type',
         'entities',
-        'collection',
+        'is_required',
+        'is_collection',
         'default',
     ];
 
@@ -83,7 +84,7 @@ class Attribute extends Model implements Sortable
     /**
      * {@inheritdoc}
      */
-    public $sortable = ['order_column_name' => 'order'];
+    public $sortable = ['order_column_name' => 'sort_order'];
 
     /**
      * The default rules that the model will validate against.
