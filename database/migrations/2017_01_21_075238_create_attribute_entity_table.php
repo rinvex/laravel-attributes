@@ -17,7 +17,7 @@ class CreateAttributeEntityTable extends Migration
     {
         Schema::create(config('rinvex.attributable.tables.attribute_entity'), function (Blueprint $table) {
             // Columns
-            $table->unsignedInteger('attribute_id');
+            $table->integer('attribute_id')->unsigned();
             $table->string('entity_type');
 
             // Indexes

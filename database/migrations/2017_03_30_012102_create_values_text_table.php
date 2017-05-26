@@ -19,8 +19,8 @@ class CreateValuesTextTable extends Migration
             // Columns
             $table->increments('id');
             $table->text('content');
-            $table->unsignedInteger('attribute_id');
-            $table->unsignedInteger('entity_id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('entity_id')->unsigned();
             $table->string('entity_type');
             $table->timestamps();
 
