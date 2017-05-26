@@ -41,7 +41,7 @@ class RelationBuilder
      */
     protected function getRelationClosure(Entity $entity, Attribute $attribute)
     {
-        $method = $attribute->isCollection() ? 'hasMany' : 'hasOne';
+        $method = $attribute->is_collection ? 'hasMany' : 'hasOne';
 
         // This will return a closure fully binded to the current entity instance,
         // which will help us to simulate any relation as if it was made in the

@@ -24,19 +24,19 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property int                                 $order
  * @property string                              $group
  * @property string                              $type
- * @property bool                                $collection
+ * @property bool                                $is_collection
  * @property string                              $default
  * @property \Carbon\Carbon                      $created_at
  * @property \Carbon\Carbon                      $updated_at
  * @property \Illuminate\Support\Collection|null $entities
  *
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute ordered($direction = 'asc')
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereCollection($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereDefault($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereDescription($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereGroup($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereIsCollection($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereOrder($value)
  * @method static \Illuminate\Database\Query\Builder|\Rinvex\Attributable\Models\Attribute whereSlug($value)
@@ -203,16 +203,6 @@ class Attribute extends Model implements Sortable
             DB::table(config('rinvex.attributable.tables.attribute_entity'))->where('attribute_id', $model->id)->delete();
             DB::table(config('rinvex.attributable.tables.attribute_entity'))->insert($values);
         });
-    }
-
-    /**
-     * Check if attribute is multivalued.
-     *
-     * @return bool
-     */
-    public function isCollection()
-    {
-        return (bool) $this->getAttribute('collection');
     }
 
     /**
