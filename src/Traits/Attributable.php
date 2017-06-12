@@ -288,7 +288,7 @@ trait Attributable
         // In case we are accessing to a multivalued attribute, we will return
         // a collection with pairs of id and value content. Otherwise we'll
         // just return the single model value content as a plain result.
-        if ($this->getEntityAttributes()->get($key)->isCollection()) {
+        if ($this->getEntityAttributes()->get($key)->is_collection) {
             return $value->pluck('content');
         }
 
@@ -329,7 +329,7 @@ trait Attributable
         // $current will always contain a collection when an attribute is multivalued
         // as morphMany provides collections even if no values were matched, making
         // us assume at least an empty collection object will be always provided.
-        if ($attribute->isCollection()) {
+        if ($attribute->is_collection) {
             if (is_null($current)) {
                 $this->setRelation($key, $current = new ValueCollection());
             }
