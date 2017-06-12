@@ -114,10 +114,10 @@ class Attribute extends Model implements Sortable
 
         $this->setTable(config('rinvex.attributable.tables.attributes'));
         $this->setRules([
-            'name' => 'required|string',
-            'type' => 'required|string',
+            'name' => 'required|string|max:250',
+            'type' => 'required|string|max:250',
             'description' => 'nullable|string',
-            'slug' => 'required|alpha_dash|unique:'.config('rinvex.attributable.tables.attributes').',slug',
+            'slug' => 'required|alpha_dash|max:250|unique:'.config('rinvex.attributable.tables.attributes').',slug',
         ]);
     }
 
