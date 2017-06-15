@@ -133,7 +133,7 @@ class Attribute extends Model implements Sortable
             if (! $attribute->slug) {
                 if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
                     $attribute->generateSlugOnUpdate();
-                } else if (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
+                } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
                     $attribute->generateSlugOnCreate();
                 }
             }
