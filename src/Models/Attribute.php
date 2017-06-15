@@ -128,18 +128,16 @@ class Attribute extends Model implements Sortable
     {
         parent::boot();
 
-        if (isset(static::$dispatcher)) {
-            // Early auto generate slugs before validation
-            static::$dispatcher->listen('eloquent.validating: '.static::class, function (self $model) {
-                if (! $model->slug) {
-                    if ($model->exists) {
-                        $model->generateSlugOnUpdate();
-                    } else {
-                        $model->generateSlugOnCreate();
-                    }
+        // Auto generate slugs early before validation
+        static::registerModelEvent('validating', function (self $attribute) {
+            if (! $attribute->slug) {
+                if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
+                    $attribute->generateSlugOnUpdate();
+                } else if (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
+                    $attribute->generateSlugOnCreate();
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
