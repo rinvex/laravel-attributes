@@ -124,7 +124,7 @@ class Attribute extends Model implements Sortable
     /**
      * {@inheritdoc}
      */
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 
