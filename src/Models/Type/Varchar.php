@@ -7,7 +7,7 @@ namespace Rinvex\Attributable\Models\Type;
 use Rinvex\Attributable\Models\Value;
 
 /**
- * Rinvex\Attributable\Models\Type\Varchar
+ * Rinvex\Attributable\Models\Type\Varchar.
  *
  * @property int $id
  * @property string $content
@@ -18,6 +18,7 @@ use Rinvex\Attributable\Models\Value;
  * @property \Carbon\Carbon|null $updated_at
  * @property-read \Rinvex\Attributable\Models\Attribute $attribute
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Varchar whereAttributeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Varchar whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Varchar whereCreatedAt($value)
