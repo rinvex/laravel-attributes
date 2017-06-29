@@ -6,6 +6,28 @@ namespace Rinvex\Attributable\Models\Type;
 
 use Rinvex\Attributable\Models\Value;
 
+/**
+ * Rinvex\Attributable\Models\Type\Datetime.
+ *
+ * @property int                                                $id
+ * @property \Carbon\Carbon                                     $content
+ * @property int                                                $attribute_id
+ * @property int                                                $entity_id
+ * @property string                                             $entity_type
+ * @property \Carbon\Carbon|null                                $created_at
+ * @property \Carbon\Carbon|null                                $updated_at
+ * @property-read \Rinvex\Attributable\Models\Attribute         $attribute
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereAttributeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereEntityId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereEntityType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Datetime extends Value
 {
     /**

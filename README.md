@@ -277,6 +277,8 @@ $company->load('city', 'colors');
 Eloquent ships with a `$with` which accepts an array of relationships that should be eager loaded. We can use it as well:
 
 ```php
+namespace App\Models;
+
 class Company extends Model
 {
     use \Rinvex\Attributable\Traits\Attributable;
@@ -288,6 +290,8 @@ class Company extends Model
     protected $with = ['city', 'colors'];
 }
 ```
+
+> **Note:** If your model eager loads `eav` relation, and it's been queued for notification sending, this may cause some issues since the `eav` relation is being evaluated through a global scope, while the `SerializesAndRestoresModelIdentifiers` trait which is used for queued notifications unserialize the queued models WITHOUT global scopes, so you will get "Call to undefined relationship [eav] on model [App\Models\Company]" exception.
 
 
 ## Changelog

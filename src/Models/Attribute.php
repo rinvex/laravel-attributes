@@ -14,6 +14,38 @@ use Rinvex\Cacheable\CacheableEloquent;
 use Spatie\Translatable\HasTranslations;
 use Spatie\EloquentSortable\SortableTrait;
 
+/**
+ * Rinvex\Attributable\Models\Attribute.
+ *
+ * @property int                                 $id
+ * @property string                              $slug
+ * @property array                               $name
+ * @property array                               $description
+ * @property int                                 $sort_order
+ * @property string|null                         $group
+ * @property string                              $type
+ * @property int                                 $is_required
+ * @property int                                 $is_collection
+ * @property string|null                         $default
+ * @property \Carbon\Carbon|null                 $created_at
+ * @property \Carbon\Carbon|null                 $updated_at
+ * @property \Illuminate\Support\Collection|null $entities
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute ordered($direction = 'asc')
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereDefault($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereGroup($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereIsCollection($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereIsRequired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Attribute extends Model implements Sortable
 {
     use HasSlug;
@@ -29,11 +61,12 @@ class Attribute extends Model implements Sortable
         'name',
         'slug',
         'description',
-        'order',
+        'sort_order',
         'group',
         'type',
         'entities',
-        'collection',
+        'is_required',
+        'is_collection',
         'default',
     ];
 
@@ -53,7 +86,7 @@ class Attribute extends Model implements Sortable
     /**
      * {@inheritdoc}
      */
-    public $sortable = ['order_column_name' => 'order'];
+    public $sortable = ['order_column_name' => 'sort_order'];
 
     /**
      * The default rules that the model will validate against.
@@ -63,7 +96,8 @@ class Attribute extends Model implements Sortable
     protected $rules = [];
 
     /**
-     * Whether the model should throw a ValidationException if it fails validation.
+     * Whether the model should throw a
+     * ValidationException if it fails validation.
      *
      * @var bool
      */
@@ -80,32 +114,30 @@ class Attribute extends Model implements Sortable
 
         $this->setTable(config('rinvex.attributable.tables.attributes'));
         $this->setRules([
-            'name' => 'required|string',
-            'type' => 'required|string',
+            'name' => 'required|string|max:150',
+            'type' => 'required|string|max:150',
             'description' => 'nullable|string',
-            'slug' => 'required|alpha_dash|unique:'.config('rinvex.attributable.tables.attributes').',slug',
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributable.tables.attributes').',slug',
         ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 
-        if (isset(static::$dispatcher)) {
-            // Early auto generate slugs before validation
-            static::$dispatcher->listen('eloquent.validating: '.static::class, function ($model, $event) {
-                if (! $model->slug) {
-                    if ($model->exists) {
-                        $model->generateSlugOnCreate();
-                    } else {
-                        $model->generateSlugOnUpdate();
-                    }
+        // Auto generate slugs early before validation
+        static::registerModelEvent('validating', function (self $attribute) {
+            if (! $attribute->slug) {
+                if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
+                    $attribute->generateSlugOnUpdate();
+                } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
+                    $attribute->generateSlugOnCreate();
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
@@ -172,16 +204,6 @@ class Attribute extends Model implements Sortable
             DB::table(config('rinvex.attributable.tables.attribute_entity'))->where('attribute_id', $model->id)->delete();
             DB::table(config('rinvex.attributable.tables.attribute_entity'))->insert($values);
         });
-    }
-
-    /**
-     * Check if attribute is multivalued.
-     *
-     * @return bool
-     */
-    public function isCollection()
-    {
-        return (bool) $this->getAttribute('collection');
     }
 
     /**

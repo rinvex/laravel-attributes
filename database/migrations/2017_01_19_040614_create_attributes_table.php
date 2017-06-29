@@ -21,10 +21,11 @@ class CreateAttributesTable extends Migration
             $table->string('slug');
             $table->{$this->jsonable()}('name');
             $table->{$this->jsonable()}('description')->nullable();
-            $table->unsignedInteger('order')->default(0);
+            $table->mediumInteger('sort_order')->unsigned()->default(0);
             $table->string('group')->nullable();
             $table->string('type');
-            $table->boolean('collection')->default(false);
+            $table->boolean('is_required')->default(false);
+            $table->boolean('is_collection')->default(false);
             $table->text('default')->nullable();
             $table->timestamps();
         });
