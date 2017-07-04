@@ -12,13 +12,6 @@ use Illuminate\Database\Eloquent\Model as Entity;
 class EntityWasSaved
 {
     /**
-     * The entity instance.
-     *
-     * @var \Illuminate\Database\Eloquent\Model
-     */
-    protected $entity;
-
-    /**
      * The trash collection.
      *
      * @var \Illuminate\Support\Collection
@@ -36,17 +29,16 @@ class EntityWasSaved
      */
     public function handle(Entity $entity)
     {
-        $this->entity = $entity;
-        $this->trash = $this->entity->getEntityAttributeValueTrash();
+        $this->trash = $entity->getEntityAttributeValueTrash();
 
         // Wrap the whole process inside database transaction
-        $connection = $this->entity->getConnection();
+        $connection = $entity->getConnection();
         $connection->beginTransaction();
 
         try {
-            foreach ($this->entity->getEntityAttributes() as $attribute) {
-                if ($this->entity->relationLoaded($relation = $attribute->getAttribute('slug'))) {
-                    $relationValue = $this->entity->getRelationValue($relation);
+            foreach ($entity->getEntityAttributes() as $attribute) {
+                if ($entity->relationLoaded($relation = $attribute->getAttribute('slug'))) {
+                    $relationValue = $entity->getRelationValue($relation);
 
                     if ($relationValue instanceof ValueCollection) {
                         foreach ($relationValue as $value) {
