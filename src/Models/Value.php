@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributable\Models;
 
+use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Attributable\Support\ValueCollection;
 
 abstract class Value extends Model
 {
+    use ValidatingTrait;
     use CacheableEloquent;
 
     /**
@@ -18,6 +20,21 @@ abstract class Value extends Model
      * @var bool
      */
     protected $shouldPush = false;
+
+    /**
+     * The default rules that the model will validate against.
+     *
+     * @var array
+     */
+    protected $rules = [];
+
+    /**
+     * Whether the model should throw a
+     * ValidationException if it fails validation.
+     *
+     * @var bool
+     */
+    protected $throwValidationExceptions = true;
 
     /**
      * Relationship to the attribute entity.

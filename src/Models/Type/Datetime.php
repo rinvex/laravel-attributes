@@ -50,5 +50,11 @@ class Datetime extends Value
         parent::__construct($attributes);
 
         $this->setTable(config('rinvex.attributable.tables.values_datetime'));
+        $this->setRules([
+            'content' => 'required|date',
+            'attribute_id' => 'required|integer|exists:'.config('rinvex.attributable.tables.attributes').',id',
+            'entity_id' => 'required|integer',
+            'entity_type' => 'required|string',
+        ]);
     }
 }

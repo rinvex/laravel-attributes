@@ -50,5 +50,11 @@ class Integer extends Value
         parent::__construct($attributes);
 
         $this->setTable(config('rinvex.attributable.tables.values_integer'));
+        $this->setRules([
+            'content' => 'required|integer',
+            'attribute_id' => 'required|integer|exists:'.config('rinvex.attributable.tables.attributes').',id',
+            'entity_id' => 'required|integer',
+            'entity_type' => 'required|string',
+        ]);
     }
 }

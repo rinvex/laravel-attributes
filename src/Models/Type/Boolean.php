@@ -50,5 +50,12 @@ class Boolean extends Value
         parent::__construct($attributes);
 
         $this->setTable(config('rinvex.attributable.tables.values_boolean'));
+        $this->setRules([
+            'content' => 'required|boolean',
+            'attribute_id' => 'required|integer|exists:'.config('rinvex.attributable.tables.attributes').',id',
+            'entity_id' => 'required|integer',
+            'entity_type' => 'required|string',
+        ]);
+
     }
 }
