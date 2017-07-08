@@ -29,7 +29,7 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property string|null                         $default
  * @property \Carbon\Carbon|null                 $created_at
  * @property \Carbon\Carbon|null                 $updated_at
- * @property \Illuminate\Support\Collection|null $entities
+ * @property array                               $entities
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute ordered($direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereCreatedAt($value)
@@ -104,7 +104,9 @@ class Attribute extends Model implements Sortable
     /**
      * {@inheritdoc}
      */
-    public $sortable = ['order_column_name' => 'sort_order'];
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+    ];
 
     /**
      * The default rules that the model will validate against.
@@ -202,9 +204,9 @@ class Attribute extends Model implements Sortable
     /**
      * Get the entities attached to this attribute.
      *
-     * @return \Illuminate\Support\Collection|null
+     * @return array
      */
-    public function getEntitiesAttribute()
+    public function getEntitiesAttribute(): array
     {
         return DB::table(config('rinvex.attributable.tables.attribute_entity'))->where('attribute_id', $this->getKey())->get()->pluck('entity_type')->toArray();
     }
