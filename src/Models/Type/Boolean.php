@@ -56,6 +56,5 @@ class Boolean extends Value
             'entity_id' => 'required|integer',
             'entity_type' => 'required|string',
         ]);
-
     }
 }
