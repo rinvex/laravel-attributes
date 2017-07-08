@@ -417,16 +417,16 @@ trait Attributable
     /**
      * Scope query with the given entity attribute.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param string                                $key
      * @param mixed                                 $value
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeHasAttribute(Builder $query, string $key, $value): Builder
+    public function scopeHasAttribute(Builder $builder, string $key, $value): Builder
     {
-        return $query->whereHas($key, function (Builder $query) use ($value) {
-            $query->where('content', $value)->where('entity_type', get_class($this));
+        return $builder->whereHas($key, function (Builder $builder) use ($value) {
+            $builder->where('content', $value)->where('entity_type', get_class($this));
         });
     }
 
