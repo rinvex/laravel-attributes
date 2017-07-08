@@ -31,6 +31,16 @@ use Rinvex\Attributable\Models\Value;
 class Integer extends Value
 {
     /**
+     * {@inheritdoc}
+     */
+    protected $casts = [
+        'content' => 'integer',
+        'attribute_id' => 'integer',
+        'entity_id' => 'integer',
+        'entity_type' => 'string',
+    ];
+
+    /**
      * Create a new Eloquent model instance.
      *
      * @param array $attributes

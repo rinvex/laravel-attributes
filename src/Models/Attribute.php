@@ -73,7 +73,25 @@ class Attribute extends Model implements Sortable
     /**
      * {@inheritdoc}
      */
-    protected $observables = ['validating', 'validated'];
+    protected $casts = [
+        'name' => 'string',
+        'slug' => 'string',
+        'description' => 'string',
+        'sort_order' => 'integer',
+        'group' => 'string',
+        'type' => 'string',
+        'is_required' => 'boolean',
+        'is_collection' => 'boolean',
+        'default' => 'string',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $observables = [
+        'validating',
+        'validated',
+    ];
 
     /**
      * {@inheritdoc}

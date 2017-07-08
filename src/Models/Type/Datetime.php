@@ -33,7 +33,12 @@ class Datetime extends Value
     /**
      * {@inheritdoc}
      */
-    protected $dates = ['content'];
+    protected $casts = [
+        'content' => 'datetime',
+        'attribute_id' => 'integer',
+        'entity_id' => 'integer',
+        'entity_type' => 'string',
+    ];
 
     /**
      * Create a new Eloquent model instance.

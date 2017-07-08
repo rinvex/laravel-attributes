@@ -33,7 +33,12 @@ class Boolean extends Value
     /**
      * {@inheritdoc}
      */
-    protected $casts = ['content' => 'boolean'];
+    protected $casts = [
+        'content' => 'boolean',
+        'attribute_id' => 'integer',
+        'entity_id' => 'integer',
+        'entity_type' => 'string',
+    ];
 
     /**
      * Create a new Eloquent model instance.
