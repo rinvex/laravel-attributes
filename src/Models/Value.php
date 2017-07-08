@@ -15,6 +15,16 @@ abstract class Value extends Model
     use CacheableEloquent;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $fillable = [
+        'content',
+        'attribute_id',
+        'entity_id',
+        'entity_type',
+    ];
+
+    /**
      * Determine if value should push to relations when saving.
      *
      * @var bool
