@@ -175,7 +175,7 @@ This class creates the Eloquent relations to the attribute values based on their
 
 3. Add the following service provider to the `'providers'` array inside `app/config/app.php`:
     ```php
-    Rinvex\Attributable\Providers\AttributableServiceProvider::class
+    Rinvex\Attributable\Providers\AttributableServiceProvider::class,
     ```
 
    And then you can publish the migrations by running the following command:
@@ -234,8 +234,8 @@ Attribute::create(['code' => 'size', 'name' => ['en' => 'Product Size'], 'type' 
 
 ```php
 // City is an entity attribute
-$companies = Company::whereHas('city', function ($query) {
-    $query->where('content', 'Alexandria');
+$companies = Company::whereHas('city', function (\Illuminate\Database\Eloquent\Builder $builder) {
+    $builder->where('content', 'Alexandria');
 })->get();
 ```
 
