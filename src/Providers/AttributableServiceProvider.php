@@ -60,14 +60,7 @@ class AttributableServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
-        // Publish config
-        $this->publishes([
-            realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.attributable.php'),
-        ], 'config');
-
-        // Publish migrations
-        $this->publishes([
-            realpath(__DIR__.'/../../database/migrations') => database_path('migrations'),
-        ], 'migrations');
+        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.attributable.php')], 'rinvex-attributable-config');
+        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-attributable-migrations');
     }
 }

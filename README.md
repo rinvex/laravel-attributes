@@ -178,17 +178,17 @@ This class creates the Eloquent relations to the attribute values based on their
     Rinvex\Attributable\Providers\AttributableServiceProvider::class,
     ```
 
-   And then you can publish the migrations by running the following command:
+4. **Optionally** you can publish migrations and config files by running the following commands:
     ```shell
-    php artisan vendor:publish --tag="migrations" --provider="Rinvex\Attributable\Providers\AttributableServiceProvider"
+    php artisan vendor:publish --tag="rinvex-attributable-migrations"
     ```
 
    And also you can publish the config by running the following command:
     ```shell
-    php artisan vendor:publish --tag="config" --provider="Rinvex\Attributable\Providers\AttributableServiceProvider"
+    php artisan vendor:publish --tag="rinvex-attributable-config"
     ```
 
-4. Done!
+5. Done!
 
 
 ## Usage
