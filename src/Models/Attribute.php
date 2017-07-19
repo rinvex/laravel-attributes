@@ -202,6 +202,18 @@ class Attribute extends Model implements Sortable
     }
 
     /**
+     * Enforce clean groups.
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function setGroupAttribute($value)
+    {
+        $this->attributes['group'] = str_slug($value, '_');
+    }
+
+    /**
      * Get the entities attached to this attribute.
      *
      * @return array
