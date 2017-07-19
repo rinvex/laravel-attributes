@@ -441,7 +441,11 @@ trait Attributable
     public function __call($method, $parameters)
     {
         if ($this->isEntityAttributeRelation($method)) {
-            return call_user_func_array($this->entityAttributeRelations[$method], $parameters);
+            $relation = $this->entityAttributeRelations[$method] instanceof Closure
+                ? $this->entityAttributeRelations[$method]
+                : (new Serializer())->unserialize($this->entityAttributeRelations[$method]);
+
+            return call_user_func_array($relation, $parameters);
         }
 
         return parent::__call($method, $parameters);
