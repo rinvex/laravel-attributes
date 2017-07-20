@@ -6,7 +6,6 @@ namespace Rinvex\Attributable\Models;
 
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Illuminate\Support\Facades\DB;
 use Spatie\EloquentSortable\Sortable;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
