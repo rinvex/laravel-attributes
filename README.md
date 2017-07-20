@@ -38,6 +38,7 @@ This package is a rewritten fork of the awesome [IsraelOrtuno](https://github.co
     - [Register Your Own Types](#register-your-own-types)
     - [Register Your Entities](#register-your-entities)
     - [Create New Attribute](#create-new-attribute)
+    - [Manage Attribute Entities](#manage-attribute-entities)
     - [Querying models](#querying-models)
     - [Eager loading](#eager-loading)
 - [Changelog](#changelog)
@@ -147,7 +148,7 @@ getRelationValue()
 $entity->cities->add('Alexandria');
 
 // And this is what you would have to do without this collection:
-$value = new Varchar(['content' => 'Alexandria', 'attribute_id' => 1, 'entity_type' => 'App\Company', 'entity_id' => 1]);
+$value = new Varchar(['content' => 'Alexandria', 'attribute_id' => 1, 'entity_type' => 'App\Models\Company', 'entity_id' => 1]);
 $entity->cities->push($value);
 
 // You could also pass an array
@@ -225,7 +226,41 @@ You can call the `'rinvex.attributable.entities'` service from anywhere in your 
 Like any normal Eloquent model you can create attributes as follows:
 
 ```php
-Attribute::create(['code' => 'size', 'name' => ['en' => 'Product Size'], 'type' => '\Rinvex\Attributable\Models\Type\Varchar', 'entities' => ['App\Models\Company', 'App\Models\Product']]);
+Attribute::create([
+    'code' => 'size',
+    'name' => 'Product Size',
+    'type' => 'Rinvex\Attributable\Models\Type\Varchar',
+    'entities' => ['App\Models\Company', 'App\Models\Product'],
+]);
+```
+
+### Manage Attribute Entities
+
+Whenever you need to get entities attached to a specific attribute, you can do as follows:
+
+```php
+$attribute = \Rinvex\Attributable\Models\Attribute::find(1);
+
+// Get attribute entities collection
+$attribute->entities
+
+// Get attribute entities query builder
+$attribute->entities();
+
+// Delete attached attribute entities
+$attribute->entities()->delete();
+
+// Attach attribute entities
+$attribute->entities()->createMany([
+    [...],
+    [...],
+    [...],
+]);
+
+// Alternative way of attaching attribute entities
+$attribute->fill([
+    'entities' => ['App\Models\Company', 'App\Models\Product'],
+])->save();
 ```
 
 ### Querying models

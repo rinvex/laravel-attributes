@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Spatie\Translatable\HasTranslations;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Rinvex\Attributable\Models\Attribute.
@@ -216,11 +217,22 @@ class Attribute extends Model implements Sortable
     /**
      * Get the entities attached to this attribute.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function entities(): HasMany
+    {
+        return $this->hasMany(AttributeEntity::class, 'attribute_id');
+    }
+
+    /**
+     * Access entities relation and retrieve entity types as an array,
+     * Accessors/Mutators preceeds relation value when called dynamically.
+     *
      * @return array
      */
     public function getEntitiesAttribute(): array
     {
-        return DB::table(config('rinvex.attributable.tables.attribute_entity'))->where('attribute_id', $this->getKey())->get()->pluck('entity_type')->toArray();
+        return $this->entities()->pluck('entity_type')->toArray();
     }
 
     /**
@@ -235,11 +247,11 @@ class Attribute extends Model implements Sortable
         static::saved(function ($model) use ($entities) {
             $values = [];
             foreach ($entities as $entity) {
-                $values[] = ['attribute_id' => $model->id, 'entity_type' => $entity];
+                $values[] = ['entity_type' => $entity];
             }
 
-            DB::table(config('rinvex.attributable.tables.attribute_entity'))->where('attribute_id', $model->id)->delete();
-            DB::table(config('rinvex.attributable.tables.attribute_entity'))->insert($values);
+            $this->entities()->delete();
+            $this->entities()->createMany($values);
         });
     }
 
