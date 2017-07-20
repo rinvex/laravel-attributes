@@ -49,7 +49,7 @@ class Text extends Value
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('rinvex.attributable.tables.values_text'));
+        $this->setTable(config('rinvex.attributable.tables.attribute_text_values'));
         $this->setRules([
             'content' => 'required|string|max:10000',
             'attribute_id' => 'required|integer|exists:'.config('rinvex.attributable.tables.attributes').',id',

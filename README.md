@@ -76,7 +76,7 @@ This is responsible of storing data values related to a certain attribute and to
 
 In Attributable implementation, a Value instance will represent the content of an attribute related to a particular entity instance.
 
-Values are stored in different tables based on their data type. String values will be stored in a table called (by default) `values_varchar`, while integer values would use `values_integer` instead, and so on. Both tables' columns are identical except the data type of the `content` column which is adapted to the data type they store.
+Values are stored in different tables based on their data type. String values will be stored in a table called (by default) `attribute_varchar_values`, while integer values would use `attribute_integer_values` instead, and so on. Both tables' columns are identical except the data type of the `content` column which is adapted to the data type they store.
 
 ### The Performance Loss
 
@@ -86,10 +86,10 @@ Since we are storing our entity, attribute and value in different tables, it's r
 
 ```php
 select * from `companies`
-select * from `values_varchar` where `attribute_id` = '1' and `values_varchar`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_values_varchar`.`entity_type` = 'App\Company'
-select * from `values_varchar` where `attribute_id` = '2' and `values_varchar`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_values_varchar`.`entity_type` = 'App\Company'
-select * from `values_varchar` where `attribute_id` = '3' and `values_varchar`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_values_varchar`.`entity_type` = 'App\Company'
-select * from `values_varchar` where `attribute_id` = '4' and `values_varchar`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_values_varchar`.`entity_type` = 'App\Company'
+select * from `attribute_varchar_values` where `attribute_id` = '1' and `attribute_varchar_values`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_attribute_varchar_values`.`entity_type` = 'App\Models\Company'
+select * from `attribute_varchar_values` where `attribute_id` = '2' and `attribute_varchar_values`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_attribute_varchar_values`.`entity_type` = 'App\Models\Company'
+select * from `attribute_varchar_values` where `attribute_id` = '3' and `attribute_varchar_values`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_attribute_varchar_values`.`entity_type` = 'App\Models\Company'
+select * from `attribute_varchar_values` where `attribute_id` = '4' and `attribute_varchar_values`.`entity_id` in ('1', '2', '3', '4', '5') and `eav_attribute_varchar_values`.`entity_type` = 'App\Models\Company'
 ```
 
 **But, there's Good News!** **Rinvex Attributable** utilizes **Rinvex Cacheable** which caches model results transparently, and may reduce these queries to only one or even ZERO queries! Yes, it's possible and already implemented by default!!

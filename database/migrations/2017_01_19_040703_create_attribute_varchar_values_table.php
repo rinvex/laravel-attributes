@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateValuesBooleanTable extends Migration
+class CreateAttributeVarcharValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,10 @@ class CreateValuesBooleanTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('rinvex.attributable.tables.values_boolean'), function (Blueprint $table) {
+        Schema::create(config('rinvex.attributable.tables.attribute_varchar_values'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
-            $table->boolean('content');
+            $table->string('content');
             $table->integer('attribute_id')->unsigned();
             $table->integer('entity_id')->unsigned();
             $table->string('entity_type');
@@ -37,6 +37,6 @@ class CreateValuesBooleanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('rinvex.attributable.tables.values_boolean'));
+        Schema::dropIfExists(config('rinvex.attributable.tables.attribute_varchar_values'));
     }
 }

@@ -18,11 +18,11 @@ return [
 
         'attributes' => 'attributes',
         'attribute_entity' => 'attribute_entity',
-        'values_boolean' => 'values_boolean',
-        'values_datetime' => 'values_datetime',
-        'values_integer' => 'values_integer',
-        'values_text' => 'values_text',
-        'values_varchar' => 'values_varchar',
+        'attribute_boolean_values' => 'attribute_boolean_values',
+        'attribute_datetime_values' => 'attribute_datetime_values',
+        'attribute_integer_values' => 'attribute_integer_values',
+        'attribute_text_values' => 'attribute_text_values',
+        'attribute_varchar_values' => 'attribute_varchar_values',
 
     ],
 
