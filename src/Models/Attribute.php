@@ -220,7 +220,7 @@ class Attribute extends Model implements Sortable
      */
     public function entities(): HasMany
     {
-        return $this->hasMany(AttributeEntity::class, 'attribute_id');
+        return $this->hasMany(AttributeEntity::class, 'attribute_id', 'id');
     }
 
     /**
