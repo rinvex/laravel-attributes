@@ -261,6 +261,9 @@ $attribute->entities()->createMany([
 $attribute->fill([
     'entities' => ['App\Models\Company', 'App\Models\Product'],
 ])->save();
+
+// Get all attribute values of type varchar
+$values = $attribute->values('Rinvex\Attributable\Models\Type\Varchar')->get();
 ```
 
 ### Querying models
