@@ -88,5 +88,7 @@
                 "Rinvex\\Attributable\\Providers\\AttributableServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
