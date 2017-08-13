@@ -10,9 +10,19 @@ use Rinvex\Attributable\Models\Type\Boolean;
 use Rinvex\Attributable\Models\Type\Integer;
 use Rinvex\Attributable\Models\Type\Varchar;
 use Rinvex\Attributable\Models\Type\Datetime;
+use Rinvex\Attributable\Console\Commands\MigrateCommand;
 
 class AttributableServiceProvider extends ServiceProvider
 {
+    /**
+     * The commands to be registered.
+     *
+     * @var array
+     */
+    protected $commands = [
+        MigrateCommand::class => 'command.rinvex.attributable.migrate',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -30,6 +40,15 @@ class AttributableServiceProvider extends ServiceProvider
         $this->app->singleton('rinvex.attributable.entities', function ($app) {
             return collect();
         });
+
+        // Register artisan commands
+        foreach ($this->commands as $key => $value) {
+            $this->app->singleton($value, function ($app) use ($key) {
+                return new $key();
+            });
+        }
+
+        $this->commands(array_values($this->commands));
     }
 
     /**
