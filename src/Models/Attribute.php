@@ -74,9 +74,7 @@ class Attribute extends Model implements Sortable
      * {@inheritdoc}
      */
     protected $casts = [
-        'name' => 'string',
         'slug' => 'string',
-        'description' => 'string',
         'sort_order' => 'integer',
         'group' => 'string',
         'type' => 'string',
