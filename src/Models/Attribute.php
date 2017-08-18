@@ -200,28 +200,6 @@ class Attribute extends Model implements Sortable
     }
 
     /**
-     * Get the entities attached to this attribute.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function entities(): HasMany
-    {
-        return $this->hasMany(AttributeEntity::class, 'attribute_id', 'id');
-    }
-
-    /**
-     * Get the entities attached to this attribute.
-     *
-     * @param string $value
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function values(string $value): HasMany
-    {
-        return $this->hasMany($value, 'attribute_id', 'id');
-    }
-
-    /**
      * Access entities relation and retrieve entity types as an array,
      * Accessors/Mutators preceeds relation value when called dynamically.
      *
@@ -264,5 +242,27 @@ class Attribute extends Model implements Sortable
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Get the entities attached to this attribute.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function entities(): HasMany
+    {
+        return $this->hasMany(AttributeEntity::class, 'attribute_id', 'id');
+    }
+
+    /**
+     * Get the entities attached to this attribute.
+     *
+     * @param string $value
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function values(string $value): HasMany
+    {
+        return $this->hasMany($value, 'attribute_id', 'id');
     }
 }
