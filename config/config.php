@@ -4,16 +4,7 @@ declare(strict_types=1);
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Attributable Database Tables
-    |--------------------------------------------------------------------------
-    |
-    | Specify database table names that should be used to store
-    | your attribute, attribute/entity relations, and value records.
-    |
-    */
-
+    // Attributable Database Tables
     'tables' => [
 
         'attributes' => 'attributes',
