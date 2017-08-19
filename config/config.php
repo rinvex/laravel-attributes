@@ -17,4 +17,12 @@ return [
 
     ],
 
+    // Attributable Models
+    'models' => [
+
+        'attribute' => \Rinvex\Attributable\Models\Attribute::class,
+        'attribute_entity' => \Rinvex\Attributable\Models\AttributeEntity::class,
+
+    ],
+
 ];
