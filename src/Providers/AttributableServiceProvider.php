@@ -33,11 +33,11 @@ class AttributableServiceProvider extends ServiceProvider
 
         // Register eloquent models
         $this->app->singleton('rinvex.attributable.attribute', function ($app) {
-            return new $app['config']['rinvex.attributable.models.attribute'];
+            return new $app['config']['rinvex.attributable.models.attribute']();
         });
 
         $this->app->singleton('rinvex.attributable.attribute_entity', function ($app) {
-            return new $app['config']['rinvex.attributable.models.attribute_entity'];
+            return new $app['config']['rinvex.attributable.models.attribute_entity']();
         });
 
         // Register attributable types
