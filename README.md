@@ -224,7 +224,7 @@ Attribute::create([
 Whenever you need to get entities attached to a specific attribute, you can do as follows:
 
 ```php
-$attribute = \Rinvex\Attributable\Models\Attribute::find(1);
+$attribute = app('rinvex.attributable.attribute')->find(1);
 
 // Get attribute entities collection
 $attribute->entities
@@ -302,9 +302,11 @@ Eloquent ships with a `$with` which accepts an array of relationships that shoul
 ```php
 namespace App\Models;
 
+use Rinvex\Attributable\Traits\Attributable;
+
 class Company extends Model
 {
-    use \Rinvex\Attributable\Traits\Attributable;
+    use Attributable;
 
     // Eager loading all the registered attributes
     protected $with = ['eav'];

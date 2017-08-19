@@ -31,6 +31,15 @@ class AttributableServiceProvider extends ServiceProvider
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.attributable');
 
+        // Register eloquent models
+        $this->app->singleton('rinvex.attributable.attribute', function ($app) {
+            return new $app['config']['rinvex.attributable.models.attribute'];
+        });
+
+        $this->app->singleton('rinvex.attributable.attribute_entity', function ($app) {
+            return new $app['config']['rinvex.attributable.models.attribute_entity'];
+        });
+
         // Register attributable types
         $this->app->singleton('rinvex.attributable.types', function ($app) {
             return collect();

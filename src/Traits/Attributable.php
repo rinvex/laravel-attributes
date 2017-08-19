@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Attributable\Models\Attribute;
 use Rinvex\Attributable\Events\EntityWasSaved;
 use Rinvex\Attributable\Scopes\EagerLoadScope;
-use Rinvex\Attributable\Models\AttributeEntity;
 use Rinvex\Attributable\Events\EntityWasDeleted;
 use Rinvex\Attributable\Support\RelationBuilder;
 use Rinvex\Attributable\Support\ValueCollection;
@@ -57,8 +56,8 @@ trait Attributable
     public static function bootAttributable()
     {
         $models = array_merge([static::class], array_values(class_parents(static::class)));
-        $attributes = AttributeEntity::whereIn('entity_type', $models)->get()->pluck('attribute_id');
-        static::$entityAttributes = Attribute::whereIn('id', $attributes)->get()->keyBy('slug');
+        $attributes = app('rinvex.attributable.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
+        static::$entityAttributes = app('rinvex.attributable.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
 
         static::addGlobalScope(new EagerLoadScope());
 
