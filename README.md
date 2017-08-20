@@ -211,7 +211,7 @@ You can call the `'rinvex.attributable.entities'` service from anywhere in your 
 Like any normal Eloquent model you can create attributes as follows:
 
 ```php
-Attribute::create([
+app('rinvex.attributable.attribute')->create([
     'code' => 'size',
     'name' => 'Product Size',
     'type' => 'Rinvex\Attributable\Models\Type\Varchar',
