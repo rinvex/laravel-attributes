@@ -19,6 +19,7 @@ class CreateAttributeEntityTable extends Migration
             // Columns
             $table->integer('attribute_id')->unsigned();
             $table->string('entity_type');
+            $table->timestamps();
 
             // Indexes
             $table->unique(['attribute_id', 'entity_type'], 'attributable_attribute_id_entity_type');
