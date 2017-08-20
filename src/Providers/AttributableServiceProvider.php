@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Rinvex\Attributable\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Attributable\Models\Attribute;
 use Rinvex\Attributable\Models\Type\Text;
 use Rinvex\Attributable\Models\Type\Boolean;
 use Rinvex\Attributable\Models\Type\Integer;
 use Rinvex\Attributable\Models\Type\Varchar;
 use Rinvex\Attributable\Models\Type\Datetime;
+use Rinvex\Attributable\Models\AttributeEntity;
 use Rinvex\Attributable\Console\Commands\MigrateCommand;
 
 class AttributableServiceProvider extends ServiceProvider
@@ -31,14 +33,16 @@ class AttributableServiceProvider extends ServiceProvider
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.attributable');
 
-        // Register eloquent models
+        // Bind eloquent models to IoC container
         $this->app->singleton('rinvex.attributable.attribute', function ($app) {
             return new $app['config']['rinvex.attributable.models.attribute']();
         });
+        $this->app->alias('rinvex.attributable.attribute', Attribute::class);
 
         $this->app->singleton('rinvex.attributable.attribute_entity', function ($app) {
             return new $app['config']['rinvex.attributable.models.attribute_entity']();
         });
+        $this->app->alias('rinvex.attributable.attribute_entity', AttributeEntity::class);
 
         // Register attributable types
         $this->app->singleton('rinvex.attributable.types', function ($app) {
