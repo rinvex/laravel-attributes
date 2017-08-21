@@ -54,14 +54,8 @@ class AttributableServiceProvider extends ServiceProvider
             return collect();
         });
 
-        // Register artisan commands
-        foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
-        }
-
-        $this->commands(array_values($this->commands));
+        // Register console commands
+        ! $this->app->runningInConsole() || $this->registerCommands();
     }
 
     /**
@@ -76,13 +70,11 @@ class AttributableServiceProvider extends ServiceProvider
         app('rinvex.attributable.types')->push(Varchar::class);
         app('rinvex.attributable.types')->push(Datetime::class);
 
-        if ($this->app->runningInConsole()) {
-            // Load migrations
-            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        // Load migrations
+        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
-            // Publish Resources
-            $this->publishResources();
-        }
+        // Publish Resources
+        ! $this->app->runningInConsole() || $this->publishResources();
     }
 
     /**
@@ -94,5 +86,22 @@ class AttributableServiceProvider extends ServiceProvider
     {
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.attributable.php')], 'rinvex-attributable-config');
         $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-attributable-migrations');
+    }
+
+    /**
+     * Register console commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        // Register artisan commands
+        foreach ($this->commands as $key => $value) {
+            $this->app->singleton($value, function ($app) use ($key) {
+                return new $key();
+            });
+        }
+
+        $this->commands(array_values($this->commands));
     }
 }
