@@ -9,14 +9,14 @@ use Rinvex\Attributable\Models\Value;
 /**
  * Rinvex\Attributable\Models\Type\Varchar.
  *
- * @property int $id
- * @property string $content
- * @property int $attribute_id
- * @property int $entity_id
- * @property string $entity_type
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \Rinvex\Attributable\Models\Attribute $attribute
+ * @property int                                                $id
+ * @property string                                             $content
+ * @property int                                                $attribute_id
+ * @property int                                                $entity_id
+ * @property string                                             $entity_type
+ * @property \Carbon\Carbon                                     $created_at
+ * @property \Carbon\Carbon                                     $updated_at
+ * @property-read \Rinvex\Attributable\Models\Attribute         $attribute
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Varchar whereAttributeId($value)

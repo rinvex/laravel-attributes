@@ -17,19 +17,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Rinvex\Attributable\Models\Attribute.
  *
- * @property int                                 $id
- * @property string                              $slug
- * @property array                               $name
- * @property array                               $description
- * @property int                                 $sort_order
- * @property string|null                         $group
- * @property string                              $type
- * @property int                                 $is_required
- * @property int                                 $is_collection
- * @property string|null                         $default
- * @property \Carbon\Carbon|null                 $created_at
- * @property \Carbon\Carbon|null                 $updated_at
- * @property array                               $entities
+ * @property int                                                                      $id
+ * @property string                                                                   $slug
+ * @property array                                                                    $name
+ * @property array                                                                    $description
+ * @property int                                                                      $sort_order
+ * @property string                                                                   $group
+ * @property string                                                                   $type
+ * @property bool                                                                     $is_required
+ * @property bool                                                                     $is_collection
+ * @property string                                                                   $default
+ * @property \Carbon\Carbon                                                           $created_at
+ * @property \Carbon\Carbon                                                           $updated_at
+ * @property array                                                                    $entities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\User[] $values
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute ordered($direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereCreatedAt($value)
