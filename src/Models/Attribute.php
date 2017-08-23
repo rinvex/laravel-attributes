@@ -13,6 +13,7 @@ use Rinvex\Cacheable\CacheableEloquent;
 use Spatie\Translatable\HasTranslations;
 use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Rinvex\Attributable\Contracts\AttributeContract;
 
 /**
  * Rinvex\Attributable\Models\Attribute.
@@ -47,7 +48,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Attribute extends Model implements Sortable
+class Attribute extends Model implements AttributeContract, Sortable
 {
     use HasSlug;
     use SortableTrait;

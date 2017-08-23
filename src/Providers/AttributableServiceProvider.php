@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Rinvex\Attributable\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Attributable\Models\Attribute;
 use Rinvex\Attributable\Models\Type\Text;
 use Rinvex\Attributable\Models\Type\Boolean;
 use Rinvex\Attributable\Models\Type\Integer;
 use Rinvex\Attributable\Models\Type\Varchar;
 use Rinvex\Attributable\Models\Type\Datetime;
-use Rinvex\Attributable\Models\AttributeEntity;
+use Rinvex\Attributable\Contracts\AttributeContract;
 use Rinvex\Attributable\Console\Commands\MigrateCommand;
+use Rinvex\Attributable\Contracts\AttributeEntityContract;
 
 class AttributableServiceProvider extends ServiceProvider
 {
@@ -37,12 +37,12 @@ class AttributableServiceProvider extends ServiceProvider
         $this->app->singleton('rinvex.attributable.attribute', function ($app) {
             return new $app['config']['rinvex.attributable.models.attribute']();
         });
-        $this->app->alias('rinvex.attributable.attribute', Attribute::class);
+        $this->app->alias('rinvex.attributable.attribute', AttributeContract::class);
 
         $this->app->singleton('rinvex.attributable.attribute_entity', function ($app) {
             return new $app['config']['rinvex.attributable.models.attribute_entity']();
         });
-        $this->app->alias('rinvex.attributable.attribute_entity', AttributeEntity::class);
+        $this->app->alias('rinvex.attributable.attribute_entity', AttributeEntityContract::class);
 
         // Register attributable types
         $this->app->singleton('rinvex.attributable.types', function ($app) {

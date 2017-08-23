@@ -2,14 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Models;
-
-use Illuminate\Database\Eloquent\Model;
-use Rinvex\Cacheable\CacheableEloquent;
-use Rinvex\Attributable\Contracts\AttributeEntityContract;
+namespace Rinvex\Attributable\Contracts;
 
 /**
- * Rinvex\Attributable\Models\AttributeEntity.
+ * Rinvex\Attributable\Contracts\AttributeEntityContract.
  *
  * @property int            $attribute_id
  * @property string         $entity_type
@@ -22,26 +18,7 @@ use Rinvex\Attributable\Contracts\AttributeEntityContract;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\AttributeEntity whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class AttributeEntity extends Model implements AttributeEntityContract
+interface AttributeEntityContract
 {
-    use CacheableEloquent;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $table = 'attribute_entity';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [
-        'entity_type',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $casts = [
-        'entity_type' => 'string',
-    ];
+    //
 }
