@@ -55,7 +55,7 @@ trait Attributable
      */
     public static function bootAttributable()
     {
-        $models = array_merge([static::class], array_values(class_parents(static::class)));
+        $models = array_merge([static::class], array_values(class_parents(static::class)), array_values(class_implements(static::class)));
         $attributes = app('rinvex.attributable.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
         static::$entityAttributes = app('rinvex.attributable.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
 
