@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributable\Models;
 
-use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
+use Rinvex\Support\Traits\ValidatingTrait;
 use Rinvex\Attributable\Support\ValueCollection;
 
 abstract class Value extends Model
