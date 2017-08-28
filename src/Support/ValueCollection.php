@@ -30,7 +30,7 @@ class ValueCollection extends EloquentCollection
      * @param \Illuminate\Database\Eloquent\Model $entity
      * @param $attribute
      *
-     * @return $this
+     * @return static
      */
     public function link($entity, $attribute)
     {
@@ -45,7 +45,7 @@ class ValueCollection extends EloquentCollection
      *
      * @param \Illuminate\Support\Collection|array $values
      *
-     * @return $this
+     * @return static
      */
     public function add($values)
     {
@@ -68,7 +68,7 @@ class ValueCollection extends EloquentCollection
      *
      * @param \Illuminate\Support\Collection|array $values
      *
-     * @return $this
+     * @return static
      */
     public function replace($values)
     {
