@@ -9,6 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
@@ -217,6 +218,19 @@ class Attribute extends Model implements AttributeContract, Sortable
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Scope attributes by given group.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param string|null                           $group
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithGroup(Builder $builder, string $group = null): Builder
+    {
+        return $group ? $builder->where('group', $group) : $builder;
     }
 
     /**
