@@ -164,30 +164,6 @@ class Attribute extends Model implements AttributeContract, Sortable
     }
 
     /**
-     * Set the translatable name attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value);
-    }
-
-    /**
-     * Set the translatable description attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setDescriptionAttribute($value)
-    {
-        $this->attributes['description'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
      * Enforce clean groups.
      *
      * @param string $value
