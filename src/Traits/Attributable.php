@@ -202,7 +202,7 @@ trait Attributable
      * @param string $relation
      * @param mixed  $value
      *
-     * @return static
+     * @return $this
      */
     public function setEntityAttributeRelation(string $relation, $value)
     {
@@ -360,7 +360,7 @@ trait Attributable
      * @param \Rinvex\Attributable\Models\Attribute $attribute
      * @param mixed                                 $value
      *
-     * @return static
+     * @return $this
      */
     protected function setEntityAttributeValue(Attribute $attribute, $value)
     {
