@@ -265,7 +265,7 @@ $companies = Company::whereHas('city', function (\Illuminate\Database\Eloquent\B
 Or simply use the builtin query scope as follows:
 
 ```php
-$companies = Company::hasAttribute('content', 'Alexandria')->get();
+$companies = Company::hasAttribute('city', 'Alexandria')->get();
 ```
 
 And of course you can fetch entity attributes as normal Eloquent attributes, or as raw relations:
