@@ -51,7 +51,7 @@
         "illuminate/support": "~5.4.0|~5.5.0",
         "illuminate/database": "~5.4.0|~5.5.0",
         "spatie/laravel-sluggable": "^2.0.0",
-        "spatie/eloquent-sortable": "^3.3.0",
+        "spatie/eloquent-sortable": "^3.4.0",
         "spatie/laravel-translatable": "^2.0.0",
         "jeremeamia/superclosure": "^2.3.0",
         "rinvex/cacheable": "dev-develop",
