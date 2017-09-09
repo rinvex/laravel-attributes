@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Console\Commands;
+namespace Rinvex\Attributes\Console\Commands;
 
 use Illuminate\Console\Command;
 
@@ -13,14 +13,14 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'rinvex:migrate:attributable';
+    protected $signature = 'rinvex:migrate:attributes';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Migrate Rinvex Attributable Tables.';
+    protected $description = 'Migrate Rinvex Attributes Tables.';
 
     /**
      * Execute the console command.
@@ -29,7 +29,7 @@ class MigrateCommand extends Command
      */
     public function handle()
     {
-        $this->warn('Migrate rinvex/attributable:');
-        $this->call('migrate', ['--step' => true, '--path' => 'vendor/rinvex/attributable/database/migrations']);
+        $this->warn('Migrate rinvex/attributes:');
+        $this->call('migrate', ['--step' => true, '--path' => 'vendor/rinvex/attributes/database/migrations']);
     }
 }

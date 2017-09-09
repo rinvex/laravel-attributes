@@ -15,7 +15,7 @@ class CreateAttributeVarcharValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('rinvex.attributable.tables.attribute_varchar_values'), function (Blueprint $table) {
+        Schema::create(config('rinvex.attributes.tables.attribute_varchar_values'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('content');
@@ -25,7 +25,7 @@ class CreateAttributeVarcharValuesTable extends Migration
             $table->timestamps();
 
             // Indexes
-            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributable.tables.attributes'))
+            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributes.tables.attributes'))
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -37,6 +37,6 @@ class CreateAttributeVarcharValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('rinvex.attributable.tables.attribute_varchar_values'));
+        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_varchar_values'));
     }
 }

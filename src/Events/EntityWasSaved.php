@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Events;
+namespace Rinvex\Attributes\Events;
 
 use Exception;
-use Rinvex\Attributable\Models\Value;
-use Rinvex\Attributable\Support\ValueCollection;
+use Rinvex\Attributes\Models\Value;
+use Rinvex\Attributes\Support\ValueCollection;
 use Illuminate\Database\Eloquent\Model as Entity;
 
 class EntityWasSaved
@@ -80,7 +80,7 @@ class EntityWasSaved
     /**
      * Save or trash the given value according to it's content.
      *
-     * @param \Rinvex\Attributable\Models\Value $value
+     * @param \Rinvex\Attributes\Models\Value $value
      *
      * @return void
      */
@@ -101,7 +101,7 @@ class EntityWasSaved
     /**
      * Trash the given value.
      *
-     * @param \Rinvex\Attributable\Models\Value $value
+     * @param \Rinvex\Attributes\Models\Value $value
      *
      * @return bool
      */

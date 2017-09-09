@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
 
-    // Attributable Database Tables
+    // Attributes Database Tables
     'tables' => [
 
         'attributes' => 'attributes',
@@ -17,11 +17,11 @@ return [
 
     ],
 
-    // Attributable Models
+    // Attributes Models
     'models' => [
 
-        'attribute' => \Rinvex\Attributable\Models\Attribute::class,
-        'attribute_entity' => \Rinvex\Attributable\Models\AttributeEntity::class,
+        'attribute' => \Rinvex\Attributes\Models\Attribute::class,
+        'attribute_entity' => \Rinvex\Attributes\Models\AttributeEntity::class,
 
     ],
 

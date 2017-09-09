@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Models;
+namespace Rinvex\Attributes\Models;
 
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -14,10 +14,10 @@ use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Rinvex\Attributable\Contracts\AttributeContract;
+use Rinvex\Attributes\Contracts\AttributeContract;
 
 /**
- * Rinvex\Attributable\Models\Attribute.
+ * Rinvex\Attributes\Models\Attribute.
  *
  * @property int                                                                      $id
  * @property string                                                                   $slug
@@ -34,19 +34,19 @@ use Rinvex\Attributable\Contracts\AttributeContract;
  * @property array                                                                    $entities
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\User[] $values
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute ordered($direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereDefault($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereGroup($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereIsCollection($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereIsRequired($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereSortOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute ordered($direction = 'asc')
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereDefault($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereGroup($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsCollection($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsRequired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Attribute extends Model implements AttributeContract, Sortable
@@ -133,11 +133,11 @@ class Attribute extends Model implements AttributeContract, Sortable
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('rinvex.attributable.tables.attributes'));
+        $this->setTable(config('rinvex.attributes.tables.attributes'));
         $this->setRules([
             'name' => 'required|string|max:150',
             'description' => 'nullable|string|max:10000',
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributable.tables.attributes').',slug',
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributes.tables.attributes').',slug',
             'sort_order' => 'nullable|integer|max:10000000',
             'group' => 'nullable|string|max:150',
             'type' => 'required|string|max:150',
@@ -240,7 +240,7 @@ class Attribute extends Model implements AttributeContract, Sortable
      */
     public function entities(): HasMany
     {
-        return $this->hasMany(config('rinvex.attributable.models.attribute_entity'), 'attribute_id', 'id');
+        return $this->hasMany(config('rinvex.attributes.models.attribute_entity'), 'attribute_id', 'id');
     }
 
     /**

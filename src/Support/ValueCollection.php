@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Support;
+namespace Rinvex\Attributes\Support;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection as BaseCollection;
@@ -20,7 +20,7 @@ class ValueCollection extends EloquentCollection
     /**
      * The attribute this value collection is storing.
      *
-     * @var \Rinvex\Attributable\Models\Attribute
+     * @var \Rinvex\Attributes\Models\Attribute
      */
     protected $attribute;
 
@@ -129,7 +129,7 @@ class ValueCollection extends EloquentCollection
      *
      * @param \Illuminate\Support\Collection|array $values
      *
-     * @return \Rinvex\Attributable\Models\Value[]
+     * @return \Rinvex\Attributes\Models\Value[]
      */
     protected function buildValues($values)
     {

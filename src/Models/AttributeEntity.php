@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Models;
+namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Rinvex\Attributable\Contracts\AttributeEntityContract;
+use Rinvex\Attributes\Contracts\AttributeEntityContract;
 
 /**
- * Rinvex\Attributable\Models\AttributeEntity.
+ * Rinvex\Attributes\Models\AttributeEntity.
  *
  * @property int            $attribute_id
  * @property string         $entity_type
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\AttributeEntity whereAttributeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\AttributeEntity whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\AttributeEntity whereEntityType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\AttributeEntity whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereAttributeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereEntityType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class AttributeEntity extends Model implements AttributeEntityContract

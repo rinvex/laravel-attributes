@@ -1,6 +1,6 @@
 {
-    "name": "rinvex/attributable",
-    "description": "Rinvex Attributable is a robust, intelligent, and integrated Entity-Attribute-Value model (EAV) implementation for Laravel Eloquent, with powerful underlying for managing entity attributes implicitly as relations with ease. It utilizes the power of Laravel Eloquent, with smooth and seamless integration.",
+    "name": "rinvex/attributes",
+    "description": "Rinvex Attributes is a robust, intelligent, and integrated Entity-Attribute-Value model (EAV) implementation for Laravel Eloquent, with powerful underlying for managing entity attributes implicitly as relations with ease. It utilizes the power of Laravel Eloquent, with smooth and seamless integration.",
     "keywords": [
         "eav",
         "eloquent",
@@ -21,9 +21,9 @@
     "homepage": "https://rinvex.com",
     "support": {
         "email": "help@rinvex.com",
-        "issues": "https://github.com/rinvex/attributable/issues",
-        "source": "https://github.com/rinvex/attributable",
-        "docs": "https://github.com/rinvex/attributable/blob/master/README.md"
+        "issues": "https://github.com/rinvex/attributes/issues",
+        "source": "https://github.com/rinvex/attributes",
+        "docs": "https://github.com/rinvex/attributes/blob/master/README.md"
     },
     "authors": [
         {
@@ -43,7 +43,7 @@
         },
         {
             "name": "The Generous Laravel Community",
-            "homepage": "https://github.com/rinvex/attributable/contributors"
+            "homepage": "https://github.com/rinvex/attributes/contributors"
         }
     ],
     "require": {
@@ -66,7 +66,7 @@
             "database"
         ],
         "psr-4": {
-            "Rinvex\\Attributable\\": "src"
+            "Rinvex\\Attributes\\": "src"
         }
     },
     "autoload-dev": {
@@ -85,7 +85,7 @@
         },
         "laravel": {
             "providers": [
-                "Rinvex\\Attributable\\Providers\\AttributableServiceProvider"
+                "Rinvex\\Attributes\\Providers\\AttributesServiceProvider"
             ]
         }
     },

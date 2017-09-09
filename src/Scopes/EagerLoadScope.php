@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Scopes;
+namespace Rinvex\Attributes\Scopes;
 
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;

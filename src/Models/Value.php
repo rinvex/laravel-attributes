@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Models;
+namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Rinvex\Attributable\Support\ValueCollection;
+use Rinvex\Attributes\Support\ValueCollection;
 
 abstract class Value extends Model
 {
