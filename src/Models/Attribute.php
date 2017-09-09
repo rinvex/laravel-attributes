@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Rinvex\Attributes\Contracts\AttributeContract;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Rinvex\Attributes\Models\Attribute.
