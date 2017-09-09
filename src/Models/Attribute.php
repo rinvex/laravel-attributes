@@ -2,51 +2,54 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Models;
+namespace Rinvex\Attributes\Models;
 
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Illuminate\Support\Facades\DB;
 use Spatie\EloquentSortable\Sortable;
-use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
+use Rinvex\Support\Traits\HasTranslations;
+use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Rinvex\Attributes\Contracts\AttributeContract;
 
 /**
- * Rinvex\Attributable\Models\Attribute.
+ * Rinvex\Attributes\Models\Attribute.
  *
- * @property int                                 $id
- * @property string                              $slug
- * @property array                               $name
- * @property array                               $description
- * @property int                                 $sort_order
- * @property string|null                         $group
- * @property string                              $type
- * @property int                                 $is_required
- * @property int                                 $is_collection
- * @property string|null                         $default
- * @property \Carbon\Carbon|null                 $created_at
- * @property \Carbon\Carbon|null                 $updated_at
- * @property \Illuminate\Support\Collection|null $entities
+ * @property int                                                                      $id
+ * @property string                                                                   $slug
+ * @property array                                                                    $name
+ * @property array                                                                    $description
+ * @property int                                                                      $sort_order
+ * @property string                                                                   $group
+ * @property string                                                                   $type
+ * @property bool                                                                     $is_required
+ * @property bool                                                                     $is_collection
+ * @property string                                                                   $default
+ * @property \Carbon\Carbon                                                           $created_at
+ * @property \Carbon\Carbon                                                           $updated_at
+ * @property array                                                                    $entities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\User[] $values
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute ordered($direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereDefault($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereGroup($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereIsCollection($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereIsRequired($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereSortOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Attribute whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute ordered($direction = 'asc')
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereDefault($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereGroup($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsCollection($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsRequired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Attribute extends Model implements Sortable
+class Attribute extends Model implements AttributeContract, Sortable
 {
     use HasSlug;
     use SortableTrait;
@@ -73,7 +76,23 @@ class Attribute extends Model implements Sortable
     /**
      * {@inheritdoc}
      */
-    protected $observables = ['validating', 'validated'];
+    protected $casts = [
+        'slug' => 'string',
+        'sort_order' => 'integer',
+        'group' => 'string',
+        'type' => 'string',
+        'is_required' => 'boolean',
+        'is_collection' => 'boolean',
+        'default' => 'string',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $observables = [
+        'validating',
+        'validated',
+    ];
 
     /**
      * {@inheritdoc}
@@ -86,7 +105,9 @@ class Attribute extends Model implements Sortable
     /**
      * {@inheritdoc}
      */
-    public $sortable = ['order_column_name' => 'sort_order'];
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+    ];
 
     /**
      * The default rules that the model will validate against.
@@ -112,12 +133,17 @@ class Attribute extends Model implements Sortable
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('rinvex.attributable.tables.attributes'));
+        $this->setTable(config('rinvex.attributes.tables.attributes'));
         $this->setRules([
             'name' => 'required|string|max:150',
+            'description' => 'nullable|string|max:10000',
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributes.tables.attributes').',slug',
+            'sort_order' => 'nullable|integer|max:10000000',
+            'group' => 'nullable|string|max:150',
             'type' => 'required|string|max:150',
-            'description' => 'nullable|string',
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributable.tables.attributes').',slug',
+            'is_required' => 'sometimes|boolean',
+            'is_collection' => 'sometimes|boolean',
+            'default' => 'nullable|string|max:10000',
         ]);
     }
 
@@ -129,61 +155,36 @@ class Attribute extends Model implements Sortable
         parent::boot();
 
         // Auto generate slugs early before validation
-        static::registerModelEvent('validating', function (self $attribute) {
-            if (! $attribute->slug) {
-                if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
-                    $attribute->generateSlugOnUpdate();
-                } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
-                    $attribute->generateSlugOnCreate();
-                }
+        static::validating(function (self $attribute) {
+            if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
+                $attribute->generateSlugOnUpdate();
+            } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
+                $attribute->generateSlugOnCreate();
             }
         });
     }
 
     /**
-     * Set the translatable name attribute.
+     * Enforce clean groups.
      *
      * @param string $value
      *
      * @return void
      */
-    public function setNameAttribute($value)
+    public function setGroupAttribute($value)
     {
-        $this->attributes['name'] = json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value);
+        $this->attributes['group'] = str_slug($value);
     }
 
     /**
-     * Set the translatable description attribute.
+     * Access entities relation and retrieve entity types as an array,
+     * Accessors/Mutators preceeds relation value when called dynamically.
      *
-     * @param string $value
-     *
-     * @return void
+     * @return array
      */
-    public function setDescriptionAttribute($value)
+    public function getEntitiesAttribute(): array
     {
-        $this->attributes['description'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Enforce clean slugs.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setSlugAttribute($value)
-    {
-        $this->attributes['slug'] = str_slug($value, '_');
-    }
-
-    /**
-     * Get the entities attached to this attribute.
-     *
-     * @return \Illuminate\Support\Collection|null
-     */
-    public function getEntitiesAttribute()
-    {
-        return DB::table(config('rinvex.attributable.tables.attribute_entity'))->where('attribute_id', $this->getKey())->get()->pluck('entity_type')->toArray();
+        return $this->entities()->pluck('entity_type')->toArray();
     }
 
     /**
@@ -198,11 +199,11 @@ class Attribute extends Model implements Sortable
         static::saved(function ($model) use ($entities) {
             $values = [];
             foreach ($entities as $entity) {
-                $values[] = ['attribute_id' => $model->id, 'entity_type' => $entity];
+                $values[] = ['entity_type' => $entity];
             }
 
-            DB::table(config('rinvex.attributable.tables.attribute_entity'))->where('attribute_id', $model->id)->delete();
-            DB::table(config('rinvex.attributable.tables.attribute_entity'))->insert($values);
+            $this->entities()->delete();
+            $this->entities()->createMany($values);
         });
     }
 
@@ -217,5 +218,40 @@ class Attribute extends Model implements Sortable
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Scope attributes by given group.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param string|null                           $group
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithGroup(Builder $builder, string $group = null): Builder
+    {
+        return $group ? $builder->where('group', $group) : $builder;
+    }
+
+    /**
+     * Get the entities attached to this attribute.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function entities(): HasMany
+    {
+        return $this->hasMany(config('rinvex.attributes.models.attribute_entity'), 'attribute_id', 'id');
+    }
+
+    /**
+     * Get the entities attached to this attribute.
+     *
+     * @param string $value
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function values(string $value): HasMany
+    {
+        return $this->hasMany($value, 'attribute_id', 'id');
     }
 }

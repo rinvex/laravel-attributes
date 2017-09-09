@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Models\Type;
+namespace Rinvex\Attributes\Models\Type;
 
-use Rinvex\Attributable\Models\Value;
+use Rinvex\Attributes\Models\Value;
 
 /**
- * Rinvex\Attributable\Models\Type\Datetime.
+ * Rinvex\Attributes\Models\Type\Datetime.
  *
  * @property int                                                $id
  * @property \Carbon\Carbon                                     $content
  * @property int                                                $attribute_id
  * @property int                                                $entity_id
  * @property string                                             $entity_type
- * @property \Carbon\Carbon|null                                $created_at
- * @property \Carbon\Carbon|null                                $updated_at
- * @property-read \Rinvex\Attributable\Models\Attribute         $attribute
+ * @property \Carbon\Carbon                                     $created_at
+ * @property \Carbon\Carbon                                     $updated_at
+ * @property-read \Rinvex\Attributes\Models\Attribute         $attribute
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereAttributeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereEntityId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereEntityType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributable\Models\Type\Datetime whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Datetime whereAttributeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Datetime whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Datetime whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Datetime whereEntityId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Datetime whereEntityType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Datetime whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Datetime whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Datetime extends Value
@@ -33,7 +33,12 @@ class Datetime extends Value
     /**
      * {@inheritdoc}
      */
-    protected $dates = ['content'];
+    protected $casts = [
+        'content' => 'datetime',
+        'attribute_id' => 'integer',
+        'entity_id' => 'integer',
+        'entity_type' => 'string',
+    ];
 
     /**
      * Create a new Eloquent model instance.
@@ -44,6 +49,12 @@ class Datetime extends Value
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('rinvex.attributable.tables.values_datetime'));
+        $this->setTable(config('rinvex.attributes.tables.attribute_datetime_values'));
+        $this->setRules([
+            'content' => 'required|date',
+            'attribute_id' => 'required|integer|exists:'.config('rinvex.attributes.tables.attributes').',id',
+            'entity_id' => 'required|integer',
+            'entity_type' => 'required|string',
+        ]);
     }
 }

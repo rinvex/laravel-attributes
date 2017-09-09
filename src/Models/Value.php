@@ -2,15 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Models;
+namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Rinvex\Attributable\Support\ValueCollection;
+use Rinvex\Support\Traits\ValidatingTrait;
+use Rinvex\Attributes\Support\ValueCollection;
 
 abstract class Value extends Model
 {
+    use ValidatingTrait;
     use CacheableEloquent;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $fillable = [
+        'content',
+        'attribute_id',
+        'entity_id',
+        'entity_type',
+    ];
 
     /**
      * Determine if value should push to relations when saving.
@@ -18,6 +30,21 @@ abstract class Value extends Model
      * @var bool
      */
     protected $shouldPush = false;
+
+    /**
+     * The default rules that the model will validate against.
+     *
+     * @var array
+     */
+    protected $rules = [];
+
+    /**
+     * Whether the model should throw a
+     * ValidationException if it fails validation.
+     *
+     * @var bool
+     */
+    protected $throwValidationExceptions = true;
 
     /**
      * Relationship to the attribute entity.

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateValuesIntegerTable extends Migration
+class CreateAttributeVarcharValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,17 +15,17 @@ class CreateValuesIntegerTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('rinvex.attributable.tables.values_integer'), function (Blueprint $table) {
+        Schema::create(config('rinvex.attributes.tables.attribute_varchar_values'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
-            $table->integer('content');
+            $table->string('content');
             $table->integer('attribute_id')->unsigned();
             $table->integer('entity_id')->unsigned();
             $table->string('entity_type');
             $table->timestamps();
 
             // Indexes
-            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributable.tables.attributes'))
+            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributes.tables.attributes'))
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -37,6 +37,6 @@ class CreateValuesIntegerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('rinvex.attributable.tables.values_integer'));
+        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_varchar_values'));
     }
 }

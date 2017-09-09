@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Traits;
+namespace Rinvex\Attributes\Traits;
 
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SuperClosure\Serializer;
-use Illuminate\Support\Facades\DB;
-use Rinvex\Attributable\Models\Value;
+use Rinvex\Attributes\Models\Value;
 use Illuminate\Database\Eloquent\Builder;
-use Rinvex\Attributable\Models\Attribute;
-use Rinvex\Attributable\Events\EntityWasSaved;
-use Rinvex\Attributable\Scopes\EagerLoadScope;
-use Rinvex\Attributable\Events\EntityWasDeleted;
-use Rinvex\Attributable\Support\RelationBuilder;
-use Rinvex\Attributable\Support\ValueCollection;
+use Rinvex\Attributes\Models\Attribute;
+use Rinvex\Attributes\Events\EntityWasSaved;
+use Rinvex\Attributes\Scopes\EagerLoadScope;
+use Rinvex\Attributes\Events\EntityWasDeleted;
+use Rinvex\Attributes\Support\RelationBuilder;
+use Rinvex\Attributes\Support\ValueCollection;
 use Illuminate\Support\Collection as BaseCollection;
 
 trait Attributable
@@ -56,9 +55,9 @@ trait Attributable
      */
     public static function bootAttributable()
     {
-        $models = array_merge([static::class], array_values(class_parents(static::class)));
-        $attributes = DB::table(config('rinvex.attributable.tables.attribute_entity'))->whereIn('entity_type', $models)->get()->pluck('attribute_id');
-        static::$entityAttributes = Attribute::whereIn('id', $attributes)->get()->keyBy('slug');
+        $models = array_merge([static::class], array_values(class_parents(static::class)), array_values(class_implements(static::class)));
+        $attributes = app('rinvex.attributes.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
+        static::$entityAttributes = app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
 
         static::addGlobalScope(new EagerLoadScope());
 
@@ -358,7 +357,7 @@ trait Attributable
     /**
      * Set the entity attribute value.
      *
-     * @param \Rinvex\Attributable\Models\Attribute $attribute
+     * @param \Rinvex\Attributes\Models\Attribute $attribute
      * @param mixed                                 $value
      *
      * @return $this
@@ -417,16 +416,16 @@ trait Attributable
     /**
      * Scope query with the given entity attribute.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param string                                $key
      * @param mixed                                 $value
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeHasAttribute(Builder $query, string $key, $value): Builder
+    public function scopeHasAttribute(Builder $builder, string $key, $value): Builder
     {
-        return $query->whereHas($key, function (Builder $query) use ($value) {
-            $query->where('content', $value)->where('entity_type', get_class($this));
+        return $builder->whereHas($key, function (Builder $builder) use ($value) {
+            $builder->where('content', $value)->where('entity_type', get_class($this));
         });
     }
 
@@ -441,7 +440,11 @@ trait Attributable
     public function __call($method, $parameters)
     {
         if ($this->isEntityAttributeRelation($method)) {
-            return call_user_func_array($this->entityAttributeRelations[$method], $parameters);
+            $relation = $this->entityAttributeRelations[$method] instanceof Closure
+                ? $this->entityAttributeRelations[$method]
+                : (new Serializer())->unserialize($this->entityAttributeRelations[$method]);
+
+            return call_user_func_array($relation, $parameters);
         }
 
         return parent::__call($method, $parameters);

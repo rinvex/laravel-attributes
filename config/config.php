@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Attributable Database Tables
-    |--------------------------------------------------------------------------
-    |
-    | Specify database table names that should be used to store
-    | your attribute, attribute/entity relations, and value records.
-    |
-    */
-
+    // Attributes Database Tables
     'tables' => [
 
         'attributes' => 'attributes',
         'attribute_entity' => 'attribute_entity',
-        'values_boolean' => 'values_boolean',
-        'values_datetime' => 'values_datetime',
-        'values_integer' => 'values_integer',
-        'values_text' => 'values_text',
-        'values_varchar' => 'values_varchar',
+        'attribute_boolean_values' => 'attribute_boolean_values',
+        'attribute_datetime_values' => 'attribute_datetime_values',
+        'attribute_integer_values' => 'attribute_integer_values',
+        'attribute_text_values' => 'attribute_text_values',
+        'attribute_varchar_values' => 'attribute_varchar_values',
+
+    ],
+
+    // Attributes Models
+    'models' => [
+
+        'attribute' => \Rinvex\Attributes\Models\Attribute::class,
+        'attribute_entity' => \Rinvex\Attributes\Models\AttributeEntity::class,
 
     ],
 

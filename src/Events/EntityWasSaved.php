@@ -2,22 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributable\Events;
+namespace Rinvex\Attributes\Events;
 
 use Exception;
-use Rinvex\Attributable\Models\Value;
-use Rinvex\Attributable\Support\ValueCollection;
+use Rinvex\Attributes\Models\Value;
+use Rinvex\Attributes\Support\ValueCollection;
 use Illuminate\Database\Eloquent\Model as Entity;
 
 class EntityWasSaved
 {
-    /**
-     * The entity instance.
-     *
-     * @var \Illuminate\Database\Eloquent\Model
-     */
-    protected $entity;
-
     /**
      * The trash collection.
      *
@@ -36,23 +29,28 @@ class EntityWasSaved
      */
     public function handle(Entity $entity)
     {
-        $this->entity = $entity;
-        $this->trash = $this->entity->getEntityAttributeValueTrash();
+        $this->trash = $entity->getEntityAttributeValueTrash();
 
         // Wrap the whole process inside database transaction
-        $connection = $this->entity->getConnection();
+        $connection = $entity->getConnection();
         $connection->beginTransaction();
 
         try {
-            foreach ($this->entity->getEntityAttributes() as $attribute) {
-                if ($this->entity->relationLoaded($relation = $attribute->getAttribute('slug'))) {
-                    $relationValue = $this->entity->getRelationValue($relation);
+            foreach ($entity->getEntityAttributes() as $attribute) {
+                if ($entity->relationLoaded($relation = $attribute->getAttribute('slug'))) {
+                    $relationValue = $entity->getRelationValue($relation);
 
                     if ($relationValue instanceof ValueCollection) {
                         foreach ($relationValue as $value) {
+                            // Set attribute value's entity_id since it's always null,
+                            // because when RelationBuilder::build is called very early
+                            $value->setAttribute('entity_id', $entity->getKey());
                             $this->saveOrTrashValue($value);
                         }
                     } elseif (! is_null($relationValue)) {
+                        // Set attribute value's entity_id since it's always null,
+                        // because when RelationBuilder::build is called very early
+                        $relationValue->setAttribute('entity_id', $entity->getKey());
                         $this->saveOrTrashValue($relationValue);
                     }
                 }
@@ -82,7 +80,7 @@ class EntityWasSaved
     /**
      * Save or trash the given value according to it's content.
      *
-     * @param \Rinvex\Attributable\Models\Value $value
+     * @param \Rinvex\Attributes\Models\Value $value
      *
      * @return void
      */
@@ -103,7 +101,7 @@ class EntityWasSaved
     /**
      * Trash the given value.
      *
-     * @param \Rinvex\Attributable\Models\Value $value
+     * @param \Rinvex\Attributes\Models\Value $value
      *
      * @return bool
      */

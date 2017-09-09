@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateValuesDateTimeTable extends Migration
+class CreateAttributeBooleanValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,17 +15,17 @@ class CreateValuesDateTimeTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('rinvex.attributable.tables.values_datetime'), function (Blueprint $table) {
+        Schema::create(config('rinvex.attributes.tables.attribute_boolean_values'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
-            $table->dateTime('content');
+            $table->boolean('content');
             $table->integer('attribute_id')->unsigned();
             $table->integer('entity_id')->unsigned();
             $table->string('entity_type');
             $table->timestamps();
 
             // Indexes
-            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributable.tables.attributes'))
+            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributes.tables.attributes'))
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -37,6 +37,6 @@ class CreateValuesDateTimeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('rinvex.attributable.tables.values_datetime'));
+        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_boolean_values'));
     }
 }

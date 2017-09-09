@@ -15,14 +15,15 @@ class CreateAttributeEntityTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('rinvex.attributable.tables.attribute_entity'), function (Blueprint $table) {
+        Schema::create(config('rinvex.attributes.tables.attribute_entity'), function (Blueprint $table) {
             // Columns
             $table->integer('attribute_id')->unsigned();
             $table->string('entity_type');
+            $table->timestamps();
 
             // Indexes
             $table->unique(['attribute_id', 'entity_type'], 'attributable_attribute_id_entity_type');
-            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributable.tables.attributes'))
+            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributes.tables.attributes'))
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -34,6 +35,6 @@ class CreateAttributeEntityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('rinvex.attributable.tables.attribute_entity'));
+        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_entity'));
     }
 }
