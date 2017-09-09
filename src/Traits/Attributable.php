@@ -9,8 +9,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SuperClosure\Serializer;
 use Rinvex\Attributes\Models\Value;
-use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Attributes\Models\Attribute;
+use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Attributes\Events\EntityWasSaved;
 use Rinvex\Attributes\Scopes\EagerLoadScope;
 use Rinvex\Attributes\Events\EntityWasDeleted;
@@ -358,7 +358,7 @@ trait Attributable
      * Set the entity attribute value.
      *
      * @param \Rinvex\Attributes\Models\Attribute $attribute
-     * @param mixed                                 $value
+     * @param mixed                               $value
      *
      * @return $this
      */
