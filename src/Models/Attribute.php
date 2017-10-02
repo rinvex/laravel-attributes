@@ -197,13 +197,10 @@ class Attribute extends Model implements AttributeContract, Sortable
     public function setEntitiesAttribute($entities)
     {
         static::saved(function ($model) use ($entities) {
-            $values = [];
-            foreach ($entities as $entity) {
-                $values[] = ['entity_type' => $entity];
-            }
-
             $this->entities()->delete();
-            $this->entities()->createMany($values);
+            ! $entities || $this->entities()->createMany(array_map(function ($entity) {
+                return ['entity_type' => $entity];
+            }, $entities));
         });
     }
 
