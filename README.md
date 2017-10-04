@@ -39,6 +39,7 @@ This package is a rewritten fork of the awesome [IsraelOrtuno](https://github.co
     - [Register your entities](#register-your-entities)
     - [Create new attribute](#create-new-attribute)
     - [Manage attribute entities](#manage-attribute-entities)
+    - [Assigning values](#assigning-values)
     - [Querying models](#querying-models)
     - [Eager loading](#eager-loading)
 - [Changelog](#changelog)
