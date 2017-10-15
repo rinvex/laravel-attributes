@@ -12,6 +12,7 @@ use Rinvex\Attributes\Models\Type\Varchar;
 use Rinvex\Attributes\Models\Type\Datetime;
 use Rinvex\Attributes\Contracts\AttributeContract;
 use Rinvex\Attributes\Console\Commands\MigrateCommand;
+use Rinvex\Attributes\Console\Commands\PublishCommand;
 use Rinvex\Attributes\Contracts\AttributeEntityContract;
 
 class AttributesServiceProvider extends ServiceProvider
@@ -23,6 +24,7 @@ class AttributesServiceProvider extends ServiceProvider
      */
     protected $commands = [
         MigrateCommand::class => 'command.rinvex.attributes.migrate',
+        PublishCommand::class => 'command.rinvex.attributes.publish',
     ];
 
     /**
