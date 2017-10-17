@@ -14,9 +14,9 @@ use Rinvex\Attributes\Models\Value;
  * @property int                                                $attribute_id
  * @property int                                                $entity_id
  * @property string                                             $entity_type
- * @property \Carbon\Carbon                                     $created_at
- * @property \Carbon\Carbon                                     $updated_at
- * @property-read \Rinvex\Attributes\Models\Attribute         $attribute
+ * @property \Carbon\Carbon|null                                $created_at
+ * @property \Carbon\Carbon|null                                $updated_at
+ * @property-read \Rinvex\Attributes\Models\Attribute           $attribute
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereAttributeId($value)

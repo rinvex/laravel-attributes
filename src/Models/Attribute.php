@@ -19,20 +19,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Rinvex\Attributes\Models\Attribute.
  *
- * @property int                                                                      $id
- * @property string                                                                   $slug
- * @property array                                                                    $name
- * @property array                                                                    $description
- * @property int                                                                      $sort_order
- * @property string                                                                   $group
- * @property string                                                                   $type
- * @property bool                                                                     $is_required
- * @property bool                                                                     $is_collection
- * @property string                                                                   $default
- * @property \Carbon\Carbon                                                           $created_at
- * @property \Carbon\Carbon                                                           $updated_at
- * @property array                                                                    $entities
- * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\User[] $values
+ * @property int                                                                               $id
+ * @property string                                                                            $slug
+ * @property array                                                                             $name
+ * @property array                                                                             $description
+ * @property int                                                                               $sort_order
+ * @property string                                                                            $group
+ * @property string                                                                            $type
+ * @property bool                                                                              $is_required
+ * @property bool                                                                              $is_collection
+ * @property string                                                                            $default
+ * @property \Carbon\Carbon|null                                                               $created_at
+ * @property \Carbon\Carbon|null                                                               $updated_at
+ * @property array                                                                             $entities
+ * @property-read \Rinvex\Attributes\Support\ValueCollection|\Rinvex\Attributes\Models\Value[] $values
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute ordered($direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereCreatedAt($value)
@@ -47,6 +47,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute withGroup($group)
  * @mixin \Eloquent
  */
 class Attribute extends Model implements AttributeContract, Sortable
@@ -221,11 +222,11 @@ class Attribute extends Model implements AttributeContract, Sortable
      * Scope attributes by given group.
      *
      * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string|null                           $group
+     * @param string                                $group
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithGroup(Builder $builder, string $group = null): Builder
+    public function scopeWithGroup(Builder $builder, string $group): Builder
     {
         return $group ? $builder->where('group', $group) : $builder;
     }
