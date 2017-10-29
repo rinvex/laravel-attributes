@@ -29,7 +29,7 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        $this->warn('Publish rinvex/attributes:');
+        $this->warn($this->description);
         $this->call('vendor:publish', ['--tag' => 'rinvex-attributes-config', '--force' => $this->option('force')]);
     }
 }
