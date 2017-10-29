@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models;
 
-use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Rinvex\Support\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
@@ -146,23 +146,6 @@ class Attribute extends Model implements AttributeContract, Sortable
             'is_collection' => 'sometimes|boolean',
             'default' => 'nullable|string|max:10000',
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Auto generate slugs early before validation
-        static::validating(function (self $attribute) {
-            if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
-                $attribute->generateSlugOnUpdate();
-            } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
-                $attribute->generateSlugOnCreate();
-            }
-        });
     }
 
     /**
