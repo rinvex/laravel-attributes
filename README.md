@@ -99,7 +99,7 @@ select * from `attribute_varchar_values` where `attribute_id` = '4' and `attribu
 
 However, despite the performance issues, EAV provides a very high flexibility. It let us have dynamic attributes that can be added / removed at any time without affecting database structure. It also helps when working with columns that will mainly store `NULL` values.
 
-Considering you accepts the lack of performance EAV comes with, the package has been developed with flexibility in mind so at least you can fight that performance issue. Performance could be improved by loading all the entity related values in a single query and letting a bit of PHP logic organize them into relationships but decided not to, in favor of making database querying more flexible.
+Considering you accept the lack of performance EAV comes with, the package has been developed with flexibility in mind so at least you can fight that performance issue. Performance could be improved by loading all the entity related values in a single query and letting a bit of PHP logic organize them into relationships but decided not to, in favor of making database querying more flexible.
 
 As explained below, this package loads the entity values as if they were custom Eloquent relationships. Is for this reason we can easily query through them as if they were a regular Eloquent relation.
 
