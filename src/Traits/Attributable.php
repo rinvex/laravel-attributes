@@ -25,7 +25,7 @@ trait Attributable
      *
      * @var \Illuminate\Database\Eloquent\Collection
      */
-    protected static $entityAttributes;
+    protected $entityAttributes;
 
     /**
      * The entity attribute value trash.
@@ -55,12 +55,7 @@ trait Attributable
      */
     public static function bootAttributable()
     {
-        $models = array_merge([static::class], array_values(class_parents(static::class)), array_values(class_implements(static::class)));
-        $attributes = app('rinvex.attributes.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
-        static::$entityAttributes = app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
-
         static::addGlobalScope(new EagerLoadScope());
-
         static::saved(EntityWasSaved::class.'@handle');
         static::deleted(EntityWasDeleted::class.'@handle');
     }
@@ -159,7 +154,13 @@ trait Attributable
      */
     public function getEntityAttributes()
     {
-        return static::$entityAttributes;
+        if (! $this->entityAttributes) {
+            $models = array_merge([static::class], array_values(class_parents(static::class)), array_values(class_implements(static::class)));
+            $attributes = app('rinvex.attributes.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
+            $this->entityAttributes = app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
+        }
+
+        return $this->entityAttributes;
     }
 
     /**
