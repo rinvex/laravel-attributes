@@ -13,7 +13,7 @@
 
 ## Credits notice
 
-This package is a rewritten fork of the awesome [IsraelOrtuno](https://github.com/IsraelOrtuno)'s awesome [EAV Package](https://github.com/IsraelOrtuno/Eavquent), original credits goes to him. It's been widely rewritten, with same core concepts as it's fundamentally good in our opinion. The main differences in this fork include:
+This package is a rewritten fork of [IsraelOrtuno](https://github.com/IsraelOrtuno)'s awesome [EAV Package](https://github.com/IsraelOrtuno/Eavquent), original credits goes to him. It's been widely rewritten, with same core concepts as it's fundamentally good in our opinion. The main differences in this fork include:
 
 - Huge boost of performance utilizing [rinvex/cacheable](https://github.com/rinvex/cacheable)
 - Serialize and deserialize the entity with it's relations
