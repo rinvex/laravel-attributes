@@ -52,7 +52,7 @@ class RelationBuilder
             // Since an attribute could be attached to multiple entities, then values could have
             // same entity ID, but for different entity types, so we need to add type where
             // clause to fetch only values related to the given entity ID + entity type.
-            $relation->where('entity_type', get_class($entity));
+            $relation->where('entity_type', $entity->getMorphClass());
 
             // We add a where clause in order to fetch only the elements that are
             // related to the given attribute. If no condition is set, it will

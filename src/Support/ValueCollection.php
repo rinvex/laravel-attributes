@@ -117,7 +117,7 @@ class ValueCollection extends EloquentCollection
         $instance = new $model();
 
         $instance->setAttribute('entity_id', $this->entity->getKey());
-        $instance->setAttribute('entity_type', get_class($this->entity));
+        $instance->setAttribute('entity_type', $this->entity->getMorphClass());
         $instance->setAttribute($this->attribute->getForeignKey(), $this->attribute->getKey());
         $instance->setAttribute('content', $value);
 
