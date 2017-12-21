@@ -35,7 +35,6 @@ namespace Rinvex\Attributes\Contracts;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute withGroup($group)
  * @mixin \Eloquent
  */
 interface AttributeContract

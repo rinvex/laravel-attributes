@@ -47,7 +47,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute withGroup($group)
  * @mixin \Eloquent
  */
 class Attribute extends Model implements AttributeContract, Sortable
@@ -199,19 +198,6 @@ class Attribute extends Model implements AttributeContract, Sortable
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
-    }
-
-    /**
-     * Scope attributes by given group.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string                                $group
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeWithGroup(Builder $builder, string $group): Builder
-    {
-        return $group ? $builder->where('group', $group) : $builder;
     }
 
     /**
