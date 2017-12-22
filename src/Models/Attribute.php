@@ -124,6 +124,13 @@ class Attribute extends Model implements AttributeContract, Sortable
     protected $throwValidationExceptions = true;
 
     /**
+     * An array to map class names to their type names in database.
+     *
+     * @var array
+     */
+    protected static $typeMap = [];
+
+    /**
      * Create a new Eloquent model instance.
      *
      * @param array $attributes
@@ -144,6 +151,38 @@ class Attribute extends Model implements AttributeContract, Sortable
             'is_collection' => 'sometimes|boolean',
             'default' => 'nullable|string|max:10000',
         ]);
+    }
+
+    /**
+     * Set or get the type map for attribute types.
+     *
+     * @param array|null $map
+     * @param bool       $merge
+     *
+     * @return array
+     */
+    public static function typeMap(array $map = null, $merge = true)
+    {
+        if (is_array($map)) {
+            static::$typeMap = $merge && static::$typeMap
+                ? $map + static::$typeMap : $map;
+        }
+
+        return static::$typeMap;
+    }
+
+    /**
+     * Get the model associated with a custom attribute type.
+     *
+     * @param string $alias
+     *
+     * @return string|null
+     */
+    public static function getTypeModel($alias)
+    {
+        return array_key_exists($alias, self::$typeMap)
+            ? self::$typeMap[$alias]
+            : null;
     }
 
     /**

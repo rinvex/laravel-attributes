@@ -176,9 +176,14 @@ That's it, we only have to include that trait in our Eloquent model!
 ### Register your own types
 
 ```php
-app('rinvex.attributes.types')->push(\Path\To\Your\Type::class);
+use Rinvex\Attributes\Models\Attribute;
+
+Attribute::typeMap([
+    'custom' => \Path\To\Your\Type::class,
+]);
 ```
-You can call the `'rinvex.attributes.types'` service from anywhere in your application, and anytime in the request lifecycle (preferred inside the `boot` method of a service provider). It's a singleton object, holds a pure Laravel [Collection](https://laravel.com/docs/master/collections).
+
+While you can register your custom types from anywhere in your application, it's recommended to do so in your service provider's `boot` method.
 
 ### Register your entities
 

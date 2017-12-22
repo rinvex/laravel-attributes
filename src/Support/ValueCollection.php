@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Support;
 
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Attributes\Models\Attribute;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
@@ -113,7 +114,7 @@ class ValueCollection extends EloquentCollection
             return $value;
         }
 
-        $model = $this->attribute->getAttribute('type');
+        $model = Attribute::getTypeModel($this->attribute->getAttribute('type'));
         $instance = new $model();
 
         $instance->setAttribute('entity_id', $this->entity->getKey());

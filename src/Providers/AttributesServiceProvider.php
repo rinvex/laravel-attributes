@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Attributes\Models\Type\Text;
-use Rinvex\Attributes\Models\Type\Boolean;
-use Rinvex\Attributes\Models\Type\Integer;
-use Rinvex\Attributes\Models\Type\Varchar;
-use Rinvex\Attributes\Models\Type\Datetime;
+use Rinvex\Attributes\Models\Attribute;
+use Illuminate\View\Compilers\BladeCompiler;
 use Rinvex\Attributes\Contracts\AttributeContract;
 use Rinvex\Attributes\Console\Commands\MigrateCommand;
 use Rinvex\Attributes\Console\Commands\PublishCommand;
@@ -48,14 +45,13 @@ class AttributesServiceProvider extends ServiceProvider
         });
         $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntityContract::class);
 
-        // Register attributes types
-        $this->app->singleton('rinvex.attributes.types', function ($app) {
-            return collect();
-        });
-
         // Register attributes entities
         $this->app->singleton('rinvex.attributes.entities', function ($app) {
             return collect();
+        });
+
+        $this->app->singleton('rinvex.attributes', function ($app) {
+            return                 $ob->getEntityAttributes()->map->render(request('accessarea'));
         });
 
         // Register console commands
@@ -68,11 +64,13 @@ class AttributesServiceProvider extends ServiceProvider
     public function boot()
     {
         // Add default attributes types
-        app('rinvex.attributes.types')->push(Text::class);
-        app('rinvex.attributes.types')->push(Boolean::class);
-        app('rinvex.attributes.types')->push(Integer::class);
-        app('rinvex.attributes.types')->push(Varchar::class);
-        app('rinvex.attributes.types')->push(Datetime::class);
+        Attribute::typeMap([
+            'boolean' => \Rinvex\Attributes\Models\Type\Boolean::class,
+            'datetime' => \Rinvex\Attributes\Models\Type\Datetime::class,
+            'integer' => \Rinvex\Attributes\Models\Type\Integer::class,
+            'text' => \Rinvex\Attributes\Models\Type\Text::class,
+            'varchar' => \Rinvex\Attributes\Models\Type\Varchar::class,
+        ]);
 
         // Load migrations
         ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
