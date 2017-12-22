@@ -79,6 +79,9 @@ class AttributesServiceProvider extends ServiceProvider
 
         // Publish Resources
         ! $this->app->runningInConsole() || $this->publishResources();
+
+        // Register blade extensions
+        $this->registerBladeExtensions();
     }
 
     /**
@@ -107,5 +110,20 @@ class AttributesServiceProvider extends ServiceProvider
         }
 
         $this->commands(array_values($this->commands));
+    }
+
+    /**
+     * Register the blade extensions.
+     *
+     * @return void
+     */
+    protected function registerBladeExtensions()
+    {
+        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+            // @attributes($entity)
+            $bladeCompiler->directive('attributes', function ($expression) {
+                return "<?php echo {$expression}->getEntityAttributes()->map->render({$expression}, request('accessarea'))->implode(''); ?>";
+            });
+        });
     }
 }
