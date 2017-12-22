@@ -350,7 +350,7 @@ trait Attributable
             $value = $value->getAttribute('content');
         }
 
-        $current->setAttribute('entity_type', get_class($this));
+        $current->setAttribute('entity_type', $this->getMorphClass());
 
         return $current->setAttribute('content', $value);
     }
@@ -370,7 +370,7 @@ trait Attributable
             $instance = new $model();
 
             $instance->setAttribute('entity_id', $this->getKey());
-            $instance->setAttribute('entity_type', get_class($this));
+            $instance->setAttribute('entity_type', $this->getMorphClass());
             $instance->setAttribute($attribute->getForeignKey(), $attribute->getKey());
             $instance->setAttribute('content', $value);
 
@@ -426,7 +426,7 @@ trait Attributable
     public function scopeHasAttribute(Builder $builder, string $key, $value): Builder
     {
         return $builder->whereHas($key, function (Builder $builder) use ($value) {
-            $builder->where('content', $value)->where('entity_type', get_class($this));
+            $builder->where('content', $value)->where('entity_type', $this->getMorphClass());
         });
     }
 
