@@ -25,7 +25,7 @@ trait Attributable
      *
      * @var \Illuminate\Database\Eloquent\Collection
      */
-    protected $entityAttributes;
+    protected static $entityAttributes;
 
     /**
      * The entity attribute value trash.
@@ -154,13 +154,13 @@ trait Attributable
      */
     public function getEntityAttributes()
     {
-        if (! $this->entityAttributes) {
+        if (! static::$entityAttributes) {
             $models = array_merge([static::class], array_values(class_parents(static::class)), array_values(class_implements(static::class)));
             $attributes = app('rinvex.attributes.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
-            $this->entityAttributes = app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
+            static::$entityAttributes = app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
         }
 
-        return $this->entityAttributes;
+        return static::$entityAttributes;
     }
 
     /**
