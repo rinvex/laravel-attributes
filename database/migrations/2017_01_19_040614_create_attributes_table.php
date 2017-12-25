@@ -28,6 +28,9 @@ class CreateAttributesTable extends Migration
             $table->boolean('is_collection')->default(false);
             $table->text('default')->nullable();
             $table->timestamps();
+
+            // Indexes
+            $table->unique('slug');
         });
     }
 
