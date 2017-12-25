@@ -50,10 +50,6 @@ class AttributesServiceProvider extends ServiceProvider
             return collect();
         });
 
-        $this->app->singleton('rinvex.attributes', function ($app) {
-            return                 $ob->getEntityAttributes()->map->render(request('accessarea'));
-        });
-
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
     }
