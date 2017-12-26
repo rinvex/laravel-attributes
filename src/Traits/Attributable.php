@@ -154,13 +154,15 @@ trait Attributable
      */
     public function getEntityAttributes()
     {
-        if (! static::$entityAttributes) {
-            $models = array_merge([static::class], array_values(class_parents(static::class)), array_values(class_implements(static::class)));
-            $attributes = app('rinvex.attributes.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
-            static::$entityAttributes = app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
+        $morphClass = $this->getMorphClass();
+        static::$entityAttributes = static::$entityAttributes ?? collect();
+
+        if (! static::$entityAttributes->has($morphClass)) {
+            $attributes = app('rinvex.attributes.attribute_entity')->where('entity_type', $morphClass)->get()->pluck('attribute_id');
+            static::$entityAttributes->put($morphClass, app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug'));
         }
 
-        return static::$entityAttributes;
+        return static::$entityAttributes->get($morphClass);
     }
 
     /**
