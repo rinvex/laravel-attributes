@@ -188,8 +188,13 @@ While you can register your custom types from anywhere in your application, it's
 ### Register your entities
 
 ```php
+// Push your entity fully qualified namespace
 app('rinvex.attributes.entities')->push(\Path\To\Your\Entity::class);
+
+// Or push the morph class alias if any
+app('rinvex.attributes.entities')->push('entity');
 ```
+
 You can call the `'rinvex.attributes.entities'` service from anywhere in your application, and anytime in the request lifecycle (preferred inside the `boot` method of a service provider). It's a singleton object, holds a pure Laravel [Collection](https://laravel.com/docs/master/collections).
 
 ### Create new attribute

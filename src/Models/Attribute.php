@@ -66,10 +66,10 @@ class Attribute extends Model implements AttributeContract, Sortable
         'sort_order',
         'group',
         'type',
-        'entities',
         'is_required',
         'is_collection',
         'default',
+        'entities',
     ];
 
     /**
@@ -150,6 +150,7 @@ class Attribute extends Model implements AttributeContract, Sortable
             'is_required' => 'sometimes|boolean',
             'is_collection' => 'sometimes|boolean',
             'default' => 'nullable|string|max:10000',
+            'entities' => 'nullable|array',
         ]);
     }
 
@@ -180,9 +181,7 @@ class Attribute extends Model implements AttributeContract, Sortable
      */
     public static function getTypeModel($alias)
     {
-        return array_key_exists($alias, self::$typeMap)
-            ? self::$typeMap[$alias]
-            : null;
+        return self::$typeMap[$alias] ?? null;
     }
 
     /**
