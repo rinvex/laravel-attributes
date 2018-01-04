@@ -150,7 +150,6 @@ class Attribute extends Model implements AttributeContract, Sortable
             'is_required' => 'sometimes|boolean',
             'is_collection' => 'sometimes|boolean',
             'default' => 'nullable|string|max:10000',
-            'entities' => 'nullable|array',
         ]);
     }
 
