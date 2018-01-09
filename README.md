@@ -204,8 +204,8 @@ Like any normal Eloquent model you can create attributes as follows:
 ```php
 app('rinvex.attributes.attribute')->create([
     'slug' => 'size',
+    'type' => 'varchar',
     'name' => 'Product Size',
-    'type' => 'Rinvex\Attributes\Models\Type\Varchar',
     'entities' => ['App\Models\Company', 'App\Models\Product'],
 ]);
 ```
@@ -239,7 +239,7 @@ $attribute->fill([
 ])->save();
 
 // Get all attribute values of type varchar
-$values = $attribute->values('Rinvex\Attributes\Models\Type\Varchar')->get();
+$values = $attribute->values('varchar')->get();
 ```
 
 ### Assigning values
