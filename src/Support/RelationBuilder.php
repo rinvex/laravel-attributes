@@ -17,7 +17,7 @@ class RelationBuilder
      *
      * @return void
      */
-    public function build(Entity $entity)
+    public function build(Entity $entity): void
     {
         $attributes = $entity->getEntityAttributes();
 

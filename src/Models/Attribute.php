@@ -190,7 +190,7 @@ class Attribute extends Model implements AttributeContract, Sortable
      *
      * @return void
      */
-    public function setGroupAttribute($value)
+    public function setGroupAttribute($value): void
     {
         $this->attributes['group'] = str_slug($value);
     }
@@ -213,7 +213,7 @@ class Attribute extends Model implements AttributeContract, Sortable
      *
      * @return void
      */
-    public function setEntitiesAttribute($entities)
+    public function setEntitiesAttribute($entities): void
     {
         static::saved(function ($model) use ($entities) {
             $this->entities()->delete();

@@ -18,7 +18,7 @@ class EagerLoadScope implements Scope
      *
      * @return void
      */
-    public function apply(Builder $builder, Entity $entity)
+    public function apply(Builder $builder, Entity $entity): void
     {
         $eagerLoads = $builder->getEagerLoads();
 

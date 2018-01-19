@@ -92,7 +92,7 @@ class ValueCollection extends EloquentCollection
      *
      * @return void
      */
-    protected function trashCurrentItems()
+    protected function trashCurrentItems(): void
     {
         $trash = $this->entity->getEntityAttributeValueTrash();
 

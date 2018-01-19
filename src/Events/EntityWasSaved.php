@@ -27,7 +27,7 @@ class EntityWasSaved
      *
      * @return void
      */
-    public function handle(Entity $entity)
+    public function handle(Entity $entity): void
     {
         $this->trash = $entity->getEntityAttributeValueTrash();
 
@@ -84,7 +84,7 @@ class EntityWasSaved
      *
      * @return void
      */
-    protected function saveOrTrashValue(Value $value)
+    protected function saveOrTrashValue(Value $value): void
     {
         // In order to provide flexibility and let the values have their own
         // relationships, here we'll check if a value should be completely

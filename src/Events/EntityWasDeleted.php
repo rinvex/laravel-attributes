@@ -17,7 +17,7 @@ class EntityWasDeleted
      *
      * @return void
      */
-    public function handle(Entity $entity)
+    public function handle(Entity $entity): void
     {
         // We will initially check if the model is using soft deletes. If so,
         // the attribute values will remain untouched as they should sill
