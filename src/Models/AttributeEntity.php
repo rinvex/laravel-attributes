@@ -6,7 +6,6 @@ namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Rinvex\Attributes\Contracts\AttributeEntityContract;
 
 /**
  * Rinvex\Attributes\Models\AttributeEntity.
@@ -22,7 +21,7 @@ use Rinvex\Attributes\Contracts\AttributeEntityContract;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class AttributeEntity extends Model implements AttributeEntityContract
+class AttributeEntity extends Model
 {
     use CacheableEloquent;
 

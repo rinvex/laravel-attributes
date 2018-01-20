@@ -6,11 +6,10 @@ namespace Rinvex\Attributes\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Attributes\Models\Attribute;
-use Rinvex\Attributes\Contracts\AttributeContract;
+use Rinvex\Attributes\Models\AttributeEntity;
 use Rinvex\Attributes\Console\Commands\MigrateCommand;
 use Rinvex\Attributes\Console\Commands\PublishCommand;
 use Rinvex\Attributes\Console\Commands\RollbackCommand;
-use Rinvex\Attributes\Contracts\AttributeEntityContract;
 
 class AttributesServiceProvider extends ServiceProvider
 {
@@ -37,12 +36,12 @@ class AttributesServiceProvider extends ServiceProvider
         $this->app->singleton('rinvex.attributes.attribute', function ($app) {
             return new $app['config']['rinvex.attributes.models.attribute']();
         });
-        $this->app->alias('rinvex.attributes.attribute', AttributeContract::class);
+        $this->app->alias('rinvex.attributes.attribute', Attribute::class);
 
         $this->app->singleton('rinvex.attributes.attribute_entity', function ($app) {
             return new $app['config']['rinvex.attributes.models.attribute_entity']();
         });
-        $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntityContract::class);
+        $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntity::class);
 
         // Register attributes entities
         $this->app->singleton('rinvex.attributes.entities', function ($app) {
