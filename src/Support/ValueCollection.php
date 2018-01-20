@@ -106,9 +106,9 @@ class ValueCollection extends EloquentCollection
      *
      * @param mixed $value
      *
-     * @return Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    protected function buildValue($value)
+    protected function buildValue($value): Model
     {
         if ($value instanceof Model || is_null($value)) {
             return $value;

@@ -11,6 +11,7 @@ use SuperClosure\Serializer;
 use Rinvex\Attributes\Models\Value;
 use Rinvex\Attributes\Models\Attribute;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Rinvex\Attributes\Events\EntityWasSaved;
 use Rinvex\Attributes\Scopes\EagerLoadScope;
 use Rinvex\Attributes\Events\EntityWasDeleted;
@@ -142,7 +143,7 @@ trait Attributable
      *
      * @return string|null
      */
-    public function getEntityAttributesNamespace()
+    public function getEntityAttributesNamespace(): ?string
     {
         return property_exists($this, 'entityAttributesNamespace') ? $this->entityAttributesNamespace : null;
     }
@@ -152,7 +153,7 @@ trait Attributable
      *
      * @return \Illuminate\Database\Eloquent\Collection|null
      */
-    public function getEntityAttributes()
+    public function getEntityAttributes(): ?Collection
     {
         $morphClass = $this->getMorphClass();
         static::$entityAttributes = static::$entityAttributes ?? collect();
@@ -221,7 +222,7 @@ trait Attributable
      *
      * @return bool
      */
-    public function isEntityAttributeRelation(string $key)
+    public function isEntityAttributeRelation(string $key): bool
     {
         return isset($this->entityAttributeRelations[$key]);
     }
@@ -231,7 +232,7 @@ trait Attributable
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getEntityAttributeValueTrash()
+    public function getEntityAttributeValueTrash(): BaseCollection
     {
         return $this->entityAttributeValueTrash ?: $this->entityAttributeValueTrash = collect([]);
     }
@@ -241,7 +242,7 @@ trait Attributable
      *
      * @return array
      */
-    public function getEntityAttributeRelations()
+    public function getEntityAttributeRelations(): array
     {
         return $this->entityAttributeRelations;
     }
@@ -411,7 +412,7 @@ trait Attributable
      *
      * @return \Illuminate\Database\Eloquent\Collection|null
      */
-    public function attributes()
+    public function attributes(): ?Collection
     {
         return $this->getEntityAttributes();
     }

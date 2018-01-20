@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Rinvex\Attributes\Support\ValueCollection;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 abstract class Value extends Model
 {
@@ -51,7 +53,7 @@ abstract class Value extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function attribute()
+    public function attribute(): BelongsTo
     {
         return $this->belongsTo(Attribute::class, 'attribute_id', 'id');
     }
@@ -61,7 +63,7 @@ abstract class Value extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function entity()
+    public function entity(): MorphTo
     {
         return $this->morphTo();
     }
@@ -71,7 +73,7 @@ abstract class Value extends Model
      *
      * @return bool
      */
-    public function shouldPush()
+    public function shouldPush(): bool
     {
         return $this->shouldPush;
     }

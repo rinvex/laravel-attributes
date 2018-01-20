@@ -105,7 +105,7 @@ class EntityWasSaved
      *
      * @return bool
      */
-    protected function trashValue(Value $value)
+    protected function trashValue(Value $value): bool
     {
         if (! is_null($value->getAttribute('content'))) {
             return false;

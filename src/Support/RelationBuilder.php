@@ -39,7 +39,7 @@ class RelationBuilder
      *
      * @return \Closure
      */
-    protected function getRelationClosure(Entity $entity, Attribute $attribute)
+    protected function getRelationClosure(Entity $entity, Attribute $attribute): Closure
     {
         $method = $attribute->is_collection ? 'hasMany' : 'hasOne';
 
