@@ -33,15 +33,11 @@ class AttributesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.attributes');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.attributes.attribute', function ($app) {
-            return new $app['config']['rinvex.attributes.models.attribute']();
-        });
-        $this->app->alias('rinvex.attributes.attribute', Attribute::class);
+        $this->app->singleton('rinvex.attributes.attribute', $attributeyModel = $this->app['config']['rinvex.attributes.models.attribute']);
+        $attributeyModel === Attribute::class || $this->app->alias('rinvex.attributes.attribute', Attribute::class);
 
-        $this->app->singleton('rinvex.attributes.attribute_entity', function ($app) {
-            return new $app['config']['rinvex.attributes.models.attribute_entity']();
-        });
-        $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntity::class);
+        $this->app->singleton('rinvex.attributes.attribute_entity', $attributeEntityModel = $this->app['config']['rinvex.attributes.models.attribute_entity']);
+        $attributeEntityModel === AttributeEntity::class || $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntity::class);
 
         // Register attributes entities
         $this->app->singleton('rinvex.attributes.entities', function ($app) {
@@ -93,9 +89,7 @@ class AttributesServiceProvider extends ServiceProvider
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
+            $this->app->singleton($value, $key);
         }
 
         $this->commands(array_values($this->commands));
