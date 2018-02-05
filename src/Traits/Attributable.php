@@ -151,9 +151,9 @@ trait Attributable
     /**
      * Get the entity attributes.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|null
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getEntityAttributes(): ?Collection
+    public function getEntityAttributes(): Collection
     {
         $morphClass = $this->getMorphClass();
         static::$entityAttributes = static::$entityAttributes ?? collect();
@@ -164,7 +164,7 @@ trait Attributable
             static::$entityAttributes->put($morphClass, app('rinvex.attributes.attribute')->whereIn('id', $attributes)->orderBy('sort_order', 'ASC')->orderBy("name->\${$locale}", 'ASC')->get()->keyBy('slug'));
         }
 
-        return static::$entityAttributes->get($morphClass);
+        return static::$entityAttributes->get($morphClass) ?? new Collection;
     }
 
     /**
