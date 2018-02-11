@@ -165,7 +165,7 @@ trait Attributable
             static::$entityAttributes->put($morphClass, app('rinvex.attributes.attribute')->whereIn('id', $attributes)->orderBy('sort_order', 'ASC')->orderBy("name->\${$locale}", 'ASC')->get()->keyBy('slug'));
         }
 
-        return static::$entityAttributes->get($morphClass) ?? new Collection;
+        return static::$entityAttributes->get($morphClass) ?? new Collection();
     }
 
     /**
