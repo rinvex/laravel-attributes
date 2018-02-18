@@ -13,7 +13,7 @@ class CreateAttributesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create(config('rinvex.attributes.tables.attributes'), function (Blueprint $table) {
             // Columns
@@ -28,6 +28,9 @@ class CreateAttributesTable extends Migration
             $table->boolean('is_collection')->default(false);
             $table->text('default')->nullable();
             $table->timestamps();
+
+            // Indexes
+            $table->unique('slug');
         });
     }
 
@@ -36,7 +39,7 @@ class CreateAttributesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists(config('rinvex.attributes.tables.attributes'));
     }
@@ -46,7 +49,7 @@ class CreateAttributesTable extends Migration
      *
      * @return string
      */
-    protected function jsonable()
+    protected function jsonable(): string
     {
         return DB::connection()->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql'
                && version_compare(DB::connection()->getPdo()->getAttribute(PDO::ATTR_SERVER_VERSION), '5.7.8', 'ge')

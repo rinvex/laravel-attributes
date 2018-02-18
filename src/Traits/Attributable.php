@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Traits;
 
+use Schema;
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SuperClosure\Serializer;
 use Rinvex\Attributes\Models\Value;
-use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Attributes\Models\Attribute;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Rinvex\Attributes\Events\EntityWasSaved;
 use Rinvex\Attributes\Scopes\EagerLoadScope;
 use Rinvex\Attributes\Events\EntityWasDeleted;
@@ -55,12 +57,7 @@ trait Attributable
      */
     public static function bootAttributable()
     {
-        $models = array_merge([static::class], array_values(class_parents(static::class)), array_values(class_implements(static::class)));
-        $attributes = app('rinvex.attributes.attribute_entity')->whereIn('entity_type', $models)->get()->pluck('attribute_id');
-        static::$entityAttributes = app('rinvex.attributes.attribute')->whereIn('id', $attributes)->get()->keyBy('slug');
-
         static::addGlobalScope(new EagerLoadScope());
-
         static::saved(EntityWasSaved::class.'@handle');
         static::deleted(EntityWasDeleted::class.'@handle');
     }
@@ -147,7 +144,7 @@ trait Attributable
      *
      * @return string|null
      */
-    public function getEntityAttributesNamespace()
+    public function getEntityAttributesNamespace(): ?string
     {
         return property_exists($this, 'entityAttributesNamespace') ? $this->entityAttributesNamespace : null;
     }
@@ -155,11 +152,20 @@ trait Attributable
     /**
      * Get the entity attributes.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|null
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getEntityAttributes()
+    public function getEntityAttributes(): Collection
     {
-        return static::$entityAttributes;
+        $morphClass = $this->getMorphClass();
+        static::$entityAttributes = static::$entityAttributes ?? collect();
+
+        if (! static::$entityAttributes->has($morphClass) && Schema::hasTable(config('rinvex.attributes.tables.attribute_entity'))) {
+            $locale = app()->getLocale();
+            $attributes = app('rinvex.attributes.attribute_entity')->where('entity_type', $morphClass)->get()->pluck('attribute_id');
+            static::$entityAttributes->put($morphClass, app('rinvex.attributes.attribute')->whereIn('id', $attributes)->orderBy('sort_order', 'ASC')->orderBy("name->\${$locale}", 'ASC')->get()->keyBy('slug'));
+        }
+
+        return static::$entityAttributes->get($morphClass) ?? new Collection();
     }
 
     /**
@@ -218,7 +224,7 @@ trait Attributable
      *
      * @return bool
      */
-    public function isEntityAttributeRelation(string $key)
+    public function isEntityAttributeRelation(string $key): bool
     {
         return isset($this->entityAttributeRelations[$key]);
     }
@@ -228,7 +234,7 @@ trait Attributable
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getEntityAttributeValueTrash()
+    public function getEntityAttributeValueTrash(): BaseCollection
     {
         return $this->entityAttributeValueTrash ?: $this->entityAttributeValueTrash = collect([]);
     }
@@ -238,7 +244,7 @@ trait Attributable
      *
      * @return array
      */
-    public function getEntityAttributeRelations()
+    public function getEntityAttributeRelations(): array
     {
         return $this->entityAttributeRelations;
     }
@@ -349,7 +355,7 @@ trait Attributable
             $value = $value->getAttribute('content');
         }
 
-        $current->setAttribute('entity_type', get_class($this));
+        $current->setAttribute('entity_type', $this->getMorphClass());
 
         return $current->setAttribute('content', $value);
     }
@@ -358,18 +364,18 @@ trait Attributable
      * Set the entity attribute value.
      *
      * @param \Rinvex\Attributes\Models\Attribute $attribute
-     * @param mixed                                 $value
+     * @param mixed                               $value
      *
      * @return $this
      */
     protected function setEntityAttributeValue(Attribute $attribute, $value)
     {
         if (! is_null($value) && ! $value instanceof Value) {
-            $model = $attribute->getAttribute('type');
+            $model = Attribute::getTypeModel($attribute->getAttribute('type'));
             $instance = new $model();
 
             $instance->setAttribute('entity_id', $this->getKey());
-            $instance->setAttribute('entity_type', get_class($this));
+            $instance->setAttribute('entity_type', $this->getMorphClass());
             $instance->setAttribute($attribute->getForeignKey(), $attribute->getKey());
             $instance->setAttribute('content', $value);
 
@@ -408,7 +414,7 @@ trait Attributable
      *
      * @return \Illuminate\Database\Eloquent\Collection|null
      */
-    public function attributes()
+    public function attributes(): ?Collection
     {
         return $this->getEntityAttributes();
     }
@@ -425,7 +431,7 @@ trait Attributable
     public function scopeHasAttribute(Builder $builder, string $key, $value): Builder
     {
         return $builder->whereHas($key, function (Builder $builder) use ($value) {
-            $builder->where('content', $value)->where('entity_type', get_class($this));
+            $builder->where('content', $value)->where('entity_type', $this->getMorphClass());
         });
     }
 

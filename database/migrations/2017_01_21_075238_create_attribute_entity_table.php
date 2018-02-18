@@ -13,7 +13,7 @@ class CreateAttributeEntityTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create(config('rinvex.attributes.tables.attribute_entity'), function (Blueprint $table) {
             // Columns
@@ -33,7 +33,7 @@ class CreateAttributeEntityTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists(config('rinvex.attributes.tables.attribute_entity'));
     }

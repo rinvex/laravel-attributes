@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Support;
 
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Attributes\Models\Attribute;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
@@ -91,7 +92,7 @@ class ValueCollection extends EloquentCollection
      *
      * @return void
      */
-    protected function trashCurrentItems()
+    protected function trashCurrentItems(): void
     {
         $trash = $this->entity->getEntityAttributeValueTrash();
 
@@ -105,19 +106,19 @@ class ValueCollection extends EloquentCollection
      *
      * @param mixed $value
      *
-     * @return Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    protected function buildValue($value)
+    protected function buildValue($value): Model
     {
         if ($value instanceof Model || is_null($value)) {
             return $value;
         }
 
-        $model = $this->attribute->getAttribute('type');
+        $model = Attribute::getTypeModel($this->attribute->getAttribute('type'));
         $instance = new $model();
 
         $instance->setAttribute('entity_id', $this->entity->getKey());
-        $instance->setAttribute('entity_type', get_class($this->entity));
+        $instance->setAttribute('entity_type', $this->entity->getMorphClass());
         $instance->setAttribute($this->attribute->getForeignKey(), $this->attribute->getKey());
         $instance->setAttribute('content', $value);
 

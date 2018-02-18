@@ -4,35 +4,33 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models;
 
-use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Rinvex\Support\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Rinvex\Attributes\Contracts\AttributeContract;
 
 /**
  * Rinvex\Attributes\Models\Attribute.
  *
- * @property int                                                                      $id
- * @property string                                                                   $slug
- * @property array                                                                    $name
- * @property array                                                                    $description
- * @property int                                                                      $sort_order
- * @property string                                                                   $group
- * @property string                                                                   $type
- * @property bool                                                                     $is_required
- * @property bool                                                                     $is_collection
- * @property string                                                                   $default
- * @property \Carbon\Carbon                                                           $created_at
- * @property \Carbon\Carbon                                                           $updated_at
- * @property array                                                                    $entities
- * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\User[] $values
+ * @property int                                                                               $id
+ * @property string                                                                            $slug
+ * @property array                                                                             $name
+ * @property array                                                                             $description
+ * @property int                                                                               $sort_order
+ * @property string                                                                            $group
+ * @property string                                                                            $type
+ * @property bool                                                                              $is_required
+ * @property bool                                                                              $is_collection
+ * @property string                                                                            $default
+ * @property \Carbon\Carbon|null                                                               $created_at
+ * @property \Carbon\Carbon|null                                                               $updated_at
+ * @property array                                                                             $entities
+ * @property-read \Rinvex\Attributes\Support\ValueCollection|\Rinvex\Attributes\Models\Value[] $values
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute ordered($direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereCreatedAt($value)
@@ -49,7 +47,7 @@ use Rinvex\Attributes\Contracts\AttributeContract;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Attribute extends Model implements AttributeContract, Sortable
+class Attribute extends Model implements Sortable
 {
     use HasSlug;
     use SortableTrait;
@@ -67,10 +65,10 @@ class Attribute extends Model implements AttributeContract, Sortable
         'sort_order',
         'group',
         'type',
-        'entities',
         'is_required',
         'is_collection',
         'default',
+        'entities',
     ];
 
     /**
@@ -125,6 +123,13 @@ class Attribute extends Model implements AttributeContract, Sortable
     protected $throwValidationExceptions = true;
 
     /**
+     * An array to map class names to their type names in database.
+     *
+     * @var array
+     */
+    protected static $typeMap = [];
+
+    /**
      * Create a new Eloquent model instance.
      *
      * @param array $attributes
@@ -148,20 +153,33 @@ class Attribute extends Model implements AttributeContract, Sortable
     }
 
     /**
-     * {@inheritdoc}
+     * Set or get the type map for attribute types.
+     *
+     * @param array|null $map
+     * @param bool       $merge
+     *
+     * @return array
      */
-    protected static function boot()
+    public static function typeMap(array $map = null, $merge = true)
     {
-        parent::boot();
+        if (is_array($map)) {
+            static::$typeMap = $merge && static::$typeMap
+                ? $map + static::$typeMap : $map;
+        }
 
-        // Auto generate slugs early before validation
-        static::validating(function (self $attribute) {
-            if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
-                $attribute->generateSlugOnUpdate();
-            } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
-                $attribute->generateSlugOnCreate();
-            }
-        });
+        return static::$typeMap;
+    }
+
+    /**
+     * Get the model associated with a custom attribute type.
+     *
+     * @param string $alias
+     *
+     * @return string|null
+     */
+    public static function getTypeModel($alias)
+    {
+        return self::$typeMap[$alias] ?? null;
     }
 
     /**
@@ -171,7 +189,7 @@ class Attribute extends Model implements AttributeContract, Sortable
      *
      * @return void
      */
-    public function setGroupAttribute($value)
+    public function setGroupAttribute($value): void
     {
         $this->attributes['group'] = str_slug($value);
     }
@@ -194,16 +212,13 @@ class Attribute extends Model implements AttributeContract, Sortable
      *
      * @return void
      */
-    public function setEntitiesAttribute($entities)
+    public function setEntitiesAttribute($entities): void
     {
         static::saved(function ($model) use ($entities) {
-            $values = [];
-            foreach ($entities as $entity) {
-                $values[] = ['entity_type' => $entity];
-            }
-
             $this->entities()->delete();
-            $this->entities()->createMany($values);
+            ! $entities || $this->entities()->createMany(array_map(function ($entity) {
+                return ['entity_type' => $entity];
+            }, $entities));
         });
     }
 
@@ -218,19 +233,6 @@ class Attribute extends Model implements AttributeContract, Sortable
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
-    }
-
-    /**
-     * Scope attributes by given group.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string|null                           $group
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeWithGroup(Builder $builder, string $group = null): Builder
-    {
-        return $group ? $builder->where('group', $group) : $builder;
     }
 
     /**

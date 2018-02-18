@@ -3,18 +3,16 @@
 **Rinvex Attributes** is a robust, intelligent, and integrated Entity-Attribute-Value model (EAV) implementation for Laravel Eloquent, with powerful underlying for managing entity attributes implicitly as relations with ease. It utilizes the power of Laravel Eloquent, with smooth and seamless integration.
 
 [![Packagist](https://img.shields.io/packagist/v/rinvex/attributes.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/attributes)
-[![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/rinvex:attributes.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/rinvex:attributes/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/attributes.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/attributes/)
 [![Code Climate](https://img.shields.io/codeclimate/github/rinvex/attributes.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/attributes)
 [![Travis](https://img.shields.io/travis/rinvex/attributes.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/attributes)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/842d0b5c-fbed-4779-af77-243166eda035.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/842d0b5c-fbed-4779-af77-243166eda035)
 [![StyleCI](https://styleci.io/repos/87620509/shield)](https://styleci.io/repos/87620509)
 [![License](https://img.shields.io/packagist/l/rinvex/attributes.svg?label=License&style=flat-square)](https://github.com/rinvex/attributes/blob/develop/LICENSE)
 
 
-## Credits Notice
+## Credits notice
 
-This package is a rewritten fork of the awesome [IsraelOrtuno](https://github.com/IsraelOrtuno)'s awesome [EAV Package](https://github.com/IsraelOrtuno/Eavquent), original credits goes to him. It's been widely rewritten, with same core concepts as it's fundamentally good in our opinion. The main differences in this fork include:
+This package is a rewritten fork of [IsraelOrtuno](https://github.com/IsraelOrtuno)'s awesome [EAV Package](https://github.com/IsraelOrtuno/Eavquent), original credits goes to him. It's been widely rewritten, with same core concepts as it's fundamentally good in our opinion. The main differences in this fork include:
 
 - Huge boost of performance utilizing [rinvex/cacheable](https://github.com/rinvex/cacheable)
 - Serialize and deserialize the entity with it's relations
@@ -25,7 +23,7 @@ This package is a rewritten fork of the awesome [IsraelOrtuno](https://github.co
 - Entity attributes are also treated more naturally like normal relations, in every possible Eloquent way
 
 
-## Table Of Contents
+## Table of contents
 
 - [Introduction](#introduction)
     - [Basics](#basics)
@@ -34,11 +32,12 @@ This package is a rewritten fork of the awesome [IsraelOrtuno](https://github.co
     - [More Technical Details](#more-technical-details)
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Add EAV to Eloquent model](#add-eav-to-eloquent-model)
-    - [Register Your Own Types](#register-your-own-types)
-    - [Register Your Entities](#register-your-entities)
-    - [Create New Attribute](#create-new-attribute)
-    - [Manage Attribute Entities](#manage-attribute-entities)
+    - [Add EAV to eloquent model](#add-eav-to-eloquent-model)
+    - [Register your own types](#register-your-own-types)
+    - [Register your entities](#register-your-entities)
+    - [Create new attribute](#create-new-attribute)
+    - [Manage attribute entities](#manage-attribute-entities)
+    - [Assigning values](#assigning-values)
     - [Querying models](#querying-models)
     - [Eager loading](#eager-loading)
 - [Changelog](#changelog)
@@ -67,7 +66,7 @@ In this case an entity will be represented by an Eloquent model.
 
 #### Attribute
 
-The attribute act as the "column" we would like to add to an entity. An attribute gets a name such as `price`, `city` or `colors` to get identified and will be attached to an entity. It will also play very closely with a data type instance which will cast or format its value when writing or reading from database.
+The attribute act as the "column" we would like to add to an entity. An attribute gets a name such as `price`, `cities` or `colors` to get identified and will be attached to an entity. It will also play very closely with a data type instance which will cast or format its value when writing or reading from database.
 
 This attribute will also be responsible of defining some default behaviour like data validation or default values.
 
@@ -79,7 +78,7 @@ In **Rinvex Attributes** implementation, a Value instance will represent the con
 
 Values are stored in different tables based on their data type. String values will be stored in a table called (by default) `attribute_varchar_values`, while integer values would use `attribute_integer_values` instead, and so on. Both tables' columns are identical except the data type of the `content` column which is adapted to the data type they store.
 
-### The Performance Loss
+### The performance loss
 
 EAV modeling is known for its lack of performance. It is also known for its complexity in terms of querying data if compared with the cost of querying any other horizontal structure. This paradigm has been tagged as anti-pattern in many articles and there is a lot of polemic about whether it should be used.
 
@@ -99,13 +98,13 @@ select * from `attribute_varchar_values` where `attribute_id` = '4' and `attribu
 
 However, despite the performance issues, EAV provides a very high flexibility. It let us have dynamic attributes that can be added / removed at any time without affecting database structure. It also helps when working with columns that will mainly store `NULL` values.
 
-Considering you accepts the lack of performance EAV comes with, the package has been developed with flexibility in mind so at least you can fight that performance issue. Performance could be improved by loading all the entity related values in a single query and letting a bit of PHP logic organize them into relationships but decided not to, in favor of making database querying more flexible.
+Considering you accept the lack of performance EAV comes with, the package has been developed with flexibility in mind so at least you can fight that performance issue. Performance could be improved by loading all the entity related values in a single query and letting a bit of PHP logic organize them into relationships but decided not to, in favor of making database querying more flexible.
 
 As explained below, this package loads the entity values as if they were custom Eloquent relationships. Is for this reason we can easily query through them as if they were a regular Eloquent relation.
 
 Loading values as relationships will let us load only those values we may require for a certain situation, leaving some others just unloaded. It will also let us make use of the powerful Eloquent tools for querying relations so we could easily filter the entities we are fetching from database based on conditions we will directly apply to the values content.
 
-### More Technical Details
+### More technical details
 
 #### `Rinvex\Attributes\Traits\Attributable`
 
@@ -132,34 +131,16 @@ bootIfNotBooted();
 // To include attributes as relations when converting to array/json
 relationsToArray();
 
-// To link entity & attribute to value collections (multivalued attributes)
+// To link entity & attribute to value collections (multi-valued attributes)
 setRelation()
 
 // To let Eloquent use our attribute relations as part of the model
 getRelationValue()
 ```
 
-#### `Rinvex\Attributes\Support\ValueCollection`
-
-**Rinvex Attributes** let you register multivalued attributes. In order to make playing with collections easier, we have included a new collection type which just extends `Illuminate\Database\Eloquent\Collection` and provide some extra functionality. This class let us add and remove values from the attribute. What it basically does is to let the user play with a collection class without having to worry about creating Value model instances. A bit of code will help here:
-
-```php
-// This is how it works
-$entity->cities->add('Alexandria');
-
-// And this is what you would have to do without this collection:
-$value = new Varchar(['content' => 'Alexandria', 'attribute_id' => 1, 'entity_type' => 'App\Models\Company', 'entity_id' => 1]);
-$entity->cities->push($value);
-
-// You could also pass an array
-$entity->cities->add(['Alexandria', 'Cairo']);
-```
-
-Collections may get improved and add more features but enough for the moment. Value base model replaces the Eloquent method`newCollection` method in order to return this type of collections when playing with multivalued attributes.
-
 #### `Rinvex\Attributes\Support\RelationBuilder`
 
-This class creates the Eloquent relations to the attribute values based on their type. If they are multivalued, it will provide a `hasMany` relation, otherwise just a `hasOne`. This class creates closures that return this kind of relations and may be called straight from the entity model. These closures are stored in `$entityAttributeRelations` property in the `\Rinvex\Attributes\Traits\Attributable` trait.
+This class creates the Eloquent relations to the attribute values based on their type. If they are multi-valued, it will provide a `hasMany` relation, otherwise just a `hasOne`. This class creates closures that return this kind of relations and may be called straight from the entity model. These closures are stored in `$entityAttributeRelations` property in the `\Rinvex\Attributes\Traits\Attributable` trait.
 
 
 ## Installation
@@ -179,7 +160,7 @@ This class creates the Eloquent relations to the attribute values based on their
 
 ## Usage
 
-### Add EAV to Eloquent model
+### Add EAV to eloquent model
 
 **Rinvex Attributes** has been specially made for Eloquent and simplicity has been taken very serious as in any other Laravel related aspect. To add EAV functionality to your Eloquent model just use the `\Rinvex\Attributes\Traits\Attributable` trait like this:
 
@@ -192,34 +173,44 @@ class Company extends Model
 
 That's it, we only have to include that trait in our Eloquent model!
 
-### Register Your Own Types
+### Register your own types
 
 ```php
-app('rinvex.attributes.types')->push(\Path\To\Your\Type::class);
+use Rinvex\Attributes\Models\Attribute;
+
+Attribute::typeMap([
+    'custom' => \Path\To\Your\Type::class,
+]);
 ```
-You can call the `'rinvex.attributes.types'` service from anywhere in your application, and anytime in the request lifecycle (preferred inside the `boot` method of a service provider). It's a singleton object, holds a pure Laravel [Collection](https://laravel.com/docs/master/collections).
 
-### Register Your Entities
+While you can register your custom types from anywhere in your application, it's recommended to do so in your service provider's `boot` method.
+
+### Register your entities
 
 ```php
+// Push your entity fully qualified namespace
 app('rinvex.attributes.entities')->push(\Path\To\Your\Entity::class);
+
+// Or push the morph class alias if any
+app('rinvex.attributes.entities')->push('entity');
 ```
+
 You can call the `'rinvex.attributes.entities'` service from anywhere in your application, and anytime in the request lifecycle (preferred inside the `boot` method of a service provider). It's a singleton object, holds a pure Laravel [Collection](https://laravel.com/docs/master/collections).
 
-### Create New Attribute
+### Create new attribute
 
 Like any normal Eloquent model you can create attributes as follows:
 
 ```php
 app('rinvex.attributes.attribute')->create([
     'slug' => 'size',
+    'type' => 'varchar',
     'name' => 'Product Size',
-    'type' => 'Rinvex\Attributes\Models\Type\Varchar',
     'entities' => ['App\Models\Company', 'App\Models\Product'],
 ]);
 ```
 
-### Manage Attribute Entities
+### Manage attribute entities
 
 Whenever you need to get entities attached to a specific attribute, you can do as follows:
 
@@ -248,16 +239,53 @@ $attribute->fill([
 ])->save();
 
 // Get all attribute values of type varchar
-$values = $attribute->values('Rinvex\Attributes\Models\Type\Varchar')->get();
+$values = $attribute->values('varchar')->get();
 ```
+
+### Assigning values
+
+You can treat your newly created custom attributes like normal ones, yeah! All attributes are created equal!! :smile:
+
+You need a proof? OK, see the following examples where we suppose `price` to be a custom attribute we just created & linked to our `\App\Models\Product` model:
+
+```php
+// Single value assignment
+$product = \App\Models\Product::find(1);
+$product->price = 123;
+$product->save();
+
+// Mass assignment
+$product = \App\Models\Product::find(1);
+$product->fill(['price' => 123])->save();
+```
+
+Yes, just like that. Easy! You can work with custom attributes like normal attributes, no difference. All the good stuff you know about eloquent applies here too, whether you are updating single field, mass assigning, creating, or updating, **it just works!**
+
+#### `Rinvex\Attributes\Support\ValueCollection`
+
+**Rinvex Attributes** let you register multi-valued attributes. In order to make playing with collections easier, we have included a new collection type which just extends `Illuminate\Database\Eloquent\Collection` and provide some extra functionality. This class let us add and remove values from the attribute. What it basically does is to let the user play with a collection class without having to worry about creating Value model instances. A bit of code will help here:
+
+```php
+// This is how it works
+$entity->cities->add('Alexandria');
+
+// And this is what you would have to do without this collection:
+$value = new Varchar(['content' => 'Alexandria', 'attribute_id' => 1, 'entity_type' => 'App\Models\Company', 'entity_id' => 1]);
+$entity->cities->push($value);
+
+// You could also pass an array
+$entity->cities->add(['Alexandria', 'Cairo']);
+```
+
+Collections may get improved and add more features but enough for the moment. Value base model replaces the Eloquent method`newCollection` method in order to return this type of collections when playing with multi-valued attributes.
 
 ### Querying models
 
 **Rinvex Attributes** tries to do everything in the same way Eloquent would normally do. When loading a model it internally creates a regular relationship for every entity attribute. This means we can query filtering by our registered attribute values like we would normally do when querying Eloquent relationships:
 
 ```php
-// City is an entity attribute
-$companies = Company::whereHas('city', function (\Illuminate\Database\Eloquent\Builder $builder) {
+// Cities is an entity attribute
+$companies = Company::whereHas('Cities', function (\Illuminate\Database\Eloquent\Builder $builder) {
     $builder->where('content', 'Alexandria');
 })->get();
 ```
@@ -265,7 +293,7 @@ $companies = Company::whereHas('city', function (\Illuminate\Database\Eloquent\B
 Or simply use the builtin query scope as follows:
 
 ```php
-$companies = Company::hasAttribute('city', 'Alexandria')->get();
+$companies = Company::hasAttribute('Cities', 'Alexandria')->get();
 ```
 
 And of course you can fetch entity attributes as normal Eloquent attributes, or as raw relations:
@@ -292,7 +320,7 @@ Again, as any regular Eloquent relationship we can decide when to load our attri
 
 ```php
 $company->load('eav');
-$company->load('city', 'colors');
+$company->load('cities', 'colors');
 ```
 
 #### Autoloading with $with
@@ -312,7 +340,7 @@ class Company extends Model
     protected $with = ['eav'];
 
     // Or just load a few of them
-    protected $with = ['city', 'colors'];
+    protected $with = ['cities', 'colors'];
 }
 ```
 
@@ -360,4 +388,4 @@ Rinvex is a software solutions startup, specialized in integrated enterprise sol
 
 This software is released under [The MIT License (MIT)](LICENSE).
 
-(c) 2016-2017 Rinvex LLC, Some rights reserved.
+(c) 2016-2018 Rinvex LLC, Some rights reserved.

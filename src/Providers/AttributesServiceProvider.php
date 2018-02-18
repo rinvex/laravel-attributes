@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Attributes\Models\Type\Text;
-use Rinvex\Attributes\Models\Type\Boolean;
-use Rinvex\Attributes\Models\Type\Integer;
-use Rinvex\Attributes\Models\Type\Varchar;
-use Rinvex\Attributes\Models\Type\Datetime;
-use Rinvex\Attributes\Contracts\AttributeContract;
+use Rinvex\Attributes\Models\Attribute;
+use Rinvex\Attributes\Models\AttributeEntity;
 use Rinvex\Attributes\Console\Commands\MigrateCommand;
-use Rinvex\Attributes\Contracts\AttributeEntityContract;
+use Rinvex\Attributes\Console\Commands\PublishCommand;
+use Rinvex\Attributes\Console\Commands\RollbackCommand;
 
 class AttributesServiceProvider extends ServiceProvider
 {
@@ -23,6 +20,8 @@ class AttributesServiceProvider extends ServiceProvider
      */
     protected $commands = [
         MigrateCommand::class => 'command.rinvex.attributes.migrate',
+        PublishCommand::class => 'command.rinvex.attributes.publish',
+        RollbackCommand::class => 'command.rinvex.attributes.rollback',
     ];
 
     /**
@@ -34,20 +33,11 @@ class AttributesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.attributes');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.attributes.attribute', function ($app) {
-            return new $app['config']['rinvex.attributes.models.attribute']();
-        });
-        $this->app->alias('rinvex.attributes.attribute', AttributeContract::class);
+        $this->app->singleton('rinvex.attributes.attribute', $attributeyModel = $this->app['config']['rinvex.attributes.models.attribute']);
+        $attributeyModel === Attribute::class || $this->app->alias('rinvex.attributes.attribute', Attribute::class);
 
-        $this->app->singleton('rinvex.attributes.attribute_entity', function ($app) {
-            return new $app['config']['rinvex.attributes.models.attribute_entity']();
-        });
-        $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntityContract::class);
-
-        // Register attributes types
-        $this->app->singleton('rinvex.attributes.types', function ($app) {
-            return collect();
-        });
+        $this->app->singleton('rinvex.attributes.attribute_entity', $attributeEntityModel = $this->app['config']['rinvex.attributes.models.attribute_entity']);
+        $attributeEntityModel === AttributeEntity::class || $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntity::class);
 
         // Register attributes entities
         $this->app->singleton('rinvex.attributes.entities', function ($app) {
@@ -64,11 +54,13 @@ class AttributesServiceProvider extends ServiceProvider
     public function boot()
     {
         // Add default attributes types
-        app('rinvex.attributes.types')->push(Text::class);
-        app('rinvex.attributes.types')->push(Boolean::class);
-        app('rinvex.attributes.types')->push(Integer::class);
-        app('rinvex.attributes.types')->push(Varchar::class);
-        app('rinvex.attributes.types')->push(Datetime::class);
+        Attribute::typeMap([
+            'boolean' => \Rinvex\Attributes\Models\Type\Boolean::class,
+            'datetime' => \Rinvex\Attributes\Models\Type\Datetime::class,
+            'integer' => \Rinvex\Attributes\Models\Type\Integer::class,
+            'text' => \Rinvex\Attributes\Models\Type\Text::class,
+            'varchar' => \Rinvex\Attributes\Models\Type\Varchar::class,
+        ]);
 
         // Load migrations
         ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
@@ -82,7 +74,7 @@ class AttributesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function publishResources()
+    protected function publishResources(): void
     {
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.attributes.php')], 'rinvex-attributes-config');
         $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-attributes-migrations');
@@ -93,13 +85,11 @@ class AttributesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCommands()
+    protected function registerCommands(): void
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
+            $this->app->singleton($value, $key);
         }
 
         $this->commands(array_values($this->commands));

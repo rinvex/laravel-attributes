@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Events;
 
+use Rinvex\Attributes\Models\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as Entity;
 
@@ -16,7 +17,7 @@ class EntityWasDeleted
      *
      * @return void
      */
-    public function handle(Entity $entity)
+    public function handle(Entity $entity): void
     {
         // We will initially check if the model is using soft deletes. If so,
         // the attribute values will remain untouched as they should sill
@@ -31,7 +32,7 @@ class EntityWasDeleted
                 // Calling the `destroy` method from the given $type model class name
                 // will finally delete the records from database if any was found.
                 // We'll just provide an array containing the ids to be deleted.
-                forward_static_call_array([$attribute->getAttribute('type'), 'destroy'], [$values->pluck('id')->toArray()]);
+                forward_static_call_array([Attribute::getTypeModel($attribute->getAttribute('type')), 'destroy'], [$values->pluck('id')->toArray()]);
             }
         }
     }
