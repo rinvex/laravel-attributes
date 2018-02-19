@@ -66,7 +66,7 @@ In this case an entity will be represented by an Eloquent model.
 
 #### Attribute
 
-The attribute act as the "column" we would like to add to an entity. An attribute gets a name such as `price`, `cities` or `colors` to get identified and will be attached to an entity. It will also play very closely with a data type instance which will cast or format its value when writing or reading from database.
+The attribute act as the "column" we would like to add to an entity. An attribute gets a title such as `price`, `cities` or `colors` to get identified and will be attached to an entity. It will also play very closely with a data type instance which will cast or format its value when writing or reading from database.
 
 This attribute will also be responsible of defining some default behaviour like data validation or default values.
 
@@ -205,7 +205,7 @@ Like any normal Eloquent model you can create attributes as follows:
 app('rinvex.attributes.attribute')->create([
     'slug' => 'size',
     'type' => 'varchar',
-    'name' => 'Product Size',
+    'title' => 'Product Size',
     'entities' => ['App\Models\Company', 'App\Models\Product'],
 ]);
 ```

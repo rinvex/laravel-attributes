@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property int                                                                               $id
  * @property string                                                                            $slug
- * @property array                                                                             $name
+ * @property array                                                                             $title
  * @property array                                                                             $description
  * @property int                                                                               $sort_order
  * @property string                                                                            $group
@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsCollection($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsRequired($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereType($value)
@@ -59,7 +59,7 @@ class Attribute extends Model implements Sortable
      * {@inheritdoc}
      */
     protected $fillable = [
-        'name',
+        'title',
         'slug',
         'description',
         'sort_order',
@@ -96,7 +96,7 @@ class Attribute extends Model implements Sortable
      * {@inheritdoc}
      */
     public $translatable = [
-        'name',
+        'title',
         'description',
     ];
 
@@ -140,7 +140,7 @@ class Attribute extends Model implements Sortable
 
         $this->setTable(config('rinvex.attributes.tables.attributes'));
         $this->setRules([
-            'name' => 'required|string|max:150',
+            'title' => 'required|string|max:150',
             'description' => 'nullable|string|max:10000',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributes.tables.attributes').',slug',
             'sort_order' => 'nullable|integer|max:10000000',
@@ -231,7 +231,7 @@ class Attribute extends Model implements Sortable
     {
         return SlugOptions::create()
                           ->doNotGenerateSlugsOnUpdate()
-                          ->generateSlugsFrom('name')
+                          ->generateSlugsFrom('title')
                           ->saveSlugsTo('slug');
     }
 
