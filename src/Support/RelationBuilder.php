@@ -27,7 +27,7 @@ class RelationBuilder
         foreach ($attributes as $attribute) {
             $relation = $this->getRelationClosure($entity, $attribute);
 
-            $entity->setEntityAttributeRelation($attribute->getAttribute('slug'), $relation);
+            $entity->setEntityAttributeRelation($attribute->getAttribute('name'), $relation);
         }
     }
 

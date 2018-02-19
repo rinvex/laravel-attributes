@@ -37,7 +37,7 @@ class EntityWasSaved
 
         try {
             foreach ($entity->getEntityAttributes() as $attribute) {
-                if ($entity->relationLoaded($relation = $attribute->getAttribute('slug'))) {
+                if ($entity->relationLoaded($relation = $attribute->getAttribute('name'))) {
                     $relationValue = $entity->getRelationValue($relation);
 
                     if ($relationValue instanceof ValueCollection) {
