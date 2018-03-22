@@ -53,15 +53,6 @@ class AttributesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Add default attributes types
-        Attribute::typeMap([
-            'boolean' => \Rinvex\Attributes\Models\Type\Boolean::class,
-            'datetime' => \Rinvex\Attributes\Models\Type\Datetime::class,
-            'integer' => \Rinvex\Attributes\Models\Type\Integer::class,
-            'text' => \Rinvex\Attributes\Models\Type\Text::class,
-            'varchar' => \Rinvex\Attributes\Models\Type\Varchar::class,
-        ]);
-
         // Load migrations
         ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
