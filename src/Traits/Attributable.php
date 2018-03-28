@@ -7,7 +7,6 @@ namespace Rinvex\Attributes\Traits;
 use Schema;
 use Closure;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use SuperClosure\Serializer;
 use Rinvex\Attributes\Models\Value;
 use Rinvex\Attributes\Models\Attribute;
@@ -406,7 +405,7 @@ trait Attributable
      */
     protected function getEntityAttributeName(string $key): string
     {
-        return $this->isRawEntityAttribute($key) ? Str::camel(str_ireplace(['raw', 'object'], ['', ''], $key)) : $key;
+        return $this->isRawEntityAttribute($key) ? camel_case(str_ireplace(['raw', 'object'], ['', ''], $key)) : $key;
     }
 
     /**
