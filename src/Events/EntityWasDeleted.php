@@ -27,7 +27,7 @@ class EntityWasDeleted
         }
 
         foreach ($entity->getEntityAttributes() as $attribute) {
-            if ($entity->relationLoaded($relation = $attribute->getAttribute('name'))
+            if ($entity->relationLoaded($relation = $attribute->getAttribute('slug'))
                 && ($values = $entity->getRelationValue($relation)) && ! $values->isEmpty()) {
                 // Calling the `destroy` method from the given $type model class name
                 // will finally delete the records from database if any was found.

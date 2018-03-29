@@ -18,7 +18,7 @@ class CreateAttributesTable extends Migration
         Schema::create(config('rinvex.attributes.tables.attributes'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
-            $table->string('name');
+            $table->string('slug');
             $table->{$this->jsonable()}('title');
             $table->{$this->jsonable()}('description')->nullable();
             $table->mediumInteger('sort_order')->unsigned()->default(0);
@@ -30,7 +30,7 @@ class CreateAttributesTable extends Migration
             $table->timestamps();
 
             // Indexes
-            $table->unique('name');
+            $table->unique('slug');
         });
     }
 

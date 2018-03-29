@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Rinvex\Attributes\Models\Attribute.
  *
  * @property int                                                                               $id
- * @property string                                                                            $name
+ * @property string                                                                            $slug
  * @property array                                                                             $title
  * @property array                                                                             $description
  * @property int                                                                               $sort_order
@@ -40,9 +40,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsCollection($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereIsRequired($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -60,7 +60,7 @@ class Attribute extends Model implements Sortable
      */
     protected $fillable = [
         'title',
-        'name',
+        'slug',
         'description',
         'sort_order',
         'group',
@@ -75,7 +75,7 @@ class Attribute extends Model implements Sortable
      * {@inheritdoc}
      */
     protected $casts = [
-        'name' => 'string',
+        'slug' => 'string',
         'sort_order' => 'integer',
         'group' => 'string',
         'type' => 'string',
@@ -142,7 +142,7 @@ class Attribute extends Model implements Sortable
         $this->setRules([
             'title' => 'required|string|max:150',
             'description' => 'nullable|string|max:10000',
-            'name' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributes.tables.attributes').',name',
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributes.tables.attributes').',slug',
             'sort_order' => 'nullable|integer|max:10000000',
             'group' => 'nullable|string|max:150',
             'type' => 'required|string|max:150',
@@ -232,7 +232,7 @@ class Attribute extends Model implements Sortable
         return SlugOptions::create()
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('title')
-                          ->saveSlugsTo('name');
+                          ->saveSlugsTo('slug');
     }
 
     /**

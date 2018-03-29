@@ -216,7 +216,7 @@ Like any normal Eloquent model you can create attributes as follows:
 
 ```php
 app('rinvex.attributes.attribute')->create([
-    'name' => 'size',
+    'slug' => 'size',
     'type' => 'varchar',
     'title' => 'Product Size',
     'entities' => ['App\Models\Company', 'App\Models\Product'],
