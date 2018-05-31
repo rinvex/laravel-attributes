@@ -232,6 +232,7 @@ class Attribute extends Model implements Sortable
         return SlugOptions::create()
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
+                          ->allowDuplicateSlugs()
                           ->saveSlugsTo('slug');
     }
 
