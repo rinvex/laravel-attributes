@@ -7,10 +7,11 @@ namespace Rinvex\Attributes\Traits;
 use Schema;
 use Closure;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use SuperClosure\Serializer;
 use Rinvex\Attributes\Models\Value;
+use Vinkla\Hashids\Facades\Hashids;
 use Rinvex\Attributes\Models\Attribute;
+use Rinvex\Support\Traits\HashidsTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Rinvex\Attributes\Events\EntityWasSaved;
@@ -161,6 +162,20 @@ trait Attributable
 
         if (! static::$entityAttributes->has($morphClass) && Schema::hasTable(config('rinvex.attributes.tables.attribute_entity'))) {
             $locale = app()->getLocale();
+
+            /* This is a trial to implement per resource attributes,
+               it's working but I don't like current implementation.
+            $routeParam = request()->route($morphClass);
+
+            // @TODO: This is REALLY REALLY BAD DESIGN!! But can't figure out a better way for now!!
+            // Refactor required, we need to catch `$this` itself, we should NOT use request and routes here!!
+            // But still at this very early stage, `$this` still not bound to model's data, so it's just empty object!
+            $entityId = $routeParam && collect(class_uses_recursive(static::class))->contains(HashidsTrait::class) && ! is_numeric($routeParam)
+                ? optional(Hashids::decode($routeParam))[0] : $routeParam;
+
+            $attributes = app('rinvex.attributes.attribute_entity')->where('entity_type', $morphClass)->where('entity_id', $entityId)->get()->pluck('attribute_id');
+             */
+
             $attributes = app('rinvex.attributes.attribute_entity')->where('entity_type', $morphClass)->get()->pluck('attribute_id');
             static::$entityAttributes->put($morphClass, app('rinvex.attributes.attribute')->whereIn('id', $attributes)->orderBy('sort_order', 'ASC')->orderBy("name->\${$locale}", 'ASC')->get()->keyBy('slug'));
         }
@@ -406,7 +421,7 @@ trait Attributable
      */
     protected function getEntityAttributeName(string $key): string
     {
-        return $this->isRawEntityAttribute($key) ? Str::camel(str_ireplace(['raw', 'object'], ['', ''], $key)) : $key;
+        return $this->isRawEntityAttribute($key) ? camel_case(str_ireplace(['raw', 'object'], ['', ''], $key)) : $key;
     }
 
     /**

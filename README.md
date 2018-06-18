@@ -33,7 +33,8 @@ This package is a rewritten fork of [IsraelOrtuno](https://github.com/IsraelOrtu
 - [Installation](#installation)
 - [Usage](#usage)
     - [Add EAV to eloquent model](#add-eav-to-eloquent-model)
-    - [Register your own types](#register-your-own-types)
+    - [Register your types](#register-your-types)
+    - [Core types](#core-types)
     - [Register your entities](#register-your-entities)
     - [Create new attribute](#create-new-attribute)
     - [Manage attribute entities](#manage-attribute-entities)
@@ -66,7 +67,7 @@ In this case an entity will be represented by an Eloquent model.
 
 #### Attribute
 
-The attribute act as the "column" we would like to add to an entity. An attribute gets a name such as `price`, `cities` or `colors` to get identified and will be attached to an entity. It will also play very closely with a data type instance which will cast or format its value when writing or reading from database.
+The attribute act as the "column" we would like to add to an entity. An attribute gets a slug such as `price`, `cities` or `colors` to get identified and will be attached to an entity. It will also play very closely with a data type instance which will cast or format its value when writing or reading from database.
 
 This attribute will also be responsible of defining some default behaviour like data validation or default values.
 
@@ -173,7 +174,19 @@ class Company extends Model
 
 That's it, we only have to include that trait in our Eloquent model!
 
-### Register your own types
+### Core types
+
+```php
+\Rinvex\Attributes\Models\Type\Text::class
+\Rinvex\Attributes\Models\Type\Boolean::class
+\Rinvex\Attributes\Models\Type\Integer::class
+\Rinvex\Attributes\Models\Type\Varchar::class
+\Rinvex\Attributes\Models\Type\Datetime::class
+```
+
+### Register your types
+
+**Rinvex Attributes** does NOT register any types by default as this is considered implementation details, so it's up to you to register the core types, or extend them and only register your custom types.
 
 ```php
 use Rinvex\Attributes\Models\Attribute;
@@ -183,7 +196,7 @@ Attribute::typeMap([
 ]);
 ```
 
-While you can register your custom types from anywhere in your application, it's recommended to do so in your service provider's `boot` method.
+> **Note**: While you can register your custom types from anywhere in your application, it's recommended to do so in your service provider's `boot` method.
 
 ### Register your entities
 

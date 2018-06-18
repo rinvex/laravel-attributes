@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v0.0.5] - 2018-06-18
+- Update composer dependencies
+- Define polymorphic relationship parameters explicitly
+- Drop default attribute types registration
+- Use global helper functions instead of class based methods
+- [WIP] Implement per resource attributes
+
 ## [v0.0.4] - 2018-02-18
 - Update composer dependencies
 - Update supplementary files
@@ -56,6 +63,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v0.0.5]: https://github.com/rinvex/attributes/compare/v0.0.4...v0.0.5
 [v0.0.4]: https://github.com/rinvex/attributes/compare/v0.0.3...v0.0.4
 [v0.0.3]: https://github.com/rinvex/attributes/compare/v0.0.2...v0.0.3
 [v0.0.2]: https://github.com/rinvex/attributes/compare/v0.0.1...v0.0.2
