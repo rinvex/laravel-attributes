@@ -152,7 +152,7 @@ This class creates the Eloquent relations to the attribute values based on their
 
 2. Execute migrations via the following command:
     ```shell
-    php artisan rinvex:migrate:attributes
+    php artisan rinvex:attributes:migrate
     ```
 
 3. Done!
