@@ -186,12 +186,14 @@ That's it, we only have to include that trait in our Eloquent model!
 
 ### Register your types
 
-**Rinvex Attributes** does NOT register any types by default as this is considered implementation details, so it's up to you to register the core types, or extend them and only register your custom types.
+**Rinvex Attributes** does NOT register any types by default as this is considered implementation details, so it's up to you to register the core types listed above, or extend them and only register your custom types.
 
 ```php
 use Rinvex\Attributes\Models\Attribute;
 
 Attribute::typeMap([
+    'varchar' => Rinvex\Attributes\Models\Type\Varchar,
+    // ...
     'custom' => \Path\To\Your\Type::class,
 ]);
 ```
