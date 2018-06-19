@@ -11,7 +11,7 @@ class AttributeCreationTest extends \TestCase
         $this->assertDatabaseHas('attribute_entity', ['attribute_id' => $attribute->id, 'entity_type' => 'User']);
     }
 
-    public function testAttributeSlugShouldBeSnakeCase()
+    public function testSlugShouldBeSnakeCase()
     {
         $attribute = $this->createAttribute(['name' => 'foo-bar']);
 
@@ -19,7 +19,28 @@ class AttributeCreationTest extends \TestCase
         $this->assertDatabaseHas('attributes', ['slug' => 'foo_bar', 'type' => 'integer']);
     }
 
-    // TODO: Add testing for slug check when slug is provided in the creation attributes
+    public function testSlugShouldBeUnique()
+    {
+        $this->createAttribute(['name' => 'foo']);
+        $this->createAttribute(['name' => 'foo']);
+
+        $this->assertDatabaseHas('attributes', ['slug' => 'foo_1']);
+    }
+
+    public function testSlugShouldBeConvertedToSnakeCaseIfProvided()
+    {
+        $attribute = $this->createAttribute(['slug' => 'foo-bar']);
+
+        $this->assertEquals('foo_bar', $attribute->slug);
+    }
+
+    public function testSlugShouldAlsoBeUniqueWhenProvided()
+    {
+        $this->createAttribute(['slug' => 'foo']);
+        $this->createAttribute(['slug' => 'foo']);
+
+        $this->assertDatabaseHas('attributes', ['slug' => 'foo_1']);
+    }
 
     protected function createAttribute($attributes = [])
     {
