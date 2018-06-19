@@ -237,9 +237,10 @@ class Attribute extends Model implements Sortable
     }
 
     /**
-     * This is just a public alias for the protected makeSlugUnique
+     * This is just a public alias for the protected makeSlugUnique.
      *
      * @param $value
+     *
      * @return string+
      */
     public function makeUniqueSlug($value)
