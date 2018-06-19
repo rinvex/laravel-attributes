@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Attributes\Traits\Attributable;
 
-class User extends Model {
-	use Attributable;
+class User extends Model
+{
+    use Attributable;
 }

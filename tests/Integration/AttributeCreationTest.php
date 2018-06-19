@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 class AttributeCreationTest extends \TestCase
 {
     public function testBasicAttributeCreation()
@@ -23,8 +24,8 @@ class AttributeCreationTest extends \TestCase
     protected function createAttribute($attributes = [])
     {
         return app('rinvex.attributes.attribute')->create(array_merge([
-            'type'     => 'integer',
-            'name'     => 'Count',
+            'type' => 'integer',
+            'name' => 'Count',
             'entities' => ['User'],
         ], $attributes));
     }

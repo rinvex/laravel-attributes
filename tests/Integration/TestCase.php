@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 use Rinvex\Attributes\Models\Attribute;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -10,7 +11,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations('testing');
-        $this->withFactories(__DIR__ . '/Factories');
+        $this->withFactories(__DIR__.'/Factories');
 
         // Registering the core type map
         Attribute::typeMap([
@@ -29,9 +30,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 
