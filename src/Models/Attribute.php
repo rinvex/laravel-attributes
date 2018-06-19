@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models;
 
+use Illuminate\Support\Str;
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
@@ -152,6 +153,19 @@ class Attribute extends Model implements Sortable
         ]);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $slug = Str::slug($model->slug, $model->getSlugOptions()->slugSeparator, $model->getSlugOptions()->slugLanguage);
+
+            if ($model->slug !== $slug) {
+                $model->slug = $model->makeUniqueSlug($slug);
+            }
+        });
+    }
+
     /**
      * Set or get the type map for attribute types.
      *
@@ -220,6 +234,17 @@ class Attribute extends Model implements Sortable
                 return ['entity_type' => $entity];
             }, $entities));
         });
+    }
+
+    /**
+     * This is just a public alias for the protected makeSlugUnique
+     *
+     * @param $value
+     * @return string+
+     */
+    public function makeUniqueSlug($value)
+    {
+        return $this->makeSlugUnique($value);
     }
 
     /**
