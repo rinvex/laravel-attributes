@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v0.0.6] - 2018-06-20
+- Add integration test suites
+- Enforce snake_case slugs (fix #51)
+- Making entity_id nullable for now (fix #57)
+
 ## [v0.0.5] - 2018-06-18
 - Update composer dependencies
 - Define polymorphic relationship parameters explicitly
@@ -63,6 +68,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v0.0.6]: https://github.com/rinvex/attributes/compare/v0.0.5...v0.0.6
 [v0.0.5]: https://github.com/rinvex/attributes/compare/v0.0.4...v0.0.5
 [v0.0.4]: https://github.com/rinvex/attributes/compare/v0.0.3...v0.0.4
 [v0.0.3]: https://github.com/rinvex/attributes/compare/v0.0.2...v0.0.3
