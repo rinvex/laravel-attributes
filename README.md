@@ -19,8 +19,8 @@ This package is a rewritten fork of [IsraelOrtuno](https://github.com/IsraelOrtu
 - Laravel integrated without framework-agnostic overhead complexity
 - Attributes could be attached to none, one, or more entities through pivot table
 - Attributes are sortable, sluggable, translatable, grouped, and most exciting cacheable
-- Entity attributes are treated more naturally like normal attributes, in every possible Eloquent way
-- Entity attributes are also treated more naturally like normal relations, in every possible Eloquent way
+- Entity attributes are treated more naturally like normal **attributes**, in every possible Eloquent way
+- Entity attributes are also treated more naturally like normal **relations**, in every possible Eloquent way
 
 
 ## Table of contents
@@ -186,12 +186,14 @@ That's it, we only have to include that trait in our Eloquent model!
 
 ### Register your types
 
-**Rinvex Attributes** does NOT register any types by default as this is considered implementation details, so it's up to you to register the core types, or extend them and only register your custom types.
+**Rinvex Attributes** does NOT register any types by default as this is considered implementation details, so it's up to you to register the core types listed above, or extend them and only register your custom types.
 
 ```php
 use Rinvex\Attributes\Models\Attribute;
 
 Attribute::typeMap([
+    'varchar' => Rinvex\Attributes\Models\Type\Varchar,
+    // ...
     'custom' => \Path\To\Your\Type::class,
 ]);
 ```

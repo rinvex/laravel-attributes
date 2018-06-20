@@ -153,6 +153,18 @@ class Attribute extends Model implements Sortable
     }
 
     /**
+     * Enforce clean slugs.
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function setSlugAttribute($value): void
+    {
+        $this->attributes['slug'] = str_slug($value, $this->getSlugOptions()->slugSeparator, $this->getSlugOptions()->slugLanguage);
+    }
+
+    /**
      * Set or get the type map for attribute types.
      *
      * @param array|null $map
@@ -230,6 +242,7 @@ class Attribute extends Model implements Sortable
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
+                          ->usingSeparator('_')
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
