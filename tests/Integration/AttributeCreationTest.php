@@ -1,7 +1,10 @@
 <?php
 
 declare(strict_types=1);
-class AttributeCreationTest extends \TestCase
+
+namespace Rinvex\Attributes\Tests\Integration;
+
+class AttributeCreationTest extends TestCase
 {
     public function testBasicAttributeCreation()
     {

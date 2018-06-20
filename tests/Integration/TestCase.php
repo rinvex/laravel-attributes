@@ -1,7 +1,12 @@
 <?php
 
 declare(strict_types=1);
+
+namespace Rinvex\Attributes\Tests\Integration;
+
 use Rinvex\Attributes\Models\Attribute;
+use Rinvex\Attributes\Tests\Stubs\User;
+use Rinvex\Attributes\Providers\AttributesServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -38,6 +43,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return [Rinvex\Attributes\Providers\AttributesServiceProvider::class];
+        return [
+            AttributesServiceProvider::class
+        ];
     }
 }

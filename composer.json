@@ -74,9 +74,9 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/"
-        ]
+        "psr-4": {
+            "Rinvex\\Addresses\\Tests\\": "tests"
+        }
     },
     "config": {
         "sort-packages": true,
