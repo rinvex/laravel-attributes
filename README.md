@@ -19,8 +19,8 @@ This package is a rewritten fork of [IsraelOrtuno](https://github.com/IsraelOrtu
 - Laravel integrated without framework-agnostic overhead complexity
 - Attributes could be attached to none, one, or more entities through pivot table
 - Attributes are sortable, sluggable, translatable, grouped, and most exciting cacheable
-- Entity attributes are treated more naturally like normal attributes, in every possible Eloquent way
-- Entity attributes are also treated more naturally like normal relations, in every possible Eloquent way
+- Entity attributes are treated more naturally like normal **attributes**, in every possible Eloquent way
+- Entity attributes are also treated more naturally like normal **relations**, in every possible Eloquent way
 
 
 ## Table of contents
