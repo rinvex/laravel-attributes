@@ -75,7 +75,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Rinvex\\Addresses\\Tests\\": "tests"
+            "Rinvex\\Attributes\\Tests\\": "tests"
         }
     },
     "config": {
