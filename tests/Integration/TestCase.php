@@ -10,7 +10,7 @@ use Rinvex\Attributes\Providers\AttributesServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
