@@ -221,6 +221,7 @@ class Attribute extends Model implements Sortable
      * Set the attribute attached entities.
      *
      * @param \Illuminate\Support\Collection|array $value
+     * @param mixed                                $entities
      *
      * @return void
      */
