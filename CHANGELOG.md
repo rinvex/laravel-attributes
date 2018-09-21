@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v0.0.7] - 2018-09-22
+- Fix wrong package name in autoload for testing
+- Enforce consistency
+- Update PHPUnit options
+- Add attribute model factory
+- Update PHPUnit options
+
 ## [v0.0.6] - 2018-06-20
 - Add integration test suites
 - Enforce snake_case slugs (fix #51)
@@ -68,6 +75,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v0.0.7]: https://github.com/rinvex/attributes/compare/v0.0.6...v0.0.7
 [v0.0.6]: https://github.com/rinvex/attributes/compare/v0.0.5...v0.0.6
 [v0.0.5]: https://github.com/rinvex/attributes/compare/v0.0.4...v0.0.5
 [v0.0.4]: https://github.com/rinvex/attributes/compare/v0.0.3...v0.0.4
