@@ -2,19 +2,19 @@
 
 **Rinvex Attributes** is a robust, intelligent, and integrated Entity-Attribute-Value model (EAV) implementation for Laravel Eloquent, with powerful underlying for managing entity attributes implicitly as relations with ease. It utilizes the power of Laravel Eloquent, with smooth and seamless integration.
 
-[![Packagist](https://img.shields.io/packagist/v/rinvex/attributes.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/attributes)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/attributes.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/attributes/)
-[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/attributes.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/attributes)
-[![Travis](https://img.shields.io/travis/rinvex/attributes.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/attributes)
+[![Packagist](https://img.shields.io/packagist/v/rinvex/laravel-attributes.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/laravel-attributes)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/laravel-attributes.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/laravel-attributes/)
+[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/laravel-attributes.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/laravel-attributes)
+[![Travis](https://img.shields.io/travis/rinvex/laravel-attributes.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/laravel-attributes)
 [![StyleCI](https://styleci.io/repos/87620509/shield)](https://styleci.io/repos/87620509)
-[![License](https://img.shields.io/packagist/l/rinvex/attributes.svg?label=License&style=flat-square)](https://github.com/rinvex/attributes/blob/develop/LICENSE)
+[![License](https://img.shields.io/packagist/l/rinvex/laravel-attributes.svg?label=License&style=flat-square)](https://github.com/rinvex/laravel-attributes/blob/develop/LICENSE)
 
 
 ## Credits notice
 
 This package is a rewritten fork of [IsraelOrtuno](https://github.com/IsraelOrtuno)'s awesome [EAV Package](https://github.com/IsraelOrtuno/Eavquent), original credits goes to him. It's been widely rewritten, with same core concepts as it's fundamentally good in our opinion. The main differences in this fork include:
 
-- Huge boost of performance utilizing [rinvex/cacheable](https://github.com/rinvex/cacheable)
+- Huge boost of performance utilizing [rinvex/laravel-cacheable](https://github.com/rinvex/laravel-cacheable)
 - Serialize and deserialize the entity with it's relations
 - Laravel integrated without framework-agnostic overhead complexity
 - Attributes could be attached to none, one, or more entities through pivot table
@@ -148,7 +148,7 @@ This class creates the Eloquent relations to the attribute values based on their
 
 1. Install the package via composer:
     ```shell
-    composer require rinvex/attributes
+    composer require rinvex/laravel-attributes
     ```
 
 2. Execute migrations via the following command:

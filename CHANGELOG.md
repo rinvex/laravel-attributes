@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v1.0.0] - 2018-10-01
+- Enforce Consistency
+- Support Laravel 5.7+
+- Rename package to rinvex/laravel-attributes
+
 ## [v0.0.7] - 2018-09-22
 - Fix wrong package name in autoload for testing
 - Enforce consistency
@@ -39,7 +44,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 - Fix attributable cache issues
 - Add PHPUnitPrettyResultPrinter
 - Add slug unique index
-- Move frontend stuff to cortex/attributes from rinvex/attributes
+- Move frontend stuff to cortex/attributes from rinvex/laravel-attributes
 - Tweak and fix entity attributes retrieval
 - Require PHP v7.1.3
 - Fix entities issue and tweak some features
@@ -57,7 +62,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 ## [v0.0.3] - 2017-09-09
 - Fix many issues and apply many enhancements
-- Rename package rinvex/attributes from rinvex/attributable
+- Rename package rinvex/laravel-attributes from rinvex/attributable
 
 ## [v0.0.2] - 2017-06-29
 - Enforce consistency
@@ -75,9 +80,10 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
-[v0.0.7]: https://github.com/rinvex/attributes/compare/v0.0.6...v0.0.7
-[v0.0.6]: https://github.com/rinvex/attributes/compare/v0.0.5...v0.0.6
-[v0.0.5]: https://github.com/rinvex/attributes/compare/v0.0.4...v0.0.5
-[v0.0.4]: https://github.com/rinvex/attributes/compare/v0.0.3...v0.0.4
-[v0.0.3]: https://github.com/rinvex/attributes/compare/v0.0.2...v0.0.3
-[v0.0.2]: https://github.com/rinvex/attributes/compare/v0.0.1...v0.0.2
+[v1.0.0]: https://github.com/rinvex/laravel-attributes/compare/v0.0.7...v1.0.0
+[v0.0.7]: https://github.com/rinvex/laravel-attributes/compare/v0.0.6...v0.0.7
+[v0.0.6]: https://github.com/rinvex/laravel-attributes/compare/v0.0.5...v0.0.6
+[v0.0.5]: https://github.com/rinvex/laravel-attributes/compare/v0.0.4...v0.0.5
+[v0.0.4]: https://github.com/rinvex/laravel-attributes/compare/v0.0.3...v0.0.4
+[v0.0.3]: https://github.com/rinvex/laravel-attributes/compare/v0.0.2...v0.0.3
+[v0.0.2]: https://github.com/rinvex/laravel-attributes/compare/v0.0.1...v0.0.2
