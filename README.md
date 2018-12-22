@@ -156,7 +156,12 @@ This class creates the Eloquent relations to the attribute values based on their
     php artisan rinvex:migrate:attributes
     ```
 
-3. Done!
+3. **Optional** if you want to change the configurations:
+    ```shell
+    php artisan rinvex:publish:attributes
+    ```
+
+4. Done!
 
 
 ## Usage
@@ -403,4 +408,4 @@ Rinvex is a software solutions startup, specialized in integrated enterprise sol
 
 This software is released under [The MIT License (MIT)](LICENSE).
 
-(c) 2016-2018 Rinvex LLC, Some rights reserved.
+(c) 2016-2019 Rinvex LLC, Some rights reserved.
