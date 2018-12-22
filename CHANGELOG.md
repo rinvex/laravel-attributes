@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## [v1.0.1] - 2018-12-22
 - Update composer dependencies
 - Add PHP 7.3 support to travis
-- Fix MySQL / PostgreSQL data type compatibility
+- Fix MySQL / PostgreSQL json column compatibility
 
 ## [v1.0.0] - 2018-10-01
 - Enforce Consistency
