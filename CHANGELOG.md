@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v1.0.1] - 2018-12-22
+- Update composer dependencies
+- Add PHP 7.3 support to travis
+- Fix MySQL / PostgreSQL data type compatibility
+
 ## [v1.0.0] - 2018-10-01
 - Enforce Consistency
 - Support Laravel 5.7+
@@ -80,6 +85,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v1.0.1]: https://github.com/rinvex/laravel-attributes/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/rinvex/laravel-attributes/compare/v0.0.7...v1.0.0
 [v0.0.7]: https://github.com/rinvex/laravel-attributes/compare/v0.0.6...v0.0.7
 [v0.0.6]: https://github.com/rinvex/laravel-attributes/compare/v0.0.5...v0.0.6
