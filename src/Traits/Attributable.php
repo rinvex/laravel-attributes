@@ -6,7 +6,6 @@ namespace Rinvex\Attributes\Traits;
 
 use Schema;
 use Closure;
-use Illuminate\Support\Arr;
 use SuperClosure\Serializer;
 use Rinvex\Attributes\Models\Value;
 use Rinvex\Attributes\Models\Attribute;
@@ -99,7 +98,7 @@ trait Attributable
         if (is_null($namespace = $this->getEntityAttributesNamespace())) {
             $attributes = array_merge($attributes, $eavAttributes);
         } else {
-            Arr::set($attributes, $namespace, $eavAttributes);
+            array_set($attributes, $namespace, $eavAttributes);
         }
 
         return $attributes;
