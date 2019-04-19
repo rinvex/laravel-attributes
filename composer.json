@@ -57,7 +57,7 @@
         "rinvex/laravel-support": "^2.0.0",
         "spatie/eloquent-sortable": "^3.4.0",
         "spatie/laravel-sluggable": "^2.1.0",
-        "spatie/laravel-translatable": "4.1.*",
+        "spatie/laravel-translatable": "^4.0",
         "watson/validating": "^3.2.0"
     },
     "require-dev": {
