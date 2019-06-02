@@ -151,14 +151,14 @@ This class creates the Eloquent relations to the attribute values based on their
     composer require rinvex/laravel-attributes
     ```
 
-2. Execute migrations via the following command:
-    ```shell
-    php artisan rinvex:migrate:attributes
-    ```
-
-3. **Optional** if you want to change the configurations:
+2. Publish resources (migrations and config files):
     ```shell
     php artisan rinvex:publish:attributes
+    ```
+
+3. Execute migrations via the following command:
+    ```shell
+    php artisan rinvex:migrate:attributes
     ```
 
 4. Done!
