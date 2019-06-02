@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Support\Traits\ConsoleTools;
 use Rinvex\Attributes\Models\Attribute;
+use Rinvex\Support\Traits\ConsoleTools;
 use Rinvex\Attributes\Models\AttributeEntity;
 use Rinvex\Attributes\Console\Commands\MigrateCommand;
 use Rinvex\Attributes\Console\Commands\PublishCommand;
