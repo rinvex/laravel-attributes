@@ -27,7 +27,7 @@ class RelationBuilder
         foreach ($attributes as $attribute) {
             $relation = $this->getRelationClosure($entity, $attribute);
 
-            $entity->setEntityAttributeRelation((string)($attribute->getAttributes()['slug'] ?? null), $relation);
+            $entity->setEntityAttributeRelation((string) ($attribute->getAttributes()['slug'] ?? null), $relation);
         }
     }
 
@@ -41,7 +41,7 @@ class RelationBuilder
      */
     protected function getRelationClosure(Entity $entity, Attribute $attribute): Closure
     {
-        $method = (bool)($attribute->getAttributes()['is_collection'] ?? null) ? 'hasMany' : 'hasOne';
+        $method = (bool) ($attribute->getAttributes()['is_collection'] ?? null) ? 'hasMany' : 'hasOne';
 
         // This will return a closure fully binded to the current entity instance,
         // which will help us to simulate any relation as if it was made in the
