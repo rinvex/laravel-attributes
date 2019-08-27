@@ -15,9 +15,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
 
         // Load test migrations
-        $this->loadMigrationsFrom(dirname(__DIR__) . '/database/migrations');
+        $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
 
-        $this->withFactories(dirname(__DIR__) . '/Factories');
+        $this->withFactories(dirname(__DIR__).'/Factories');
 
         // Registering the core type map
         Attribute::typeMap([
