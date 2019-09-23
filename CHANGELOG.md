@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v3.0.1] - 2019-09-24
+- Add missing laravel/helpers composer package
+
 ## [v3.0.0] - 2019-09-23
 - Upgrade to Laravel v6 and update dependencies
 
@@ -103,6 +106,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v3.0.1]: https://github.com/rinvex/laravel-attributes/compare/v3.0.0...v3.0.1
 [v3.0.0]: https://github.com/rinvex/laravel-attributes/compare/v2.1.1...v3.0.0
 [v2.1.1]: https://github.com/rinvex/laravel-attributes/compare/v2.1.0...v2.1.1
 [v2.1.0]: https://github.com/rinvex/laravel-attributes/compare/v2.0.0...v2.1.0
