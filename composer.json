@@ -53,6 +53,7 @@
         "illuminate/database": "^6.0.0",
         "illuminate/support": "^6.0.0",
         "jeremeamia/superclosure": "^2.4.0",
+        "laravel/helpers": "^1.1.0",
         "rinvex/laravel-cacheable": "^3.0.0",
         "rinvex/laravel-support": "^3.0.0",
         "spatie/eloquent-sortable": "^3.7.0",
