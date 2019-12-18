@@ -196,7 +196,7 @@ That's it, we only have to include that trait in our Eloquent model!
 use Rinvex\Attributes\Models\Attribute;
 
 Attribute::typeMap([
-    'varchar' => Rinvex\Attributes\Models\Type\Varchar,
+    'varchar' => Rinvex\Attributes\Models\Type\Varchar::class,
     // ...
     'custom' => \Path\To\Your\Type::class,
 ]);
