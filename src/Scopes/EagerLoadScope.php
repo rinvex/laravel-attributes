@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Scopes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Entity;
@@ -28,7 +29,7 @@ class EagerLoadScope implements Scope
         if (array_key_exists('eav', $eagerLoads)) {
             $eagerLoads = array_merge($eagerLoads, $entity->getEntityAttributeRelations());
 
-            $builder->setEagerLoads(array_except($eagerLoads, 'eav'));
+            $builder->setEagerLoads(Arr::except($eagerLoads, 'eav'));
         }
     }
 }

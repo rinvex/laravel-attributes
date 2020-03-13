@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models;
 
+use Illuminate\Support\Str;
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
@@ -161,7 +162,7 @@ class Attribute extends Model implements Sortable
      */
     public function setSlugAttribute($value): void
     {
-        $this->attributes['slug'] = str_slug($value, $this->getSlugOptions()->slugSeparator, $this->getSlugOptions()->slugLanguage);
+        $this->attributes['slug'] = Str::slug($value, $this->getSlugOptions()->slugSeparator, $this->getSlugOptions()->slugLanguage);
     }
 
     /**
@@ -203,7 +204,7 @@ class Attribute extends Model implements Sortable
      */
     public function setGroupAttribute($value): void
     {
-        $this->attributes['group'] = str_slug($value);
+        $this->attributes['group'] = Str::slug($value);
     }
 
     /**

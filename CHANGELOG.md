@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
+
+## [v3.0.3] - 2020-03-13
+- Significant performance improvement by bypassing Eloquent model magic when attaching attribute relationships to models.
+- Tweak TravisCI config
+- Add migrations autoload option to the package
+- Tweak service provider `publishesResources`
+- Remove indirect composer dependency
+- Drop using global helpers
+- Update StyleCI config
+
 ## [v3.0.2] - 2019-12-18
 - Fix wrong code sample in readme
 - Fix `migrate:reset` args as it doesn't accept --step
