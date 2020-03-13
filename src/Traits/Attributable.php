@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Traits;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Schema;
 use Closure;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use SuperClosure\Serializer;
 use Rinvex\Attributes\Models\Value;
 use Rinvex\Attributes\Models\Attribute;
