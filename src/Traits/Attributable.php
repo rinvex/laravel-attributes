@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Traits;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Schema;
 use Closure;
 use SuperClosure\Serializer;
@@ -98,7 +100,7 @@ trait Attributable
         if (is_null($namespace = $this->getEntityAttributesNamespace())) {
             $attributes = array_merge($attributes, $eavAttributes);
         } else {
-            array_set($attributes, $namespace, $eavAttributes);
+            Arr::set($attributes, $namespace, $eavAttributes);
         }
 
         return $attributes;
@@ -418,7 +420,7 @@ trait Attributable
      */
     protected function getEntityAttributeName(string $key): string
     {
-        return $this->isRawEntityAttribute($key) ? camel_case(str_ireplace(['raw', 'object'], ['', ''], $key)) : $key;
+        return $this->isRawEntityAttribute($key) ? Str::camel(str_ireplace(['raw', 'object'], ['', ''], $key)) : $key;
     }
 
     /**
