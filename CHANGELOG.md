@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.0.0] - 2020-03-15
+- Upgrade to Laravel v7.1.x & PHP v7.4.x
+
 ## [v3.0.3] - 2020-03-13
 - Significant performance improvement by bypassing Eloquent model magic when attaching attribute relationships to models.
 - Tweak TravisCI config
@@ -119,6 +122,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v4.0.0]: https://github.com/rinvex/laravel-attributes/compare/v3.0.3...v4.0.0
 [v3.0.3]: https://github.com/rinvex/laravel-attributes/compare/v3.0.2...v3.0.3
 [v3.0.2]: https://github.com/rinvex/laravel-attributes/compare/v3.0.1...v3.0.2
 [v3.0.1]: https://github.com/rinvex/laravel-attributes/compare/v3.0.0...v3.0.1
