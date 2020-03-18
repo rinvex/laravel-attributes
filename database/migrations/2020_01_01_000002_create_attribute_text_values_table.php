@@ -17,10 +17,10 @@ class CreateAttributeTextValuesTable extends Migration
     {
         Schema::create(config('rinvex.attributes.tables.attribute_text_values'), function (Blueprint $table) {
             // Columns
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->text('content');
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('entity_id')->unsigned();
+            $table->bigInteger('attribute_id')->unsigned();
+            $table->bigInteger('entity_id')->unsigned();
             $table->string('entity_type');
             $table->timestamps();
 
