@@ -63,7 +63,7 @@
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.27.0",
         "illuminate/container": "^7.0.0",
-        "orchestra/testbench": "^3.6",
+        "orchestra/testbench": "^5.0.0",
         "phpunit/phpunit": "^9.0.0"
     },
     "autoload": {
