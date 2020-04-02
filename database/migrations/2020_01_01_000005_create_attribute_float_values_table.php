@@ -18,7 +18,7 @@ class CreateAttributeFloadValuesTable extends Migration
         Schema::create(config('rinvex.attributes.tables.attribute_integer_values'), function (Blueprint $table) {
             // Columns
             $table->bigIncrements('id');
-            $table->float('content',8,2);
+            $table->float('content', 8, 2);
             $table->bigInteger('attribute_id')->unsigned();
             $table->bigInteger('entity_id')->unsigned();
             $table->string('entity_type');
