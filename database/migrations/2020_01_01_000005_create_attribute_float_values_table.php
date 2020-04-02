@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttributeFloadValuesTable extends Migration
+class CreateAttributeFloatValuesTable extends Migration
 {
     /**
      * Run the migrations.
