@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(Rinvex\Attributes\Models\Attribute::class, function (Faker $faker) {
     return [
         'slug' => $faker->slug,
-        'type' => $faker->randomElement(['boolean', 'datetime', 'integer', 'text', 'varchar']),
+        'type' => $faker->randomElement(['boolean', 'datetime', 'integer', 'float', 'text', 'varchar']),
         'name' => $faker->name,
         'entities' => $faker->randomElement(['App\Models\Company', 'App\Models\Product', 'App\Models\User']),
     ];

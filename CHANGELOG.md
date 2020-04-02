@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
-
+## [v4.1.0] - 2020-04-01
+- Add Float to Entity Types
 
 ## [v4.0.1] - 2020-03-20
 - Convert into bigInteger database fields

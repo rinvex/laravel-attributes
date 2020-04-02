@@ -23,6 +23,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'text' => \Rinvex\Attributes\Models\Type\Text::class,
             'bool' => \Rinvex\Attributes\Models\Type\Boolean::class,
             'integer' => \Rinvex\Attributes\Models\Type\Integer::class,
+            'float' => \Rinvex\Attributes\Models\Type\Float::class,
             'varchar' => \Rinvex\Attributes\Models\Type\Varchar::class,
             'datetime' => \Rinvex\Attributes\Models\Type\Datetime::class,
         ]);
