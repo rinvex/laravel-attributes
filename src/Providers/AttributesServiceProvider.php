@@ -59,6 +59,6 @@ class AttributesServiceProvider extends ServiceProvider
         // Publish Resources
         $this->publishesConfig('rinvex/laravel-attributes');
         $this->publishesMigrations('rinvex/laravel-attributes');
-        ! $this->autoloadMigrations('rinvex.attributes') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        ! $this->autoloadMigrations('rinvex/attributes') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
 }
