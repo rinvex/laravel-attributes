@@ -7,10 +7,10 @@ namespace Rinvex\Attributes\Models\Type;
 use Rinvex\Attributes\Models\Value;
 
 /**
- * Rinvex\Attributes\Models\Type\Float.
+ * Rinvex\Attributes\Models\Type\Calculated.
  *
  * @property int                                                $id
- * @property float                                              $content
+ * @property int                                                $content
  * @property int                                                $attribute_id
  * @property int                                                $entity_id
  * @property string                                             $entity_type
@@ -19,16 +19,16 @@ use Rinvex\Attributes\Models\Value;
  * @property-read \Rinvex\Attributes\Models\Attribute           $attribute
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereAttributeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereEntityId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereEntityType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Calculated whereAttributeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Calculated whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Calculated whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Calculated whereEntityId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Calculated whereEntityType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Calculated whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Calculated whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Float extends Value
+class Calculated extends Value
 {
     /**
      * {@inheritdoc}
@@ -51,7 +51,7 @@ class Float extends Value
 
         $this->setTable(config('rinvex.attributes.tables.attribute_float_values'));
         $this->setRules([
-            'content' => 'required|regex:/^\d*(\.\d{2})?$/',
+            'content' => 'required',
             'attribute_id' => 'required|integer|exists:'.config('rinvex.attributes.tables.attributes').',id',
             'entity_id' => 'required|integer',
             'entity_type' => 'required|string',

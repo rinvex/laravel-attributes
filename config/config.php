@@ -15,6 +15,7 @@ return [
         'attribute_boolean_values' => 'attribute_boolean_values',
         'attribute_datetime_values' => 'attribute_datetime_values',
         'attribute_integer_values' => 'attribute_integer_values',
+        'attribute_calculated_values' => 'attribute_calcualted_values',
         'attribute_float_values' => 'attribute_float_values',
         'attribute_text_values' => 'attribute_text_values',
         'attribute_varchar_values' => 'attribute_varchar_values',
