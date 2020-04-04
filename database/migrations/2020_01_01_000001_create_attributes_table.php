@@ -27,6 +27,7 @@ class CreateAttributesTable extends Migration
             $table->string('type');
             $table->boolean('is_required')->default(false);
             $table->boolean('is_collection')->default(false);
+            $table->enum('calculated', ['broadcaster', 'listener']);    
             $table->text('default')->nullable();
             $table->timestamps();
 
