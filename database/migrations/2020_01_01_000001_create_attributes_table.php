@@ -19,8 +19,7 @@ class CreateAttributesTable extends Migration
             // Columns
             $table->bigIncrements('id');
             $table->string('slug');
-            $table->string('name');
-            $table->{$this->jsonable()}('label');
+            $table->{$this->jsonable()}('name');
             $table->{$this->jsonable()}('description')->nullable();
             $table->mediumInteger('sort_order')->unsigned()->default(0);
             $table->string('group')->nullable();
