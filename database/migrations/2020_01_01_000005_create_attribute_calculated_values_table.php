@@ -15,7 +15,7 @@ class CreateAttributeFloatValuesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('rinvex.attributes.tables.attribute_integer_values'), function (Blueprint $table) {
+        Schema::create(config('rinvex.attributes.tables.attribute_calculated_values'), function (Blueprint $table) {
             // Columns
             $table->bigIncrements('id');
             $table->float('content', 8, 2);
@@ -37,6 +37,6 @@ class CreateAttributeFloatValuesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_integer_values'));
+        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_calculated_values'));
     }
 }
