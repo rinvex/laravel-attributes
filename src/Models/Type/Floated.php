@@ -28,7 +28,7 @@ use Rinvex\Attributes\Models\Value;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Float whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Float extends Value
+class Floated extends Value
 {
     /**
      * {@inheritdoc}
