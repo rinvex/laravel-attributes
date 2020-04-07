@@ -17,10 +17,10 @@ class CreateAttributeVarcharValuesTable extends Migration
     {
         Schema::create(config('rinvex.attributes.tables.attribute_varchar_values'), function (Blueprint $table) {
             // Columns
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('content');
-            $table->bigInteger('attribute_id')->unsigned();
-            $table->bigInteger('entity_id')->unsigned();
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('entity_id')->unsigned();
             $table->string('entity_type');
             $table->timestamps();
 
