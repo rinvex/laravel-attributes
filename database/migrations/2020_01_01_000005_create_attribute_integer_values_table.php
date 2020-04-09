@@ -17,10 +17,10 @@ class CreateAttributeIntegerValuesTable extends Migration
     {
         Schema::create(config('rinvex.attributes.tables.attribute_integer_values'), function (Blueprint $table) {
             // Columns
-            $table->bigIncrements('id');
-            $table->bigInteger('content');
-            $table->bigInteger('attribute_id')->unsigned();
-            $table->bigInteger('entity_id')->unsigned();
+            $table->increments('id');
+            $table->integer('content');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('entity_id')->unsigned();
             $table->string('entity_type');
             $table->timestamps();
 
