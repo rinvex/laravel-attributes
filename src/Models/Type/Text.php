@@ -51,7 +51,7 @@ class Text extends Value
 
         $this->setTable(config('rinvex.attributes.tables.attribute_text_values'));
         $this->setRules([
-            'content' => 'required|string|max:10000',
+            'content' => 'required|string|strip_tags|max:10000',
             'attribute_id' => 'required|integer|exists:'.config('rinvex.attributes.tables.attributes').',id',
             'entity_id' => 'required|integer',
             'entity_type' => 'required|string',
