@@ -55,7 +55,7 @@ abstract class Value extends Model
      */
     public function attribute(): BelongsTo
     {
-        return $this->belongsTo(Attribute::class, 'attribute_id', 'id');
+        return $this->belongsTo(Attribute::class, 'attribute_id', 'id', 'attribute');
     }
 
     /**
