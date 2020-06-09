@@ -54,7 +54,7 @@ class Boolean extends Value
             'content' => 'required|boolean',
             'attribute_id' => 'required|integer|exists:'.config('rinvex.attributes.tables.attributes').',id',
             'entity_id' => 'required|integer',
-            'entity_type' => 'required|string',
+            'entity_type' => 'required|string|strip_tags|max:150',
         ]);
     }
 }
