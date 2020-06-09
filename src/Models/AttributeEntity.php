@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * Rinvex\Attributes\Models\AttributeEntity.
  *
