@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Rinvex\Cacheable\CacheableEloquent;
-
 /**
  * Rinvex\Attributes\Models\AttributeEntity.
  *
@@ -23,8 +21,6 @@ use Rinvex\Cacheable\CacheableEloquent;
  */
 class AttributeEntity extends Model
 {
-    use CacheableEloquent;
-
     /**
      * {@inheritdoc}
      */
