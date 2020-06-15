@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## [v4.1.0] - 2020-06-15
 - Update validation rules
 - Drop using rinvex/laravel-cacheable from core packages for more flexibility
-  - Caching should be handled on the application layer, not enforced from the core packages
+  - Caching should be handled on the application layer, and not enforced from the core packages
 - Drop PHP 7.2 & 7.3 support from travis
 - Drop slugifying group attribute
 
