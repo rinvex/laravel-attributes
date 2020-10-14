@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Attributes\Tests\Feature;
+namespace Rinvex\Attributes\Tests;
 
 use Rinvex\Attributes\Models\Attribute;
 use Rinvex\Attributes\Tests\Stubs\User;
