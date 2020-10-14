@@ -107,6 +107,13 @@ class Attribute extends Model implements Sortable
     ];
 
     /**
+     * The entities that need to be attached to this attribute.
+     *
+     * @var array
+     */
+    protected $entitiesToSave = [];
+
+    /**
      * The default rules that the model will validate against.
      *
      * @var array
@@ -134,10 +141,12 @@ class Attribute extends Model implements Sortable
     public static function boot()
     {
         parent::boot();
-        static::updated(function ($attribute) {
-            $attribute->clearAttributableCache();
-        });
-        static::created(function ($attribute) {
+        static::saved(function ($attribute) {
+            $entities = $attribute->entitiesToSave ?: [];
+            $attribute->entities()->delete();
+            ! $entities || $attribute->entities()->createMany(array_map(function ($entity) {
+                return ['entity_type' => $entity];
+            }, $entities));
             $attribute->clearAttributableCache();
         });
         static::deleted(function ($attribute) {
@@ -218,7 +227,7 @@ class Attribute extends Model implements Sortable
      */
     public function getEntitiesAttribute(): array
     {
-        return $this->entities()->pluck('entity_type')->toArray();
+        return $this->entities()->pluck('entity_type')->toArray() ?: $this->entitiesToSave ?: [];
     }
 
     /**
@@ -231,15 +240,7 @@ class Attribute extends Model implements Sortable
      */
     public function setEntitiesAttribute($entities): void
     {
-        // TODO: Need to change this so that it doesn't attach another saved callback every time
-        //       a new attribute is created/updated.
-        static::saved(function ($model) use ($entities) {
-            $this->entities()->delete();
-            ! $entities || $this->entities()->createMany(array_map(function ($entity) {
-                return ['entity_type' => $entity];
-            }, $entities));
-            $this->clearAttributableCache();
-        });
+        $this->entitiesToSave = (array) $entities;
     }
 
     /**
