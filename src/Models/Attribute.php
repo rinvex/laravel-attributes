@@ -129,6 +129,23 @@ class Attribute extends Model implements Sortable
     protected static $typeMap = [];
 
     /**
+     * {@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::updated(function ($attribute) {
+            $attribute->clearAttributableCache();
+        });
+        static::created(function ($attribute) {
+            $attribute->clearAttributableCache();
+        });
+        static::deleted(function ($attribute) {
+            $attribute->clearAttributableCache();
+        });
+    }
+
+    /**
      * Create a new Eloquent model instance.
      *
      * @param array $attributes
@@ -256,5 +273,18 @@ class Attribute extends Model implements Sortable
     public function values(string $value): HasMany
     {
         return $this->hasMany($value, 'attribute_id', 'id');
+    }
+
+    /**
+     * Clears the attributable cache for all entities that are attached to this attribute.
+     *
+     * @return void
+     */
+    public function clearAttributableCache()
+    {
+        foreach ($this->entities as $entity) {
+            $entityInstance = app()->make($entity);
+            $entityInstance->clearAttributableCache();
+        }
     }
 }
