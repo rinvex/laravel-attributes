@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Tests\Feature;
 
-use Rinvex\Attributes\Tests\Stubs\User;
+use Rinvex\Attributes\Tests\Models\User;
 use Rinvex\Attributes\Tests\TestCase;
 
 class AttributeCreationTest extends TestCase
@@ -51,6 +51,28 @@ class AttributeCreationTest extends TestCase
         $this->createAttribute(['slug' => 'foo']);
 
         $this->assertDatabaseHas('attributes', ['slug' => 'foo_1']);
+    }
+
+    /** @test */
+    public function it_ensures_attributable_cache_will_clear()
+    {
+        // Create an attribute.
+        $this->createAttribute(['slug' => 'foo']);
+        $this->assertDatabaseHas('attributes', ['slug' => 'foo']);
+
+        $user = app()->make(User::class);
+        $this->assertEquals(1, $user->getEntityAttributes()->count());
+
+        // Create another attribute.
+        $this->createAttribute(['slug' => 'bar']);
+        $this->assertDatabaseHas('attributes', ['slug' => 'bar']);
+        $this->assertEquals(2, $user->getEntityAttributes()->count());
+
+        // Create three more.
+        $this->createAttribute(['slug' => 'baz']);
+        $this->createAttribute(['slug' => 'beans']);
+        $this->createAttribute(['slug' => 'blorg']);
+        $this->assertEquals(5, $user->getEntityAttributes()->count());
     }
 
     protected function createAttribute($attributes = [])

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Tests;
 
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Rinvex\Attributes\Models\Attribute;
-use Rinvex\Attributes\Tests\Stubs\User;
+use Rinvex\Attributes\Tests\Models\Thing;
+use Rinvex\Attributes\Tests\Models\User;
 use Rinvex\Attributes\Providers\AttributesServiceProvider;
 use Rinvex\Support\Providers\SupportServiceProvider;
 
@@ -15,9 +17,10 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations('testing');
-        $this->withFactories(__DIR__.'/Factories');
+        $this->app->make(EloquentFactory::class)->load(__DIR__.'/database/factories');
 
         // Registering the core type map
         Attribute::typeMap([
@@ -30,6 +33,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         // Push your entity fully qualified namespace
         app('rinvex.attributes.entities')->push(User::class);
+        app('rinvex.attributes.entities')->push(Thing::class);
     }
 
     protected function getEnvironmentSetUp($app)

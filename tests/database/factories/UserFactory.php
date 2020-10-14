@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Faker\Generator as Faker;
-use Rinvex\Attributes\Tests\Stubs\User;
+use Rinvex\Attributes\Tests\Models\User;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
