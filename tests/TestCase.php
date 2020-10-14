@@ -21,6 +21,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations('testing');
         $this->app->make(EloquentFactory::class)->load(__DIR__.'/database/factories');
+        $this->app->make(EloquentFactory::class)->load(dirname(__DIR__).'/database/factories');
 
         // Registering the core type map
         Attribute::typeMap([
