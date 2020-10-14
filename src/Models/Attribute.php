@@ -231,11 +231,14 @@ class Attribute extends Model implements Sortable
      */
     public function setEntitiesAttribute($entities): void
     {
+        // TODO: Need to change this so that it doesn't attach another saved callback every time
+        //       a new attribute is created/updated.
         static::saved(function ($model) use ($entities) {
             $this->entities()->delete();
             ! $entities || $this->entities()->createMany(array_map(function ($entity) {
                 return ['entity_type' => $entity];
             }, $entities));
+            $this->clearAttributableCache();
         });
     }
 
