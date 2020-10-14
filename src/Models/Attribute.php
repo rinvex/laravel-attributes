@@ -109,9 +109,9 @@ class Attribute extends Model implements Sortable
     /**
      * The entities that need to be attached to this attribute.
      *
-     * @var array
+     * @var mixed
      */
-    protected $entitiesToSave = [];
+    protected $entitiesToSave = false;
 
     /**
      * The default rules that the model will validate against.
@@ -142,11 +142,17 @@ class Attribute extends Model implements Sortable
     {
         parent::boot();
         static::saved(function ($attribute) {
-            $entities = $attribute->entitiesToSave ?: [];
-            $attribute->entities()->delete();
-            ! $entities || $attribute->entities()->createMany(array_map(function ($entity) {
-                return ['entity_type' => $entity];
-            }, $entities));
+            if ($attribute->entitiesToSave !== false) {
+                // Wrap this in a transaction so that we don't lose attached entities if `createMany` fails.
+                \DB::transaction(function () use ($attribute) {
+                    $entities = $attribute->entitiesToSave ?: [];
+                    $attribute->entities()->delete();
+                    ! $entities || $attribute->entities()->createMany(array_map(function ($entity) {
+                        return ['entity_type' => $entity];
+                    }, $entities));
+                    $attribute->entitiesToSave = false;
+                });
+            }
             $attribute->clearAttributableCache();
         });
         static::deleted(function ($attribute) {
