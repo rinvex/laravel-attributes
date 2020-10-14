@@ -7,6 +7,7 @@ namespace Rinvex\Attributes\Tests\Feature;
 use Rinvex\Attributes\Models\Attribute;
 use Rinvex\Attributes\Tests\Stubs\User;
 use Rinvex\Attributes\Providers\AttributesServiceProvider;
+use Rinvex\Support\Providers\SupportServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -45,6 +46,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             AttributesServiceProvider::class,
+            SupportServiceProvider::class,
         ];
     }
 }
