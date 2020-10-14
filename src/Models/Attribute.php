@@ -286,8 +286,12 @@ class Attribute extends Model implements Sortable
     public function clearAttributableCache()
     {
         foreach ($this->entities as $entity) {
-            $entityInstance = app()->make($entity);
-            $entityInstance->clearAttributableCache();
+            // Ensure that the class exists before creating an instance as the database
+            // could contain a model that no longer exists.
+            if (class_exists($entity)) {
+                $entityInstance = app()->make($entity);
+                $entityInstance->clearAttributableCache();
+            }
         }
     }
 }
