@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.0] - 2020-12-22
+- Upgrade to Laravel v8
+- Update validation rules
+
 ## [v4.1.0] - 2020-06-15
 - Update validation rules
 - Drop using rinvex/laravel-cacheable from core packages for more flexibility
@@ -158,6 +162,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v5.0.0]: https://github.com/rinvex/laravel-attributes/compare/v4.1.0...v5.0.0
 [v4.1.0]: https://github.com/rinvex/laravel-attributes/compare/v4.0.6...v4.1.0
 [v4.0.6]: https://github.com/rinvex/laravel-attributes/compare/v4.0.5...v4.0.6
 [v4.0.5]: https://github.com/rinvex/laravel-attributes/compare/v4.0.4...v4.0.5
