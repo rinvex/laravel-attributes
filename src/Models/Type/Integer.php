@@ -9,13 +9,13 @@ use Rinvex\Attributes\Models\Value;
 /**
  * Rinvex\Attributes\Models\Type\Integer.
  *
- * @property int                                                $id
- * @property int                                                $content
- * @property int                                                $attribute_id
- * @property int                                                $entity_id
- * @property string                                             $entity_type
- * @property \Carbon\Carbon|null                                $created_at
- * @property \Carbon\Carbon|null                                $updated_at
+ * @property int                 $id
+ * @property int                 $content
+ * @property int                 $attribute_id
+ * @property int                 $entity_id
+ * @property string              $entity_type
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
  * @property-read \Rinvex\Attributes\Models\Attribute           $attribute
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
  *
