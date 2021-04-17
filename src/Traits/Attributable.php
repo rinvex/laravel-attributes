@@ -62,7 +62,9 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Check if the model needs to be booted and if so, do it.
+     *
+     * @return void
      */
     protected function bootIfNotBooted()
     {
@@ -103,7 +105,11 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Set the given relationship on the model.
+     *
+     * @param  string  $relation
+     * @param  mixed  $value
+     * @return $this
      */
     public function relationsToArray()
     {
@@ -209,7 +215,10 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Get the fillable attributes of a given array.
+     *
+     * @param  array  $attributes
+     * @return array
      */
     protected function fillableFromArray(array $attributes)
     {
@@ -227,7 +236,11 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Set a given attribute on the model.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return mixed
      */
     public function setAttribute($key, $value)
     {
@@ -235,7 +248,10 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Get an attribute from the model.
+     *
+     * @param  string  $key
+     * @return mixed
      */
     public function getAttribute($key)
     {
