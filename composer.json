@@ -52,7 +52,6 @@
         "illuminate/console": "^8.0.0 || ^9.0.0",
         "illuminate/database": "^8.0.0 || ^9.0.0",
         "illuminate/support": "^8.0.0 || ^9.0.0",
-        "jeremeamia/superclosure": "^2.4.0",
         "rinvex/laravel-support": "^5.0.0",
         "spatie/eloquent-sortable": "^3.7.0",
         "spatie/laravel-sluggable": "^2.2.0",

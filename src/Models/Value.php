@@ -77,10 +77,14 @@ abstract class Value extends Model
     }
 
     /**
-     * {@inheritdoc}
+     * Create a new Eloquent Collection instance.
+     *
+     * @param  array  $models
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function newCollection(array $models = [])
     {
-        return new ValueCollection($models);
+        return new ValueCollection($models, $this->entity, $this->attribute);
     }
 }

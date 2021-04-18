@@ -26,19 +26,20 @@ class ValueCollection extends EloquentCollection
     protected $attribute;
 
     /**
-     * Link the entity and attribute to this value collection.
+     * Create a new collection.
      *
-     * @param \Illuminate\Database\Eloquent\Model $entity
-     * @param $attribute
+     * @param mixed                                    $items
+     * @param \Illuminate\Database\Eloquent\Model|null $entity
+     * @param \Rinvex\Attributes\Models\Attribute|null $attribute
      *
-     * @return $this
+     * @return void
      */
-    public function link($entity, $attribute)
+    public function __construct($items = [], ?Model $entity = null, ?Attribute $attribute = null)
     {
+        parent::__construct($items);
+
         $this->entity = $entity;
         $this->attribute = $attribute;
-
-        return $this;
     }
 
     /**

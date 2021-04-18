@@ -110,7 +110,7 @@ Loading values as relationships will let us load only those values we may requir
 
 This trait is the most important and let the other classes play together.
 
-It has the responsibility of handling the interactions within the entity. This trait performs the `set` and `get` operations of the EAV attributes, calls the `RelationBuilder` class which adds the relation methods to the `$entityAttributeRelations` array. These relations may be called as usual as we are overriding the magic method `__call` looking for these calls. It’s responsible for setting the event listeners for saving and deleting, add the global scope and fetch the attributes related to this entity.
+It has the responsibility of handling the interactions within the entity. This trait performs the `set` and `get` operations of the EAV attributes, and defines the attribute relations dynamically, which could be used and called normally as any native Laravel relations. It’s responsible for setting the event listeners for saving and deleting, add the global scope and fetch the attributes related to this entity.
 
 When trying to access an entity attribute, if it corresponds to an EAV attribute, this trait contains the logic for providing its value, create a new value instance, update collections or any other set/get interaction.
 
@@ -122,14 +122,11 @@ When setting values it gets a little bit more complex. We have 3 things to consi
 - Update the content for an existing single value model (database row).
 - Replace an existing (or empty) collection of values with a new one so we have to trash the previous stored values (delete from database).
 
-It also overrides few entity methods such as `bootIfNotBooted`, `relationsToArray`, `setRelation`, `getRelationValue` to provide a smooth and seamless integration with Eloquent models in every possible way. It wires everything together.
+It also overrides few entity methods such as `bootIfNotBooted`, `setRelation`, `getRelationValue` to provide a smooth and seamless integration with Eloquent models in every possible way. It wires everything together.
 
 ```php
 // To build entity relations for every instance
 bootIfNotBooted();
-
-// To include attributes as relations when converting to array/json
-relationsToArray();
 
 // To link entity & attribute to value collections (multi-valued attributes)
 setRelation()
@@ -138,9 +135,9 @@ setRelation()
 getRelationValue()
 ```
 
-#### `Rinvex\Attributes\Support\RelationBuilder`
+#### Dynamic Relationships
 
-This class creates the Eloquent relations to the attribute values based on their type. If they are multi-valued, it will provide a `hasMany` relation, otherwise just a `hasOne`. This class creates closures that return this kind of relations and may be called straight from the entity model. These closures are stored in `$entityAttributeRelations` property in the `\Rinvex\Attributes\Traits\Attributable` trait.
+This package dynamically define the Eloquent relations to the attribute values based on their type, using [`resolveRelationUsing`](https://laravel.com/docs/master/eloquent-relationships#dynamic-relationships) method. If they are multi-valued, it will register a `hasMany` relation, otherwise just a `hasOne`.
 
 
 ## Installation
