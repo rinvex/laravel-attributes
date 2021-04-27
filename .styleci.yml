@@ -1,5 +1,7 @@
 preset: recommended
 
+risky: true
+
 enabled:
   - dir_constant
   - ereg_to_preg
