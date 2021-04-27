@@ -6,6 +6,7 @@ namespace Rinvex\Attributes\Tests\Feature;
 
 use Rinvex\Attributes\Models\Attribute;
 use Rinvex\Attributes\Tests\Stubs\User;
+use Rinvex\Support\Providers\SupportServiceProvider;
 use Rinvex\Attributes\Providers\AttributesServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -16,7 +17,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations('testing');
-        $this->withFactories(__DIR__.'/Factories');
 
         // Registering the core type map
         Attribute::typeMap([
@@ -45,6 +45,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             AttributesServiceProvider::class,
+            SupportServiceProvider::class,
         ];
     }
 }
