@@ -6,7 +6,6 @@ namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Rinvex\Attributes\Support\ValueCollection;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -23,13 +22,6 @@ abstract class Value extends Model
         'entity_id',
         'entity_type',
     ];
-
-    /**
-     * Determine if value should push to relations when saving.
-     *
-     * @var bool
-     */
-    protected $shouldPush = false;
 
     /**
      * The default rules that the model will validate against.
@@ -64,27 +56,5 @@ abstract class Value extends Model
     public function entity(): MorphTo
     {
         return $this->morphTo('entity', 'entity_type', 'entity_id', 'id');
-    }
-
-    /**
-     * Check if value should push to relations when saving.
-     *
-     * @return bool
-     */
-    public function shouldPush(): bool
-    {
-        return $this->shouldPush;
-    }
-
-    /**
-     * Create a new Eloquent Collection instance.
-     *
-     * @param  array  $models
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function newCollection(array $models = [])
-    {
-        return new ValueCollection($models, $this->entity, $this->attribute);
     }
 }

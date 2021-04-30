@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
@@ -30,7 +31,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property array               $entities
- * @property-read \Rinvex\Attributes\Support\ValueCollection|\Rinvex\Attributes\Models\Value[] $values
+ * @property-read \Rinvex\Attributes\Models\Value[] $values
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute ordered($direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute whereCreatedAt($value)
@@ -195,7 +196,7 @@ class Attribute extends Model implements Sortable
 
     /**
      * Access entities relation and retrieve entity types as an array,
-     * Accessors/Mutators preceeds relation value when called dynamically.
+     * Accessors/Mutators precedes relation value when called dynamically.
      *
      * @return array
      */
@@ -216,6 +217,7 @@ class Attribute extends Model implements Sortable
     {
         static::saved(function ($model) use ($entities) {
             $this->entities()->delete();
+
             ! $entities || $this->entities()->createMany(array_map(function ($entity) {
                 return ['entity_type' => $entity];
             }, $entities));
@@ -247,7 +249,7 @@ class Attribute extends Model implements Sortable
     }
 
     /**
-     * Get the entities attached to this attribute.
+     * Get the values attached to this attribute.
      *
      * @param string $value
      *
@@ -256,5 +258,17 @@ class Attribute extends Model implements Sortable
     public function values(string $value): HasMany
     {
         return $this->hasMany($value, 'attribute_id', 'id');
+    }
+
+    /**
+     * Get the attached models of the given class to this attribute.
+     *
+     * @param string $class
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function entries(string $class): MorphToMany
+    {
+        return $this->morphedByMany($class, 'entity', config('rinvex.attributes.tables.attribute_entity'), 'attribute_id', 'entity_id', 'id', 'id');
     }
 }
