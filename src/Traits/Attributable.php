@@ -71,7 +71,6 @@ trait Attributable
         parent::bootIfNotBooted();
 
         if (! $this->entityAttributeRelationsBooted) {
-
             $attributes = $this->getEntityAttributes();
 
             // We will manually add a relationship for every attribute registered
@@ -107,8 +106,9 @@ trait Attributable
     /**
      * Set the given relationship on the model.
      *
-     * @param  string  $relation
-     * @param  mixed  $value
+     * @param string $relation
+     * @param mixed  $value
+     *
      * @return $this
      */
     public function relationsToArray()
@@ -217,7 +217,8 @@ trait Attributable
     /**
      * Get the fillable attributes of a given array.
      *
-     * @param  array  $attributes
+     * @param array $attributes
+     *
      * @return array
      */
     protected function fillableFromArray(array $attributes)
@@ -238,8 +239,9 @@ trait Attributable
     /**
      * Set a given attribute on the model.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed  $value
+     *
      * @return mixed
      */
     public function setAttribute($key, $value)
@@ -250,7 +252,8 @@ trait Attributable
     /**
      * Get an attribute from the model.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function getAttribute($key)
