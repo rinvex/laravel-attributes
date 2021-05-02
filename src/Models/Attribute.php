@@ -240,7 +240,6 @@ class Attribute extends Model implements Sortable
 
     /**
      * Get the entities attached to this attribute.
-     *
      */
     public function entities()
     {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Traits;
 
-use Rinvex\Attributes\Models\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Attributes\Models\Attribute;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -116,17 +116,12 @@ trait Attributable
                     //        return $relation->where($attribute->getForeignKey(), $attribute->getKey());
                     //    });
                     //});
-
                 });
-
             }
 
             //foreach ($entityAttributes as $type => $attributes) {
             //    // Optimize the relationship to be one query instead of multiple in case of same attribute type
             //}
-
-
-
         });
 
         static::saved(function (self $model) {
