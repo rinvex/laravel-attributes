@@ -19,7 +19,6 @@ class CreateAttributeEntityTable extends Migration
             // Columns
             $table->integer('attribute_id')->unsigned();
             $table->string('entity_type');
-            $table->integer('entity_id')->unsigned()->nullable(); // TODO: Making this nullable for now as it breaks the basic features
             $table->timestamps();
 
             // Indexes

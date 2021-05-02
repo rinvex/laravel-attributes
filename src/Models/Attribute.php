@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models;
 
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
@@ -14,6 +13,7 @@ use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Rinvex\Attributes\Models\Attribute.
@@ -241,9 +241,8 @@ class Attribute extends Model implements Sortable
     /**
      * Get the entities attached to this attribute.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function entities(): HasMany
+    public function entities()
     {
         return $this->hasMany(config('rinvex.attributes.models.attribute_entity'), 'attribute_id', 'id');
     }
