@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Tests;
 
-use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Rinvex\Attributes\Models\Attribute;
-use Rinvex\Attributes\Tests\Models\Thing;
 use Rinvex\Attributes\Tests\Models\User;
-use Rinvex\Attributes\Providers\AttributesServiceProvider;
+use Rinvex\Attributes\Tests\Models\Thing;
 use Rinvex\Support\Providers\SupportServiceProvider;
+use Rinvex\Attributes\Providers\AttributesServiceProvider;
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

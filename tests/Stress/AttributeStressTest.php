@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Tests\Stress;
 
 use Faker\Generator as Faker;
-use Rinvex\Attributes\Models\Attribute;
-use Rinvex\Attributes\Tests\Models\Thing;
-use Rinvex\Attributes\Tests\Models\User;
 use Rinvex\Attributes\Tests\TestCase;
+use Rinvex\Attributes\Models\Attribute;
+use Rinvex\Attributes\Tests\Models\User;
+use Rinvex\Attributes\Tests\Models\Thing;
 
 class AttributeStressTest extends TestCase
 {
@@ -31,7 +31,7 @@ class AttributeStressTest extends TestCase
             app('rinvex.attributes.attribute')->create([
                 'slug' => $attribute,
                 'type' => $faker->randomElement(['boolean', 'datetime', 'integer', 'text', 'varchar']),
-                'name' => 'Thing ' . ucfirst($attribute),
+                'name' => 'Thing '.ucfirst($attribute),
                 'entities' => [Thing::class, User::class],
             ]);
         }
@@ -54,7 +54,7 @@ class AttributeStressTest extends TestCase
             app('rinvex.attributes.attribute')->create([
                 'slug' => $attribute,
                 'type' => $faker->randomElement(['boolean', 'datetime', 'integer', 'text', 'varchar']),
-                'name' => 'Thing ' . ucfirst($attribute),
+                'name' => 'Thing '.ucfirst($attribute),
                 'entities' => [Thing::class, User::class],
             ]);
         }

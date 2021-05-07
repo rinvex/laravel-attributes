@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Tests\Feature;
 
-use Rinvex\Attributes\Tests\Models\User;
 use Rinvex\Attributes\Tests\TestCase;
+use Rinvex\Attributes\Tests\Models\User;
 
 class AttributeCreationTest extends TestCase
 {
