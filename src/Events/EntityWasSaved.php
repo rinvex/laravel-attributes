@@ -43,13 +43,13 @@ class EntityWasSaved
                     if ($relationValue instanceof ValueCollection) {
                         foreach ($relationValue as $value) {
                             // Set attribute value's entity_id since it's always null,
-                            // because when RelationBuilder::build is called very early
+                            // @TODO: because when RelationBuilder::build is called very early
                             $value->setAttribute('entity_id', $entity->getKey());
                             $this->saveOrTrashValue($value);
                         }
                     } elseif (! is_null($relationValue)) {
                         // Set attribute value's entity_id since it's always null,
-                        // because when RelationBuilder::build is called very early
+                        // @TODO: because when RelationBuilder::build is called very early
                         $relationValue->setAttribute('entity_id', $entity->getKey());
                         $this->saveOrTrashValue($relationValue);
                     }
