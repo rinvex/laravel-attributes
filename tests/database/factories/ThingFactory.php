@@ -25,5 +25,6 @@ $factory->state(Thing::class, 'eav', function (Faker $faker) {
             $eavAttributes[$slug] = $faker->word;
         }
     }
+
     return $eavAttributes;
 });
