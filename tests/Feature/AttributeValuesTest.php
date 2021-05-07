@@ -14,7 +14,7 @@ class AttributeValuesTest extends TestCase
      *
      * @return void
      */
-    public function testBasicEavFunctionality()
+    public function test_basic_eav_functionality()
     {
         $this->createAttributes();
         $size = 'small';

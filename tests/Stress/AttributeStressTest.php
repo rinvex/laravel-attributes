@@ -17,7 +17,7 @@ class AttributeStressTest extends TestCase
      *
      * @return void
      */
-    public function testTenAttributes()
+    public function test_ten_attributes()
     {
         // TODO: Fix the issue with attaching entities to attributes so that we can use the factory instead.
         // factory(Attribute::class, 10)->create(['entities' => [Thing::class, User::class]])->each(function ($attribute) {
@@ -44,7 +44,7 @@ class AttributeStressTest extends TestCase
      *
      * @return void
      */
-    public function testOneHundredAttributes()
+    public function test_one_hundred_attributes()
     {
         $faker = app()->make(Faker::class);
         for ($i = 0; $i < 100; $i++) {
