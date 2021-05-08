@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 trait Attributable
@@ -70,7 +70,7 @@ trait Attributable
                 //});
 
                 // Attach dynamic relations to this model
-                $entityAttributes->each(fn($attribute) => static::resolveRelationUsing($attribute->getAttribute('slug'), function (Model $model) use ($attribute) {
+                $entityAttributes->each(fn ($attribute) => static::resolveRelationUsing($attribute->getAttribute('slug'), function (Model $model) use ($attribute) {
                     // Determine the relationship type, single value or collection
                     $method = $attribute->is_collection ? 'hasMany' : 'hasOne';
 
