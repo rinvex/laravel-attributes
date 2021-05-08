@@ -93,14 +93,39 @@ trait Attributable
             }
         });
 
+        static::retrieved(function (self $model) {
+            $attributes = app('rinvex.attributes.attribute')
+                ->join(config('rinvex.attributes.tables.attribute_entity'), 'attributes.id', '=', 'attribute_entity.attribute_id')
+                ->where('attribute_entity.entity_type', static::morphClass())
+                ->get();
+
+            $booleans = \DB::table(config('rinvex.attributes.tables.attribute_boolean_values'))->whereIn('attribute_id', $attributes->pluck('id'))->where('entity_id', $model->getKey())->where('entity_type', $model->getMorphClass());
+            $datetimes = \DB::table(config('rinvex.attributes.tables.attribute_datetime_values'))->whereIn('attribute_id', $attributes->pluck('id'))->where('entity_id', $model->getKey())->where('entity_type', $model->getMorphClass());
+            $integers = \DB::table(config('rinvex.attributes.tables.attribute_integer_values'))->whereIn('attribute_id', $attributes->pluck('id'))->where('entity_id', $model->getKey())->where('entity_type', $model->getMorphClass());
+            $texts = \DB::table(config('rinvex.attributes.tables.attribute_text_values'))->whereIn('attribute_id', $attributes->pluck('id'))->where('entity_id', $model->getKey())->where('entity_type', $model->getMorphClass());
+            $varchars = \DB::table(config('rinvex.attributes.tables.attribute_varchar_values'))->whereIn('attribute_id', $attributes->pluck('id'))->where('entity_id', $model->getKey())->where('entity_type', $model->getMorphClass());
+
+            $records = $varchars->unionAll($texts)->unionAll($integers)->unionAll($datetimes)->unionAll($booleans)->get();
+            dd($records);
+
+            $model->setAttribute('asd', 'qwe');
+            //dd('asd');
+            //$model->append(['asd' => 'qwe']);
+            //$model->offsetSet(['asd' => 'qwe']);
+            // @TODO: implement relations saving
+            //$model->testimonials()->delete();
+        });
         static::saved(function (self $model) {
             // @TODO: implement relations saving
             //$model->testimonials()->delete();
         });
 
         static::deleted(function (self $model) {
-            // @TODO: implement relations deletion
-            //$model->testimonials()->delete();
+            // @TODO: implement relations saving
+            $entityAttributes = static::entityAttributes();
+            $entityAttributes->each(function ($attribute) use ($model) {
+                $model->{$attribute->getAttribute('type')}()->delete();
+            });
         });
     }
 
