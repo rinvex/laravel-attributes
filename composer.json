@@ -55,7 +55,7 @@
         "jeremeamia/superclosure": "^2.4.0",
         "rinvex/laravel-support": "^5.0.0",
         "spatie/eloquent-sortable": "^3.7.0",
-        "spatie/laravel-sluggable": "^2.2.0",
+        "spatie/laravel-sluggable": "^3.0.0",
         "spatie/laravel-translatable": "^4.2.0"
     },
     "require-dev": {
