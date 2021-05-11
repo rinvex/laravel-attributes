@@ -47,8 +47,6 @@ class Varchar extends Value
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('rinvex.attributes.tables.attribute_varchar_values'));
         $this->setRules([
             'content' => 'required|string|max:150',
@@ -56,5 +54,7 @@ class Varchar extends Value
             'entity_id' => 'required|integer',
             'entity_type' => 'required|string|strip_tags|max:150',
         ]);
+
+        parent::__construct($attributes);
     }
 }

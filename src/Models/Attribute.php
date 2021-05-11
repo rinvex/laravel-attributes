@@ -135,8 +135,6 @@ class Attribute extends Model implements Sortable
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('rinvex.attributes.tables.attributes'));
         $this->setRules([
             'name' => 'required|string|strip_tags|max:150',
@@ -149,6 +147,8 @@ class Attribute extends Model implements Sortable
             'is_collection' => 'sometimes|boolean',
             'default' => 'nullable|string|strip_tags|max:32768',
         ]);
+
+        parent::__construct($attributes);
     }
 
     /**

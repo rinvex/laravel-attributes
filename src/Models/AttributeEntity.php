@@ -43,8 +43,8 @@ class AttributeEntity extends Model
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('rinvex.attributes.tables.attribute_entity'));
+
+        parent::__construct($attributes);
     }
 }
