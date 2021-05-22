@@ -136,7 +136,7 @@ class Attribute extends Model implements Sortable
     public function __construct(array $attributes = [])
     {
         $this->setTable(config('rinvex.attributes.tables.attributes'));
-        $this->setRules([
+        $this->mergeRules([
             'name' => 'required|string|strip_tags|max:150',
             'description' => 'nullable|string|max:32768',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributes.tables.attributes').',slug',

@@ -48,7 +48,7 @@ class Integer extends Value
     public function __construct(array $attributes = [])
     {
         $this->setTable(config('rinvex.attributes.tables.attribute_integer_values'));
-        $this->setRules([
+        $this->mergeRules([
             'content' => 'required|integer',
             'attribute_id' => 'required|integer|exists:'.config('rinvex.attributes.tables.attributes').',id',
             'entity_id' => 'required|integer',

@@ -48,7 +48,7 @@ class Datetime extends Value
     public function __construct(array $attributes = [])
     {
         $this->setTable(config('rinvex.attributes.tables.attribute_datetime_values'));
-        $this->setRules([
+        $this->mergeRules([
             'content' => 'required|date',
             'attribute_id' => 'required|integer|exists:'.config('rinvex.attributes.tables.attributes').',id',
             'entity_id' => 'required|integer',
