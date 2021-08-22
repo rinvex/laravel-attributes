@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.0.0] - 2021-08-22
+- Drop PHP v7 support, and upgrade rinvex package dependencies to next major version
+- Merge rules instead of resetting, to allow adequate model override
+- Update composer dependencies
+- Drop old MySQL versions support that doesn't support json columns
+- Fix constructor initialization order (fill attributes should come next after merging fillables & rules)
+- Upgrade to GitHub-native Dependabot
+- Simplify Attributable trait
+- Simplify service provider model registration into IoC
+- Change hardcoded AttributeEntity table name into dynamically config option (fix #77)
+- Enable StyleCI risky mode
+
 ## [v5.0.1] - 2020-12-25
 - Add support for PHP v8
 
@@ -165,6 +177,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v6.0.0]: https://github.com/rinvex/laravel-attributes/compare/v5.0.1...v6.0.0
 [v5.0.1]: https://github.com/rinvex/laravel-attributes/compare/v5.0.0...v5.0.1
 [v5.0.0]: https://github.com/rinvex/laravel-attributes/compare/v4.1.0...v5.0.0
 [v4.1.0]: https://github.com/rinvex/laravel-attributes/compare/v4.0.6...v4.1.0

@@ -25,11 +25,6 @@ class AttributeEntity extends Model
     /**
      * {@inheritdoc}
      */
-    protected $table = 'attribute_entity';
-
-    /**
-     * {@inheritdoc}
-     */
     protected $fillable = [
         'entity_type',
     ];
@@ -40,4 +35,16 @@ class AttributeEntity extends Model
     protected $casts = [
         'entity_type' => 'string',
     ];
+
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->setTable(config('rinvex.attributes.tables.attribute_entity'));
+
+        parent::__construct($attributes);
+    }
 }

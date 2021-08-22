@@ -36,11 +36,10 @@ class AttributesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.attributes');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.attributes.attribute', $attributeyModel = $this->app['config']['rinvex.attributes.models.attribute']);
-        $attributeyModel === Attribute::class || $this->app->alias('rinvex.attributes.attribute', Attribute::class);
-
-        $this->app->singleton('rinvex.attributes.attribute_entity', $attributeEntityModel = $this->app['config']['rinvex.attributes.models.attribute_entity']);
-        $attributeEntityModel === AttributeEntity::class || $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntity::class);
+        $this->registerModels([
+            'rinvex.attributes.attribute' => Attribute::class,
+            'rinvex.attributes.attribute_entity' => AttributeEntity::class,
+        ]);
 
         // Register attributes entities
         $this->app->singleton('rinvex.attributes.entities', function ($app) {

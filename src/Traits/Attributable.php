@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Rinvex\Attributes\Events\EntityWasSaved;
 use Rinvex\Attributes\Scopes\EagerLoadScope;
 use Rinvex\Attributes\Events\EntityWasDeleted;
-use Rinvex\Attributes\Support\RelationBuilder;
 use Rinvex\Attributes\Support\ValueCollection;
 use Illuminate\Support\Collection as BaseCollection;
 
@@ -63,21 +62,54 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Check if the model needs to be booted and if so, do it.
+     *
+     * @return void
      */
     protected function bootIfNotBooted()
     {
         parent::bootIfNotBooted();
 
         if (! $this->entityAttributeRelationsBooted) {
-            app(RelationBuilder::class)->build($this);
+            $attributes = $this->getEntityAttributes();
+
+            // We will manually add a relationship for every attribute registered
+            // of this entity. Once we know the relation method we have to use,
+            // we will just add it to the entityAttributeRelations property.
+            foreach ($attributes as $attribute) {
+                $method = (bool) ($attribute->getAttributes()['is_collection'] ?? null) ? 'hasMany' : 'hasOne';
+
+                // This will return a closure fully binded to the current entity instance,
+                // which will help us to simulate any relation as if it was made in the
+                // original entity class definition using a function statement.
+                $relation = Closure::bind(function () use ($attribute, $method) {
+                    $relation = $this->{$method}(Attribute::getTypeModel($attribute->getAttribute('type')), 'entity_id', $this->getKeyName());
+
+                    // Since an attribute could be attached to multiple entities, then values could have
+                    // same entity ID, but for different entity types, so we need to add type where
+                    // clause to fetch only values related to the given entity ID + entity type.
+                    $relation->where('entity_type', $this->getMorphClass());
+
+                    // We add a where clause in order to fetch only the elements that are
+                    // related to the given attribute. If no condition is set, it will
+                    // fetch all the value rows related to the current entity.
+                    return $relation->where($attribute->getForeignKey(), $attribute->getKey());
+                }, $this, get_class($this));
+
+                $this->setEntityAttributeRelation((string) ($attribute->getAttributes()['slug'] ?? null), $relation);
+            }
 
             $this->entityAttributeRelationsBooted = true;
         }
     }
 
     /**
-     * {@inheritdoc}
+     * Set the given relationship on the model.
+     *
+     * @param string $relation
+     * @param mixed  $value
+     *
+     * @return $this
      */
     public function relationsToArray()
     {
@@ -183,7 +215,11 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Get the fillable attributes of a given array.
+     *
+     * @param array $attributes
+     *
+     * @return array
      */
     protected function fillableFromArray(array $attributes)
     {
@@ -201,7 +237,12 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Set a given attribute on the model.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return mixed
      */
     public function setAttribute($key, $value)
     {
@@ -209,7 +250,11 @@ trait Attributable
     }
 
     /**
-     * {@inheritdoc}
+     * Get an attribute from the model.
+     *
+     * @param string $key
+     *
+     * @return mixed
      */
     public function getAttribute($key)
     {

@@ -17,19 +17,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Rinvex\Attributes\Models\Attribute.
  *
- * @property int                                                                               $id
- * @property string                                                                            $slug
- * @property array                                                                             $name
- * @property array                                                                             $description
- * @property int                                                                               $sort_order
- * @property string                                                                            $group
- * @property string                                                                            $type
- * @property bool                                                                              $is_required
- * @property bool                                                                              $is_collection
- * @property string                                                                            $default
- * @property \Carbon\Carbon|null                                                               $created_at
- * @property \Carbon\Carbon|null                                                               $updated_at
- * @property array                                                                             $entities
+ * @property int                 $id
+ * @property string              $slug
+ * @property array               $name
+ * @property array               $description
+ * @property int                 $sort_order
+ * @property string              $group
+ * @property string              $type
+ * @property bool                $is_required
+ * @property bool                $is_collection
+ * @property string              $default
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property array               $entities
  * @property-read \Rinvex\Attributes\Support\ValueCollection|\Rinvex\Attributes\Models\Value[] $values
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Attribute ordered($direction = 'asc')
@@ -135,10 +135,8 @@ class Attribute extends Model implements Sortable
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('rinvex.attributes.tables.attributes'));
-        $this->setRules([
+        $this->mergeRules([
             'name' => 'required|string|strip_tags|max:150',
             'description' => 'nullable|string|max:32768',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.attributes.tables.attributes').',slug',
@@ -149,6 +147,8 @@ class Attribute extends Model implements Sortable
             'is_collection' => 'sometimes|boolean',
             'default' => 'nullable|string|strip_tags|max:32768',
         ]);
+
+        parent::__construct($attributes);
     }
 
     /**
