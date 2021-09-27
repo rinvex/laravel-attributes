@@ -258,7 +258,7 @@ $attribute->fill([
 ])->save();
 
 // Get all attribute values of type varchar
-$values = $attribute->values('varchar')->get();
+$values = $attribute->values(\Rinvex\Attributes\Models\Type\Varchar::class)->get();
 ```
 
 ### Assigning values
