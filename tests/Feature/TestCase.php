@@ -6,8 +6,8 @@ namespace Rinvex\Attributes\Tests\Feature;
 
 use Rinvex\Attributes\Models\Attribute;
 use Rinvex\Attributes\Tests\Stubs\User;
-use Rinvex\Attributes\Providers\AttributesServiceProvider;
 use Rinvex\Support\Providers\SupportServiceProvider;
+use Rinvex\Attributes\Providers\AttributesServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
