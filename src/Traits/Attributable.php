@@ -118,10 +118,10 @@ trait Attributable
         $relations = array_keys($this->getEntityAttributeRelations());
 
         foreach ($relations as $relation) {
-            if (array_key_exists($relation, $attributes)) {
-                $eavAttributes[$relation] = $this->getAttribute($relation) instanceof BaseCollection
-                    ? $this->getAttribute($relation)->toArray() : $this->getAttribute($relation);
+            $eavAttributes[$relation] = $this->getAttribute($relation) instanceof BaseCollection
+                ? $this->getAttribute($relation)->toArray() : $this->getAttribute($relation);
 
+            if (array_key_exists($relation, $attributes)) {
                 // By unsetting the relation from the attributes array we will make
                 // sure we do not provide a duplicity when adding the namespace.
                 // Otherwise it would keep the relation as a key in the root.
