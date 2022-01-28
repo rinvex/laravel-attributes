@@ -57,11 +57,15 @@ class EntityWasSaved
             }
 
             if ($this->trash->count()) {
-                // Fetch the first item's class to know the model used for deletion
-                $class = get_class($this->trash->first());
-
-                // Let's batch delete all the values based on their ids
-                $class::whereIn('id', $this->trash->pluck('id'))->delete();
+                $this->trash->mapToGroups(function ($item) {
+                    return [get_class($item) => $item];
+                })->reduce(function ($carry, $group) {
+                    $trash = collect($group);
+                    // Fetch the first item's class to know the model used for deletion
+                    $class = get_class($trash->first());
+                    // Let's batch delete all the values based on their ids
+                    return $carry && $class::whereIn('id', $trash->pluck('id'))->delete();
+                }, true);
 
                 // Now, empty the trash
                 $this->trash = collect([]);
