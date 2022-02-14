@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.0] - 2022-02-14
+- Update composer dependencies to Laravel v9
+- FIX trash multiple attribute types in one save (#101)
+- Fix all attribute values of type varchar documentation example (fixes #155)
+
 ## [v6.0.0] - 2021-08-22
 - Drop PHP v7 support, and upgrade rinvex package dependencies to next major version
 - Merge rules instead of resetting, to allow adequate model override
@@ -177,6 +182,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/attributable" from "rinvex/sparse" based on 715a831
 
+[v6.1.0]: https://github.com/rinvex/laravel-attributes/compare/v6.0.0...v6.1.0
 [v6.0.0]: https://github.com/rinvex/laravel-attributes/compare/v5.0.1...v6.0.0
 [v5.0.1]: https://github.com/rinvex/laravel-attributes/compare/v5.0.0...v5.0.1
 [v5.0.0]: https://github.com/rinvex/laravel-attributes/compare/v4.1.0...v5.0.0
