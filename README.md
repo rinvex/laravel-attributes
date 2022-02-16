@@ -1,5 +1,9 @@
 # Rinvex Attributes
 
+⚠️ **This package is abandoned and no longer maintained. No replacement package was suggested.** ⚠️
+
+👉 [Contact me if you are interested in maintaining it!](https://twitter.com/Omranic)
+
 **Rinvex Attributes** is a robust, intelligent, and integrated Entity-Attribute-Value model (EAV) implementation for Laravel Eloquent, with powerful underlying for managing entity attributes implicitly as relations with ease. It utilizes the power of Laravel Eloquent, with smooth and seamless integration.
 
 [![Packagist](https://img.shields.io/packagist/v/rinvex/laravel-attributes.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/laravel-attributes)
